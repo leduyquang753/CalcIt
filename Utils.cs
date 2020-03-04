@@ -15,13 +15,13 @@ namespace CalcItUWP {
 		///<summary>
 		///Power function.
 		///</summary>
-		public static double power(double baseNum, double exponent) {
-			if (baseNum == 0) if (exponent > 0) return 0; else throw new ExpressionInvalidException("Division by zero.");
+		public static double power(double baseNum, double exponent, CalculatorEngine engine) {
+			if (baseNum == 0) if (exponent > 0) return 0; else throw new ExpressionInvalidException("divisionByZero");
 			if (exponent < 0) return 1 / Math.Pow(baseNum, -exponent);
 			double roundedExponent = Math.Round(exponent, MidpointRounding.AwayFromZero);
 			if (Math.Abs(roundedExponent - exponent) < 1E-11)
 				if (baseNum > 0 || mod(roundedExponent, 2) == 0) return Math.Pow(baseNum, roundedExponent); else return -Math.Pow(-baseNum, roundedExponent);
-			else if (baseNum > 0) return Math.Pow(baseNum, exponent); else throw new ExpressionInvalidException("Unsupported exponentiation."); // TODO Add the numbers.
+			else if (baseNum > 0) return Math.Pow(baseNum, exponent); else throw new ExpressionInvalidException("unsupportedExponentiation", messageArguments: new[] { formatNumber(baseNum, engine), formatNumber(exponent, engine) });
 		}
 
 		public static double degToRad(double degs) => degInRad * degs;

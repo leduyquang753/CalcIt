@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using CalcItUWP.Functions;
 using CalcItUWP.Operands;
+using static CalcItUWP.AngleUnits;
 
 namespace CalcItUWP {
 	class CalculatorEngine {
@@ -34,6 +35,8 @@ namespace CalcItUWP {
 			mulAsterisk = false,
 			enforceMulDiv = false,
 			zeroUndefinedVars = false;
+
+		public AngleUnit angleUnit = AngleUnits.DEGREE;
 
 		private double
 			ans = 0,
@@ -124,29 +127,29 @@ namespace CalcItUWP {
 			int lastPriority = positiveInfinity;
 			while (shouldCalculateAll || !(currentOperand is OpeningBrace)) {
 				if (shouldCalculateAll && currentOperand is OpeningBrace) {
-					while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop());
+					while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop(), this);
 					lastPriority = positiveInfinity;
 					if (OS.Count != 0) currentOperand = OS.Pop(); else {
-						while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop());
+						while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop(), this);
 						NS.Push(currentNumber);
 						return;
 					}
 				}
 				if (currentOperand.priority != lastPriority)
-					while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop());
-				if (currentOperand.reversed) currentNumber = currentOperand.calculate(NS.Pop(), currentNumber); else {
+					while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop(), this);
+				if (currentOperand.reversed) currentNumber = currentOperand.calculate(NS.Pop(), currentNumber, this); else {
 					TNS.Push(currentNumber);
 					TOS.Push(currentOperand);
 					currentNumber = NS.Pop();
 				}
 				lastPriority = currentOperand.priority;
 				if (OS.Count != 0) currentOperand = OS.Pop(); else {
-					while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop());
+					while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop(), this);
 					NS.Push(currentNumber);
 					return;
 				}
 			}
-			while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop());
+			while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop(), this);
 			NS.Push(currentNumber);
 			OS.Push(currentOperand);
 		}
@@ -158,24 +161,24 @@ namespace CalcItUWP {
 			int lastPriority = positiveInfinity;
 			while (!(currentOperand is OpeningBrace)) {
 				if (currentOperand.priority != lastPriority) {
-					while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop());
+					while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop(), this);
 					NS.Push(currentNumber);
 					OS.Push(currentOperand);
 					return;
 				}
-				if (currentOperand.reversed) currentNumber = currentOperand.calculate(NS.Pop(), currentNumber); else {
+				if (currentOperand.reversed) currentNumber = currentOperand.calculate(NS.Pop(), currentNumber, this); else {
 					TNS.Push(currentNumber);
 					TOS.Push(currentOperand);
 					currentNumber = NS.Pop();
 				}
 				lastPriority = currentOperand.priority;
 				if (OS.Count != 0) currentOperand = OS.Pop(); else {
-					while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop());
+					while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop(), this);
 					NS.Push(currentNumber);
 					return;
 				}
 			}
-			while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop());
+			while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop(), this);
 			NS.Push(currentNumber);
 			OS.Push(currentOperand);
 		}
@@ -206,165 +209,169 @@ namespace CalcItUWP {
 		private bool isDecimalSeparator(char c) => decimalDot ? enforceDecimalSeparator ? c == '.' : c == '.' || c == ',' : c == ',';
 
 		private double performCalculation(string input) {
-			Stack<double>
-				NS = new Stack<double>(),
-				TNS = new Stack<double>();
-			Stack<Operand>
-				OS = new Stack<Operand>(),
-				TOS = new Stack<Operand>();
-			Stack<Bracelet> BS = new Stack<Bracelet>();
-			bool
-				status = false, // true: previous was number/closing brace; false: previous was operand/opening brace.
-				negativity = false,
-				hadNegation = false,
-				isVariable = false,
-				hadClosingBrace = false,
-				hadComma = false;
-			string currentToken = "";
-			char thousandSeparator = decimalDot ? '.' : ',';
-			Operand currentOperand;
-			Function currentFunction;
-			Bracelet currentBracelet;
-			for (int i = 0; i < input.Length; i++) {
-				char c = input[i];
-				if (thousandDot && c == thousandSeparator) {
-					if (status && !isVariable) continue; else throw new ExpressionInvalidException("unexpectedThousandSeparator", i);
-				} else if (c == '-' && !status) {
-					negativity = !negativity;
-					hadNegation = true;
-				} else if (c == '%') {
-					if (!status || currentToken[currentToken.Length - 1] == '%') throw new ExpressionInvalidException("unexpectedPercent", i); else currentToken += c;
-				} else if (c == ';') {
-					if (BS.Count != 0) {
-						if (status) {
-							if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, i, NS, OS));
-							performBacktrackCalculation(NS, TNS, OS, TOS);
-							BS.Peek().addArgument(NS.Pop());
-							status = false;
-							hadClosingBrace = false;
-						} else if (OS.Peek() is OpeningBrace) {
-							BS.Peek().addArgument(0);
-							status = false;
-							hadClosingBrace = false;
+			try {
+				Stack<double>
+					NS = new Stack<double>(),
+					TNS = new Stack<double>();
+				Stack<Operand>
+					OS = new Stack<Operand>(),
+					TOS = new Stack<Operand>();
+				Stack<Bracelet> BS = new Stack<Bracelet>();
+				bool
+					status = false, // true: previous was number/closing brace; false: previous was operand/opening brace.
+					negativity = false,
+					hadNegation = false,
+					isVariable = false,
+					hadClosingBrace = false,
+					hadComma = false;
+				string currentToken = "";
+				char thousandSeparator = decimalDot ? '.' : ',';
+				Operand currentOperand;
+				Function currentFunction;
+				Bracelet currentBracelet;
+				for (int i = 0; i < input.Length; i++) {
+					char c = input[i];
+					if (thousandDot && c == thousandSeparator) {
+						if (status && !isVariable) continue; else throw new ExpressionInvalidException("unexpectedThousandSeparator", i);
+					} else if (c == '-' && !status) {
+						negativity = !negativity;
+						hadNegation = true;
+					} else if (c == '%') {
+						if (!status || currentToken[currentToken.Length - 1] == '%') throw new ExpressionInvalidException("unexpectedPercent", i); else currentToken += c;
+					} else if (c == ';') {
+						if (BS.Count != 0) {
+							if (status) {
+								if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, i, NS, OS));
+								performBacktrackCalculation(NS, TNS, OS, TOS);
+								BS.Peek().addArgument(NS.Pop());
+								status = false;
+								hadClosingBrace = false;
+							} else if (OS.Peek() is OpeningBrace) {
+								BS.Peek().addArgument(0);
+								status = false;
+								hadClosingBrace = false;
+							} else throw new ExpressionInvalidException("unexpectedSemicolon", i);
 						} else throw new ExpressionInvalidException("unexpectedSemicolon", i);
-					} else throw new ExpressionInvalidException("unexpectedSemicolon", i);
-				} else if (isDecimalSeparator(c)) {
-					if (currentToken.Length == 0) {
-						if (hadClosingBrace) {
-							while (OS.Count != 0 && dotlessMulOp.priority < OS.Peek().priority) performBacktrackSameLevelCalculation(NS, TNS, OS, TOS);
-							OS.Push(dotlessMulOp);
-							hadClosingBrace = false;
+					} else if (isDecimalSeparator(c)) {
+						if (currentToken.Length == 0) {
+							if (hadClosingBrace) {
+								while (OS.Count != 0 && dotlessMulOp.priority < OS.Peek().priority) performBacktrackSameLevelCalculation(NS, TNS, OS, TOS);
+								OS.Push(dotlessMulOp);
+								hadClosingBrace = false;
+							}
+							currentToken = "0,";
+							status = true;
+							isVariable = false;
+							hadComma = true;
+						} else if (status) {
+							if (isVariable || hadComma) throw new ExpressionInvalidException("unexpectedDecimalSeparator", i);
+							currentToken += c;
+							hadComma = true;
+						} else { };
+					} else if (isDigit(c)) {
+						if (currentToken.Length == 0) {
+							if (hadClosingBrace) {
+								while (OS.Count != 0 && dotlessMulOp.priority < OS.Peek().priority) performBacktrackSameLevelCalculation(NS, TNS, OS, TOS);
+								OS.Push(dotlessMulOp);
+								hadClosingBrace = false;
+							}
+							currentToken = c.ToString();
+							status = true;
+							isVariable = false;
+						} else if (status) {
+							if (isVariable) currentToken += c;
+							else if (currentToken[currentToken.Length - 1] == '%') throw new ExpressionInvalidException("unexpectedDigit", i);
+							else currentToken += c;
+						} else {
+							currentToken = c.ToString();
+							status = true;
+							isVariable = false;
 						}
-						currentToken = "0,";
-						status = true;
-						isVariable = false;
-						hadComma = true;
-					} else if (status) {
-						if (isVariable || hadComma) throw new ExpressionInvalidException("unexpectedDecimalSeparator", i);
-						currentToken += c;
-						hadComma = true;
-					} else { };
-				} else if (isDigit(c)) {
-					if (currentToken.Length == 0) {
-						if (hadClosingBrace) {
-							while (OS.Count != 0 && dotlessMulOp.priority < OS.Peek().priority) performBacktrackSameLevelCalculation(NS, TNS, OS, TOS);
-							OS.Push(dotlessMulOp);
-							hadClosingBrace = false;
-						}
-						currentToken = c.ToString();
-						status = true;
-						isVariable = false;
-					} else if (status) {
-						if (isVariable) currentToken += c;
-						else if (currentToken[currentToken.Length - 1] == '%') throw new ExpressionInvalidException("unexpectedDigit", i);
-						else currentToken += c;
-					} else {
-						currentToken = c.ToString();
-						status = true;
-						isVariable = false;
-					}
-				} else if (isChar(c)) {
-					if (hadClosingBrace || currentToken.Length != 0 && !isVariable) {
-						if (currentToken.Length != 0 && !isVariable) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, i, NS, OS));
-						while (OS.Count != 0 && dotlessMulOp.priority < OS.Peek().priority) performBacktrackSameLevelCalculation(NS, TNS, OS, TOS);
-						OS.Push(dotlessMulOp);
-						hadClosingBrace = false;
-					}
-					currentToken += c;
-					isVariable = true;
-					status = true;
-					hadClosingBrace = false;
-				} else if ((currentOperand = operandMap.GetValueOrDefault(c.ToString(), null)) == null) throw new ExpressionInvalidException("unknownSymbol", i);
-				else {
-					if (currentOperand is OpeningBrace) {
+					} else if (isChar(c)) {
 						if (hadClosingBrace || currentToken.Length != 0 && !isVariable) {
 							if (currentToken.Length != 0 && !isVariable) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, i, NS, OS));
 							while (OS.Count != 0 && dotlessMulOp.priority < OS.Peek().priority) performBacktrackSameLevelCalculation(NS, TNS, OS, TOS);
 							OS.Push(dotlessMulOp);
 							hadClosingBrace = false;
 						}
-						if ((currentFunction = functionMap.GetValueOrDefault(currentToken, null)) == null) throw new ExpressionInvalidException("unknownFunction", i - 1);
-						OS.Push(currentOperand);
-						BS.Push(new Bracelet(c.ToString(), currentFunction));
-						status = false;
-						currentToken = "";
-					} else if (currentOperand is ClosingBrace) {
-						if (status) if (BS.Count == 0 || areBracesMatch(BS.Peek().opening, c.ToString())) {
-							if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, i, NS, OS));
-							performBacktrackCalculation(NS, TNS, OS, TOS);
-							OS.Pop();
-							(currentBracelet = BS.Pop()).addArgument(NS.Pop());
-							NS.Push(currentBracelet.getResult());
-							status = true;
-							hadClosingBrace = true;
-						} else throw new ExpressionInvalidException("unmatchingBraces", i);
-						else if (OS.Count == 0) {
-							NS.Push(0);
-							status = true;
-							hadClosingBrace = true;
-						} else if (OS.Peek() is OpeningBrace) {
-							if (BS.Count != 0 && !areBracesMatch(BS.Peek().opening, c.ToString())) throw new ExpressionInvalidException("unmatchingBraces", i);
-							OS.Pop();
-							(currentBracelet = BS.Pop()).addArgument(0);
-							NS.Push(currentBracelet.getResult());
-							status = true;
-							hadClosingBrace = true;
-						} else throw new ExpressionInvalidException("unexpectedClosingBrace", i);
-					} else {
-						if (status) {
-							if (enforceMulDiv) switch (c) {
-									case '.':
-									case ':':
-										if (mulAsterisk) throw new ExpressionInvalidException("unknownSymbol", i);
-										break;
-									case '*':
-									case '/':
-										if (!mulAsterisk) throw new ExpressionInvalidException("unknownSymbol", i);
-										break;
-								}
-							if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, i, NS, OS));
-							else if (hadNegation) throw new ExpressionInvalidException("unexpectedOperand", i);
-							while (OS.Count != 0 && currentOperand.priority < OS.Peek().priority) performBacktrackSameLevelCalculation(NS, TNS, OS, TOS);
+						currentToken += c;
+						isVariable = true;
+						status = true;
+						hadClosingBrace = false;
+					} else if ((currentOperand = operandMap.GetValueOrDefault(c.ToString(), null)) == null) throw new ExpressionInvalidException("unknownSymbol", i);
+					else {
+						if (currentOperand is OpeningBrace) {
+							if (hadClosingBrace || currentToken.Length != 0 && !isVariable) {
+								if (currentToken.Length != 0 && !isVariable) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, i, NS, OS));
+								while (OS.Count != 0 && dotlessMulOp.priority < OS.Peek().priority) performBacktrackSameLevelCalculation(NS, TNS, OS, TOS);
+								OS.Push(dotlessMulOp);
+								hadClosingBrace = false;
+							}
+							if ((currentFunction = functionMap.GetValueOrDefault(currentToken, null)) == null) throw new ExpressionInvalidException("unknownFunction", i - 1);
 							OS.Push(currentOperand);
+							BS.Push(new Bracelet(c.ToString(), currentFunction, this));
 							status = false;
-							hadClosingBrace = false;
-						} else if (c == '+') hadNegation = true; else throw new ExpressionInvalidException("unexpectedOperand", i);
+							currentToken = "";
+						} else if (currentOperand is ClosingBrace) {
+							if (status) if (BS.Count == 0 || areBracesMatch(BS.Peek().opening, c.ToString())) {
+									if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, i, NS, OS));
+									performBacktrackCalculation(NS, TNS, OS, TOS);
+									OS.Pop();
+									(currentBracelet = BS.Pop()).addArgument(NS.Pop());
+									NS.Push(currentBracelet.getResult());
+									status = true;
+									hadClosingBrace = true;
+								} else throw new ExpressionInvalidException("unmatchingBraces", i);
+							else if (OS.Count == 0) {
+								NS.Push(0);
+								status = true;
+								hadClosingBrace = true;
+							} else if (OS.Peek() is OpeningBrace) {
+								if (BS.Count != 0 && !areBracesMatch(BS.Peek().opening, c.ToString())) throw new ExpressionInvalidException("unmatchingBraces", i);
+								OS.Pop();
+								(currentBracelet = BS.Pop()).addArgument(0);
+								NS.Push(currentBracelet.getResult());
+								status = true;
+								hadClosingBrace = true;
+							} else throw new ExpressionInvalidException("unexpectedClosingBrace", i);
+						} else {
+							if (status) {
+								if (enforceMulDiv) switch (c) {
+										case '.':
+										case ':':
+											if (mulAsterisk) throw new ExpressionInvalidException("unknownSymbol", i);
+											break;
+										case '*':
+										case '/':
+											if (!mulAsterisk) throw new ExpressionInvalidException("unknownSymbol", i);
+											break;
+									}
+								if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, i, NS, OS));
+								else if (hadNegation) throw new ExpressionInvalidException("unexpectedOperand", i);
+								while (OS.Count != 0 && currentOperand.priority < OS.Peek().priority) performBacktrackSameLevelCalculation(NS, TNS, OS, TOS);
+								OS.Push(currentOperand);
+								status = false;
+								hadClosingBrace = false;
+							} else if (c == '+') hadNegation = true; else throw new ExpressionInvalidException("unexpectedOperand", i);
+						}
 					}
 				}
+				if (status) {
+					if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, input.Length - 1, NS, OS));
+					else if (hadNegation) throw new ExpressionInvalidException("trailingSign");
+					else { };
+				} else throw new ExpressionInvalidException("unexpectedEnd");
+				while (BS.Count != 0) {
+					performBacktrackCalculation(NS, TNS, OS, TOS);
+					currentBracelet = BS.Pop();
+					currentBracelet.addArgument(NS.Pop());
+					NS.Push(currentBracelet.getResult());
+				}
+				performBacktrackCalculation(NS, TNS, OS, TOS, true);
+				return NS.Pop();
+			} catch (OverflowException) {
+				throw new ExpressionInvalidException("numberOutOfRange");
 			}
-			if (status) {
-				if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, input.Length - 1, NS, OS));
-				else if (hadNegation) throw new ExpressionInvalidException("trailingSign");
-				else { };
-			} else throw new ExpressionInvalidException("unexpectedEnd");
-			while (BS.Count != 0) {
-				performBacktrackCalculation(NS, TNS, OS, TOS);
-				currentBracelet = BS.Pop();
-				currentBracelet.addArgument(NS.Pop());
-				NS.Push(currentBracelet.getResult());
-			}
-			performBacktrackCalculation(NS, TNS, OS, TOS, true);
-			return NS.Pop();
 		}
 
 		private string lowercaseAndRemoveWhitespace(string stringIn) => stringIn.Replace(" ", "").Replace("\t", "").Replace("\n", "").ToLower();
@@ -432,14 +439,16 @@ namespace CalcItUWP {
 		public string opening;
 		public Function functionAssigned;
 		public List<double> arguments { get; } = new List<double>();
+		private CalculatorEngine engine { get; }
 
-		public Bracelet(string openingIn, Function functionIn) {
+		public Bracelet(string openingIn, Function functionIn, CalculatorEngine engineIn) {
 			opening = openingIn;
 			functionAssigned = functionIn;
+			engine = engineIn;
 		}
 
 		public void addArgument(double argumentIn) => arguments.Add(argumentIn);
 
-		public double getResult() => functionAssigned.calculate(arguments);
+		public double getResult() => functionAssigned.calculate(arguments, engine);
 	}
 }

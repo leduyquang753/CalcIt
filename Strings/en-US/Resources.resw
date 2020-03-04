@@ -190,6 +190,9 @@
   <data name="error.nothingToCalculate" xml:space="preserve">
     <value>There is nothing to calculate.</value>
   </data>
+  <data name="error.numberOutOfRange" xml:space="preserve">
+    <value>Numbers involved in the calculation are too large or too small.</value>
+  </data>
   <data name="error.reservedVariable" xml:space="preserve">
     <value>Ans and PreAns are reserved variables and cannot be set.</value>
   </data>
@@ -231,6 +234,9 @@
   </data>
   <data name="error.unmatchingBraces" xml:space="preserve">
     <value>Unmatching braces.</value>
+  </data>
+  <data name="error.unsupportedExponentiation" xml:space="preserve">
+    <value>Unsupported exponentiation: {0} ^ {1}.</value>
   </data>
   <data name="error.variableNotSet" xml:space="preserve">
     <value>Variable "{0}" is not set.</value>
