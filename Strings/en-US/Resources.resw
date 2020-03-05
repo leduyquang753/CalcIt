@@ -168,6 +168,9 @@
     <value>Enforce</value>
     <comment>This box is in the "Decimal separator" section, so no need to include "decimal separator" here.</comment>
   </data>
+  <data name="dialogHelpAndAbout.Title" xml:space="preserve">
+    <value>Help and about</value>
+  </data>
   <data name="error.braceInvolved" xml:space="preserve">
     <value>Brace is involved as an operator. This is a BUG, report it to the author.</value>
   </data>
