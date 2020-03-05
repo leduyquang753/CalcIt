@@ -12,7 +12,7 @@
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
 
     <StackPanel Margin="0,0,0,0">
-        <HyperlinkButton x:Uid="linkDocumentation" NavigateUri="https://github.com/leduyquang753/CalcItUWP/blob/master/Documentation.md" Content="CalcIt documentation" Padding="0,0,0,7"/>
+        <HyperlinkButton x:Uid="linkDocumentation" NavigateUri="https://github.com/leduyquang753/CalcIt-UWP/blob/master/Documentation.md" Content="CalcIt documentation" Padding="0,0,0,7"/>
         <HyperlinkButton x:Uid="linkRepository" Content="GitHub repository" Padding="0,0,0,7" NavigateUri="https://github.com/leduyquang753/CalcIt-UWP"/>
         <HyperlinkButton x:Uid="linkLicense" Content="License" Padding="0,0,0,7" NavigateUri="https://github.com/leduyquang753/CalcIt-UWP/blob/master/LICENSE.txt"/>
         <TextBlock x:Name="textVersion" Text="CalcIt UWP version &lt;version&gt;" TextWrapping="Wrap" Padding="0,0,0,7"/>
