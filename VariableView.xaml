@@ -8,8 +8,8 @@
     mc:Ignorable="d" Height="42" MinWidth="220">
 
     <Grid Margin="0,0,0,0">
-        <TextBox x:Uid="variableViewNameBox" x:Name="name" Text="" TextWrapping="NoWrap" Height="32" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" PlaceholderText="Name" TextChanged="onNameChanged" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"/>
-        <TextBox x:Uid="variableViewValueBox" x:Name="value" Text="" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="110,0,42,0" IsReadOnly="True" PlaceholderText="Value" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"/>
+        <TextBox x:Uid="variableViewNameBox" x:Name="name" Text="" TextWrapping="NoWrap" Height="32" Width="100" VerticalAlignment="Bottom" HorizontalAlignment="Left" PlaceholderText="Name" TextChanged="onNameChanged" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" Padding="8,4,8,5"/>
+        <TextBox x:Uid="variableViewValueBox" x:Name="value" Text="" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="110,0,42,0" IsReadOnly="True" PlaceholderText="Value" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" Padding="8,4,8,5"/>
         <Button x:Uid="variableViewRemoveButton" x:Name="remove" Style="{StaticResource ButtonRevealStyle}" Content="&#xE106;" Width="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontFamily="Segoe MDL2 Assets" Height="32" Padding="0,0,0,0" Canvas.ZIndex="1" Click="onRemovalRequested" ToolTipService.ToolTip="Remove"/>
     </Grid>
 </UserControl>

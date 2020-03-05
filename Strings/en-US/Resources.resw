@@ -124,6 +124,9 @@
     <value>CalcIt</value>
     <comment>Should be kept as-is.</comment>
   </data>
+  <data name="buttonAddVariable.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Add a new variable to watch</value>
+  </data>
   <data name="buttonCalculate.Content" xml:space="preserve">
     <value>Calculate</value>
   </data>
@@ -136,14 +139,30 @@
   <data name="buttonCloseSettings.ToolTipService.ToolTip" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="buttonEditStartupExpressions.Content" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="buttonHelp.ToolTipService.ToolTip" xml:space="preserve">
     <value>Help and about</value>
+  </data>
+  <data name="buttonRestartApp.Content" xml:space="preserve">
+    <value>Restart app</value>
   </data>
   <data name="buttonSettings.ToolTipService.ToolTip" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="buttonViewVariables.ToolTipService.ToolTip" xml:space="preserve">
     <value>View variables</value>
+  </data>
+  <data name="checkCalculateLastIfEmpty.Header" xml:space="preserve">
+    <value>Calculate the last expression if input is empty</value>
+    <comment>Don't put a period.</comment>
+  </data>
+  <data name="checkCalculateLastIfEmpty.OffContent" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="checkCalculateLastIfEmpty.OnContent" xml:space="preserve">
+    <value>Enabled</value>
   </data>
   <data name="checkEnforceDecimalSeparator.Content" xml:space="preserve">
     <value>Enforce</value>
@@ -157,6 +176,12 @@
   </data>
   <data name="error.header" xml:space="preserve">
     <value>ERROR: </value>
+  </data>
+  <data name="error.headerStartup.xy" xml:space="preserve">
+    <value>ERROR in startup expressions file at ({0}; {1}): </value>
+  </data>
+  <data name="error.headerStartup.y" xml:space="preserve">
+    <value>ERROR in startup expressions file at line {0}: </value>
   </data>
   <data name="error.invalidArccosArg" xml:space="preserve">
     <value>Invalid arccosine function argument.</value>
@@ -287,6 +312,9 @@
   <data name="labelMultiplicationSign.Text" xml:space="preserve">
     <value>Multiplication sign</value>
   </data>
+  <data name="labelStartupExpressions.Text" xml:space="preserve">
+    <value>Startup expressions</value>
+  </data>
   <data name="labelThousandSeparator.Text" xml:space="preserve">
     <value>Thousand separator</value>
   </data>
@@ -344,6 +372,12 @@
   </data>
   <data name="settingsTitle.Text" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="sliderExpressionsInHistory.Header" xml:space="preserve">
+    <value>Maximum expressions in history</value>
+  </data>
+  <data name="startupExpressionsDescription.Text" xml:space="preserve">
+    <value>Press the button below to edit the startup expressions. After editing, restart the app to apply changes.</value>
   </data>
   <data name="textVersion" xml:space="preserve">
     <value>CalcIt UWP version {0}, build {1}</value>

@@ -1,0 +1,35 @@
+﻿// CalcIt default startup expressions
+//
+// The expressions in this file will be evaluated silently at startup, unless there are errors.
+// Double slash will make the app ignore itself and any text behind it on that line.
+
+// Basic mathematical constants
+pi = 3,14159265358979323846
+phi = goldenRatio = golden_ratio = 0,5 + 0,5·2#5
+lne = 2,718281828459045 // Euler's number.
+
+// SI prefixes
+yocto = 10^-24
+zepto = 10^-21
+atto = 10^-18
+femto = 10^-15
+pico = 10^-12
+nano = 10^-9
+micro = 10^-6
+milli = 0,001
+centi = 0,01
+deci = 0,1
+deca = 10
+hecto = 100
+kilo = 1000
+mega = 10^6
+giga = 10^9
+tera = 10^12
+peta = 10^15
+exa = 10^18
+zetta = 10^21
+yotta = 10^24
+
+// Clean Ans and PreAns.
+0
+0

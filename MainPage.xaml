@@ -60,7 +60,14 @@
 								<RadioButton x:Uid="radioDefaultUndefinedAs0" x:Name="radioDefaultUndefinedAs0" Content="Return 0" GroupName="Undefined vars" Width="180" Checked="onSettingsUndefinedVariablesBehaviorChanged" Unchecked="onSettingsUndefinedVariablesBehaviorChanged"/>
 								<RadioButton x:Uid="radioRaiseErrorForUndefinedVariables" x:Name="radioRaiseErrorForUndefinedVariables" Content="Raise error" GroupName="Undefined vars" Width="180" IsChecked="True"/>
 							</StackPanel>
-							<TextBlock x:Uid="labelMoreComingSoon" Text="More coming soon..." TextWrapping="Wrap" Margin="0,20,0,0" Foreground="#7F000000"/>
+                            <ToggleSwitch x:Name="checkCalculateLastIfEmpty" x:Uid="checkCalculateLastIfEmpty" Header="Calculate the last expression if input is empty" Margin="0,15,0,0" IsOn="True" OffContent="Disabled" OnContent="Enabled" Toggled="onCheckCalculateLastOfEmptyChanged"/>
+                            <Slider x:Name="sliderMaximumHistorySize" x:Uid="sliderExpressionsInHistory" TickFrequency="10" TickPlacement="Outside" Maximum="100" Value="64" Header="Maximum expressions in history" Margin="0,15,0,0" ValueChanged="onMaximumStoredExpressionsChanged"/>
+                            <TextBlock x:Uid="labelStartupExpressions" Text="Startup expressions" TextWrapping="Wrap" Margin="0,15,0,0"/>
+							<TextBlock x:Uid="startupExpressionsDescription" Text="Press the button below to edit the startup expressions. After editing, restart the app to apply changes." TextWrapping="Wrap" Margin="0,3,0,0" FontSize="11" Foreground="#99000000"/>
+							<StackPanel Orientation="Horizontal" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+								<Button x:Uid="buttonEditStartupExpressions" Content="Edit" Click="onStartupExpressionsEditingRequested" Style="{StaticResource ButtonRevealStyle}"/>
+								<HyperlinkButton x:Uid="buttonRestartApp" Content="Restart app" Margin="16,0,0,0" Click="onAppRestartRequested"/>
+							</StackPanel>
 						</StackPanel>
 					</ScrollViewer>
 				</Grid>
@@ -71,8 +78,8 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition MinWidth="0" Width="Auto"/>
 				</Grid.ColumnDefinitions>
-				<TextBox x:Uid="outputBox" x:Name="outputBox" Margin="20,10,20,104" Text="" TextWrapping="Wrap" BorderThickness="2,2,2,2" AcceptsReturn="True" InputScope="Text" IsReadOnly="True" PlaceholderText="Output of the app will display here." IsTextPredictionEnabled="False" TabIndex="2" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsSpellCheckEnabled="False"/>
-				<TextBox x:Uid="inputBox" x:Name="inputBox" Margin="20,0,20,62" Text="" TextWrapping="NoWrap" VerticalAlignment="Bottom" PlaceholderText="Enter any expression..." AllowDrop="True" BorderThickness="2,2,2,2" Padding="10,5,10,3" KeyDown="onInputBoxKeyDown" TabIndex="0" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"/>
+				<TextBox x:Uid="outputBox" x:Name="outputBox" Margin="20,10,20,104" Text="" TextWrapping="Wrap" BorderThickness="2,2,2,2" AcceptsReturn="True" InputScope="Text" IsReadOnly="True" PlaceholderText="Output of the app will display here." IsTextPredictionEnabled="False" TabIndex="2" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsSpellCheckEnabled="False" ScrollViewer.VerticalScrollBarVisibility="Auto" Padding="8,4,8,5"/>
+				<local:InputBox x:Uid="inputBox" x:Name="inputBox" Margin="20,0,20,62" Text="" TextWrapping="NoWrap" VerticalAlignment="Bottom" PlaceholderText="Enter any expression..." AllowDrop="True" BorderThickness="2,2,2,2" Padding="8,4,8,5" KeyDown="onInputBoxKeyDown" TabIndex="0" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"/>
 				<Button x:Uid="buttonCalculate" Style="{StaticResource AccentButtonStyle}" x:Name="buttonCalculate" Content="Calculate" Margin="0,0,20,20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Click="onCalculateButtonClick" TabIndex="1" BorderBrush="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"/>
 				<Button x:Uid="buttonCalculateSmall" Style="{StaticResource AccentButtonStyle}" x:Name="buttonCalculateSmall" Content="&#xEA47;" Margin="0,0,20,62" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="32" Height="32" BorderBrush="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}" FontFamily="Segoe MDL2 Assets" Padding="0,0,0,0" FontSize="18" Visibility="Collapsed" Click="onCalculateButtonClick"/>
 				<Button x:Uid="buttonSettings" Content="&#xE713;" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" Margin="20,0,0,20" Width="40" Click="onSettingsButtonClick" FontFamily="Segoe MDL2 Assets" ToolTipService.ToolTip="Settings" Height="32" Padding="0,0,0,0" FontSize="18"/>
@@ -83,12 +90,12 @@
 				<Grid x:Name="variablesGrid" Grid.Column="2" Visibility="Collapsed" HorizontalAlignment="Stretch" MinWidth="260">
 					<TextBlock x:Uid="labelVariables" Text="Variables" TextWrapping="Wrap" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5,0,0"/>
 					<Button Content="Ans" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" Margin="20,0,0,20" Width="100" Click="onAnsInsertion"/>
-					<TextBox x:Name="ansValueBox" Text="" TextWrapping="NoWrap" IsReadOnly="True" VerticalAlignment="Bottom" Margin="130,0,20,20" PlaceholderText="Value" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False"/>
+					<TextBox x:Name="ansValueBox" Text="" TextWrapping="NoWrap" IsReadOnly="True" VerticalAlignment="Bottom" Margin="130,0,20,20" PlaceholderText="Value" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" Padding="8,4,8,5"/>
 					<Button Content="PreAns" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" Margin="20,0,20,62" Width="100" Click="onPreAnsInsertion"/>
-					<TextBox x:Name="preAnsValueBox" Text="" TextWrapping="NoWrap" IsReadOnly="True" VerticalAlignment="Bottom" Margin="130,0,20,62" PlaceholderText="Value" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False"/>
-					<Button Content="&#xE109;" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="20,0,20,104" FontFamily="Segoe MDL2 Assets" Padding="0,0,0,0" Height="32" FontSize="20" ToolTipService.ToolTip="Add a new variable to watch." Click="onVariableWatchAddition"/>
-					<ScrollViewer Grid.Column="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="20,0,0,0" Margin="0,35,0,146">
-						<StackPanel x:Name="variableViewStack" Margin="0,0,0,0" Padding="0,0,20,0" ScrollViewer.VerticalScrollBarVisibility="Visible">
+					<TextBox x:Name="preAnsValueBox" Text="" TextWrapping="NoWrap" IsReadOnly="True" VerticalAlignment="Bottom" Margin="130,0,20,62" PlaceholderText="Value" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Padding="8,4,8,5"/>
+					<Button x:Uid="buttonAddVariable" Content="&#xE109;" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="20,0,20,104" FontFamily="Segoe MDL2 Assets" Padding="0,0,0,0" Height="32" FontSize="20" ToolTipService.ToolTip="Add a new variable to watch." Click="onVariableWatchAddition"/>
+					<ScrollViewer Grid.Column="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="20,0,0,0" Margin="0,35,0,146" VerticalScrollBarVisibility="Auto">
+						<StackPanel x:Name="variableViewStack" Margin="0,0,0,0" Padding="0,0,20,0" ScrollViewer.VerticalScrollBarVisibility="Auto">
 							<StackPanel.ChildrenTransitions>
 								<TransitionCollection>
 									<AddDeleteThemeTransition/>

@@ -232,12 +232,12 @@ namespace CalcItUWP {
 				for (int i = 0; i < input.Length; i++) {
 					char c = input[i];
 					if (thousandDot && c == thousandSeparator) {
-						if (status && !isVariable) continue; else throw new ExpressionInvalidException("unexpectedThousandSeparator", i);
+						if (status && !isVariable) continue; else throw new ExpressionInvalidException("unexpectedThousandSeparator", i+1);
 					} else if (c == '-' && !status) {
 						negativity = !negativity;
 						hadNegation = true;
 					} else if (c == '%') {
-						if (!status || currentToken[currentToken.Length - 1] == '%') throw new ExpressionInvalidException("unexpectedPercent", i); else currentToken += c;
+						if (!status || currentToken[currentToken.Length - 1] == '%') throw new ExpressionInvalidException("unexpectedPercent", i+1); else currentToken += c;
 					} else if (c == ';') {
 						if (BS.Count != 0) {
 							if (status) {
@@ -250,8 +250,8 @@ namespace CalcItUWP {
 								BS.Peek().addArgument(0);
 								status = false;
 								hadClosingBrace = false;
-							} else throw new ExpressionInvalidException("unexpectedSemicolon", i);
-						} else throw new ExpressionInvalidException("unexpectedSemicolon", i);
+							} else throw new ExpressionInvalidException("unexpectedSemicolon", i+1);
+						} else throw new ExpressionInvalidException("unexpectedSemicolon", i+1);
 					} else if (isDecimalSeparator(c)) {
 						if (currentToken.Length == 0) {
 							if (hadClosingBrace) {
@@ -264,7 +264,7 @@ namespace CalcItUWP {
 							isVariable = false;
 							hadComma = true;
 						} else if (status) {
-							if (isVariable || hadComma) throw new ExpressionInvalidException("unexpectedDecimalSeparator", i);
+							if (isVariable || hadComma) throw new ExpressionInvalidException("unexpectedDecimalSeparator", i+1);
 							currentToken += c;
 							hadComma = true;
 						} else { };
@@ -280,7 +280,7 @@ namespace CalcItUWP {
 							isVariable = false;
 						} else if (status) {
 							if (isVariable) currentToken += c;
-							else if (currentToken[currentToken.Length - 1] == '%') throw new ExpressionInvalidException("unexpectedDigit", i);
+							else if (currentToken[currentToken.Length - 1] == '%') throw new ExpressionInvalidException("unexpectedDigit", i+1);
 							else currentToken += c;
 						} else {
 							currentToken = c.ToString();
@@ -298,7 +298,7 @@ namespace CalcItUWP {
 						isVariable = true;
 						status = true;
 						hadClosingBrace = false;
-					} else if ((currentOperand = operandMap.GetValueOrDefault(c.ToString(), null)) == null) throw new ExpressionInvalidException("unknownSymbol", i);
+					} else if ((currentOperand = operandMap.GetValueOrDefault(c.ToString(), null)) == null) throw new ExpressionInvalidException("unknownSymbol", i+1);
 					else {
 						if (currentOperand is OpeningBrace) {
 							if (hadClosingBrace || currentToken.Length != 0 && !isVariable) {
@@ -327,23 +327,23 @@ namespace CalcItUWP {
 								status = true;
 								hadClosingBrace = true;
 							} else if (OS.Peek() is OpeningBrace) {
-								if (BS.Count != 0 && !areBracesMatch(BS.Peek().opening, c.ToString())) throw new ExpressionInvalidException("unmatchingBraces", i);
+								if (BS.Count != 0 && !areBracesMatch(BS.Peek().opening, c.ToString())) throw new ExpressionInvalidException("unmatchingBraces", i+1);
 								OS.Pop();
 								(currentBracelet = BS.Pop()).addArgument(0);
 								NS.Push(currentBracelet.getResult());
 								status = true;
 								hadClosingBrace = true;
-							} else throw new ExpressionInvalidException("unexpectedClosingBrace", i);
+							} else throw new ExpressionInvalidException("unexpectedClosingBrace", i+1);
 						} else {
 							if (status) {
 								if (enforceMulDiv) switch (c) {
 										case '.':
 										case ':':
-											if (mulAsterisk) throw new ExpressionInvalidException("unknownSymbol", i);
+											if (mulAsterisk) throw new ExpressionInvalidException("unknownSymbol", i+1);
 											break;
 										case '*':
 										case '/':
-											if (!mulAsterisk) throw new ExpressionInvalidException("unknownSymbol", i);
+											if (!mulAsterisk) throw new ExpressionInvalidException("unknownSymbol", i+1);
 											break;
 									}
 								if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, i, NS, OS));
@@ -352,7 +352,7 @@ namespace CalcItUWP {
 								OS.Push(currentOperand);
 								status = false;
 								hadClosingBrace = false;
-							} else if (c == '+') hadNegation = true; else throw new ExpressionInvalidException("unexpectedOperand", i);
+							} else if (c == '+') hadNegation = true; else throw new ExpressionInvalidException("unexpectedOperand", i+1);
 						}
 					}
 				}

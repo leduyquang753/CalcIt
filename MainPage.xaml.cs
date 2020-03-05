@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.Helpers;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Resources;
 using Windows.Foundation.Collections;
@@ -9,6 +12,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace CalcItUWP {
 	/// <summary>
@@ -17,14 +21,16 @@ namespace CalcItUWP {
 	public sealed partial class MainPage : Page
 	{
 		public readonly CalculatorEngine engine = new CalculatorEngine();
-
 		public static TextBox outputBoxInstance;
-
 		private readonly IPropertySet config = new PropertySet(); // The init value is to prevent nasty errors. The actual config object will be loaded in the constructor.
+		private StorageFile startupExpressionsFile = null;
+		const string startupExpressionsFileName = "Startup expressions.txt";
+		private string lastExpression = null;
+		private bool calculateLastIfEmpty = true;
 
 		public MainPage()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 
 			// Use custom title bar.
 			var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
@@ -42,8 +48,35 @@ namespace CalcItUWP {
 			config = appData.RoamingSettings.Values;
 			appData.DataChanged += (a, o) => { loadConfig(); };
 			loadConfig();
+			loadStartupExpressions();
 
 			updateVariableBoxes();
+		}
+
+		private async void loadStartupExpressions() {
+			StorageFolder dataFolder = ApplicationData.Current.LocalFolder;
+			if (await dataFolder.FileExistsAsync(startupExpressionsFileName)) {
+				startupExpressionsFile = await dataFolder.GetFileAsync(startupExpressionsFileName);
+				int lineNumber = 0;
+				foreach (string line in await FileIO.ReadLinesAsync(startupExpressionsFile)) {
+					lineNumber++;
+					string expression = line;
+					int doubleSlashPosition = expression.IndexOf("//");
+					if (doubleSlashPosition != -1) expression = expression.Substring(0, doubleSlashPosition).Trim();
+					if (expression != "") {
+						try {
+							engine.calculate(expression);
+						} catch (ExpressionInvalidException e) {
+							int position = ((ExpressionInvalidException)e).position;
+							outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + inputBox.Text + "\n"
+								+ String.Format(Utils.getString("error/headerStartup/" + (position == -1 ? "y" : "xy")), new[] { lineNumber.ToString(), position.ToString() })
+								+ e.Message;
+						}
+					}
+				}
+			} else {
+				startupExpressionsFile = await (await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/defaultStartupExpressions.txt"))).CopyAsync(dataFolder, startupExpressionsFileName);
+			}
 		}
 
 		private void loadConfig() {
@@ -69,6 +102,12 @@ namespace CalcItUWP {
 
 			if (config.ContainsKey("zeroUndefinedVars")) engine.zeroUndefinedVars = (bool)config["zeroUndefinedVars"]; else config["zeroUndefinedVars"] = false;
 			(engine.zeroUndefinedVars ? radioDefaultUndefinedAs0 : radioRaiseErrorForUndefinedVariables).IsChecked = true;
+
+			if (config.ContainsKey("calculateLastIfEmpty")) calculateLastIfEmpty = (bool)config["calculateLastIfEmpty"]; else config["calculateLastIfEmpty"] = false;
+			checkCalculateLastIfEmpty.IsOn = calculateLastIfEmpty;
+
+			if (config.ContainsKey("maximumHistorySize")) inputBox.maximumHistorySize = (int)config["maximumHistorySize"]; else config["maximumHistorySize"] = 64;
+			sliderMaximumHistorySize.Value = inputBox.maximumHistorySize;
 		}
 
 		private void updateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar) {
@@ -82,13 +121,41 @@ namespace CalcItUWP {
 		}
 
 		private void calculateIt() {
+			string input;
+			if (inputBox.Text == "") {
+				if (calculateLastIfEmpty && lastExpression != null) {
+					input = lastExpression;
+				} else return;
+			} else input = inputBox.Text;
+			int currentPosition = 0;
+			string expression = "";
 			try {
-				double result = engine.calculate(inputBox.Text);
-				outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + inputBox.Text + "\n= " + Utils.formatNumber(result, engine);
+				foreach (string str in input.Split('|')) {
+					expression = str;
+					if (expression.Trim() == "") {
+						currentPosition += expression.Length + 1;
+						continue;
+					}
+					double result = engine.calculate(expression);
+					outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression.Trim() + "\n= " + Utils.formatNumber(result, engine);
+					currentPosition += expression.Length + 1;
+				}
+				if (inputBox.history.Count >= inputBox.maximumHistorySize) inputBox.history.RemoveRange(inputBox.maximumHistorySize - 1, inputBox.history.Count - inputBox.maximumHistorySize + 1);
+				if (inputBox.Text != "") inputBox.history.Insert(0, inputBox.Text);
+				lastExpression = input;
 				inputBox.Text = "";
+				inputBox.historyPointer = -1;
 			} catch (ExpressionInvalidException e) {
-				outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + inputBox.Text + "\n" + Utils.getString("error/header") + e.Message;
-				if (e.position != -1) inputBox.Select(e.position, 0);
+				outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression.Trim() + "\n" + Utils.getString("error/header") + e.Message;
+				if (e.position != -1) inputBox.Select(currentPosition + e.position, 0);
+			}
+			// Scroll output box to the bottom.
+			var grid = (Grid)VisualTreeHelper.GetChild(outputBox, 0);
+			for (var i = 0; i <= VisualTreeHelper.GetChildrenCount(grid) - 1; i++) {
+				object obj = VisualTreeHelper.GetChild(grid, i);
+				if (!(obj is ScrollViewer)) continue;
+				((ScrollViewer)obj).ChangeView(0.0f, ((ScrollViewer)obj).ExtentHeight, 1.0f, true);
+				break;
 			}
 			updateVariableBoxes();
 		}
@@ -100,7 +167,10 @@ namespace CalcItUWP {
 		}
 
 		private void onInputBoxKeyDown(object sender, KeyRoutedEventArgs args) {
-			if (args.Key == VirtualKey.Enter) calculateIt();
+			if (args.Key == VirtualKey.Enter) {
+				calculateIt();
+				args.Handled = true;
+			}
 		}
 
 		private void onCalculateButtonClick(object sender, RoutedEventArgs e) {
@@ -200,6 +270,23 @@ namespace CalcItUWP {
 
 		private async void onHelpButtonClick(object sender, RoutedEventArgs e) {
 			await new HelpAndAbout().ShowAsync();
+		}
+
+		private async void onStartupExpressionsEditingRequested(object sender, RoutedEventArgs e) {
+			if (startupExpressionsFile != null) await Launcher.LaunchFileAsync(startupExpressionsFile);
+		}
+
+		private async void onAppRestartRequested(object sender, RoutedEventArgs e) {
+			await CoreApplication.RequestRestartAsync("");
+		}
+
+		private void onMaximumStoredExpressionsChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e) {
+			if (inputBox == null) return;
+			config["maximumHistorySize"] = inputBox.maximumHistorySize = (int)sliderMaximumHistorySize.Value;
+		}
+
+		private void onCheckCalculateLastOfEmptyChanged(object sender, RoutedEventArgs e) {
+			config["calculateLastIfEmpty"] = calculateLastIfEmpty = checkCalculateLastIfEmpty.IsOn;
 		}
 	}
 }

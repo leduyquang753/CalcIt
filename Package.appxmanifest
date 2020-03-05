@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="64cf628e-ae81-40e5-b7af-379ac3e67527"
+    Name="CalcIt-UWP"
     Publisher="CN=Le Duy Quang"
-    Version="0.0.1.0" />
+    Version="0.0.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="64cf628e-ae81-40e5-b7af-379ac3e67527" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>CalcItUWP</DisplayName>
+    <DisplayName>CalcIt UWP</DisplayName>
     <PublisherDisplayName>Lê Duy Quang</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
