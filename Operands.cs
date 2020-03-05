@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using static CalcItUWP.Utils;
 
 namespace CalcItUWP.Operands {
-	abstract class Operand {
+	public abstract class Operand {
 		public string[] characters { get; }
 		public bool reversed { get; }
 		public int priority { get; }
@@ -21,28 +21,28 @@ namespace CalcItUWP.Operands {
 		public abstract double calculate(double val1, double val2, CalculatorEngine engine);
 	}
 
-	class Plus: Operand {
+	public class Plus: Operand {
 		public Plus(): base(new string[] { "+" }, 1) {}
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			return val1 + val2;
 		}
 	}
 
-	class Minus: Operand {
+	public class Minus: Operand {
 		public Minus(): base(new string[] { "-", "–" }, 1) {}
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			return val1 - val2;
 		}
 	}
 
-	class Multiply: Operand {
-		public Multiply(): base(new string[] { ".", "x", "*", "·", "×" }, 2) {}
+	public class Multiply: Operand {
+		public Multiply(): base(new string[] { ".", "*", "·", "×" }, 2) {}
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			return val1 * val2;
 		}
 	}
 
-	class Divide: Operand {
+	public class Divide: Operand {
 		public Divide(): base(new string[] { ":", "/", "÷" }, 2) { }
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			if (val2 == 0) throw new ExpressionInvalidException("divisionByZero");
@@ -50,36 +50,36 @@ namespace CalcItUWP.Operands {
 		}
 	}
 
-	class Exponentiation: Operand {
+	public class Exponentiation: Operand {
 		public Exponentiation(): base(new string[] { "^" }, 4, true) { }
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
-			return Utils.power(val1, val2);
+			return Utils.power(val1, val2, engine);
 		}
 	}
 
-	class Root: Operand {
+	public class Root: Operand {
 		public Root(): base(new string[] { "#" }, 4) { }
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			if (val1 == 0) throw new ExpressionInvalidException("level0Root");
-			return Utils.power(val2, 1 / val1);
+			return Utils.power(val2, 1 / val1, engine);
 		}
 	}
 
-	class OpeningBrace: Operand {
+	public class OpeningBrace: Operand {
 		public OpeningBrace() : base(new string[] { "(", "[", "{", "<" }, -2) { }
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			throw new ExpressionInvalidException("braceInvolved");
 		}
 	}
 
-	class ClosingBrace: Operand {
+	public class ClosingBrace: Operand {
 		public ClosingBrace() : base(new string[] { ")", "]", "}", ">" }, -2) { }
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			throw new ExpressionInvalidException("braceInvolved");
 		}
 	}
 
-	class DotlessMultiplication: Operand {
+	public class DotlessMultiplication: Operand {
 		public DotlessMultiplication() : base(new string[] { "." }, 3) { }
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			return val1 * val2;

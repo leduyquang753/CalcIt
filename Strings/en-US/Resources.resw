@@ -127,6 +127,28 @@
   <data name="buttonCalculate.Content" xml:space="preserve">
     <value>Calculate</value>
   </data>
+  <data name="buttonCalculateSmall.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Calculate</value>
+  </data>
+  <data name="buttonClear.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Clear output</value>
+  </data>
+  <data name="buttonCloseSettings.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="buttonHelp.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Help and about</value>
+  </data>
+  <data name="buttonSettings.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="buttonViewVariables.ToolTipService.ToolTip" xml:space="preserve">
+    <value>View variables</value>
+  </data>
+  <data name="checkEnforceDecimalSeparator.Content" xml:space="preserve">
+    <value>Enforce</value>
+    <comment>This box is in the "Decimal separator" section, so no need to include "decimal separator" here.</comment>
+  </data>
   <data name="error.braceInvolved" xml:space="preserve">
     <value>Brace is involved as an operator. This is a BUG, report it to the author.</value>
   </data>
@@ -253,7 +275,87 @@
   <data name="inputBox.PlaceholderText" xml:space="preserve">
     <value>Enter any expresssion...</value>
   </data>
+  <data name="labelAngleUnit.Text" xml:space="preserve">
+    <value>Angle unit</value>
+  </data>
+  <data name="labelDecimalSeparator.Text" xml:space="preserve">
+    <value>Decimal separator</value>
+  </data>
+  <data name="labelMoreComingSoon.Text" xml:space="preserve">
+    <value>More coming soon...</value>
+  </data>
+  <data name="labelMultiplicationSign.Text" xml:space="preserve">
+    <value>Multiplication sign</value>
+  </data>
+  <data name="labelThousandSeparator.Text" xml:space="preserve">
+    <value>Thousand separator</value>
+  </data>
+  <data name="labelUndefinedVariablesHandling.Text" xml:space="preserve">
+    <value>When trying to retrieve undefined variables</value>
+    <comment>Don't add colon, ellipsis or anything to the end.</comment>
+  </data>
+  <data name="labelVariables.Text" xml:space="preserve">
+    <value>Variables</value>
+  </data>
+  <data name="linkDocumentation.Content" xml:space="preserve">
+    <value>CalcIt documentation</value>
+  </data>
+  <data name="linkLicense.Content" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="linkRepository.Content" xml:space="preserve">
+    <value>GitHub repository</value>
+  </data>
   <data name="outputBox.PlaceholderText" xml:space="preserve">
     <value>Output of the app will display here.</value>
+  </data>
+  <data name="radioAngleUnitDegree.Content" xml:space="preserve">
+    <value>Degrees</value>
+  </data>
+  <data name="radioAngleUnitGrad.Content" xml:space="preserve">
+    <value>Gradians</value>
+  </data>
+  <data name="radioAngleUnitRadian.Content" xml:space="preserve">
+    <value>Radians</value>
+  </data>
+  <data name="radioDecimalSeparatorComma.Content" xml:space="preserve">
+    <value>Comma</value>
+  </data>
+  <data name="radioDecimalSeparatorDot.Content" xml:space="preserve">
+    <value>Dot</value>
+  </data>
+  <data name="radioDefaultUndefinedAs0.Content" xml:space="preserve">
+    <value>Return 0</value>
+  </data>
+  <data name="radioMultiplicationAsterisk.Content" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="radioMultiplicationDot.Content" xml:space="preserve">
+    <value>Dot</value>
+  </data>
+  <data name="radioRaiseErrorForUndefinedVariables.Content" xml:space="preserve">
+    <value>Raise error</value>
+  </data>
+  <data name="radioThousandSeparatorDot.Content" xml:space="preserve">
+    <value>Dot / Comma</value>
+  </data>
+  <data name="radioThousandSeparatorSpace.Content" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="settingsTitle.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="textVersion" xml:space="preserve">
+    <value>CalcIt UWP version {0}, build {1}</value>
+    <comment>Don't put a period.</comment>
+  </data>
+  <data name="variableViewNameBox.PlaceholderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="variableViewRemoveButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="variableViewValueBox.PlaceholderText" xml:space="preserve">
+    <value>Value</value>
   </data>
 </root>

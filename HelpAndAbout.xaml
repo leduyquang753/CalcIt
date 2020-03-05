@@ -1,0 +1,21 @@
+﻿<ContentDialog
+    x:Class="CalcItUWP.HelpAndAbout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CalcItUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Help and about"
+    PrimaryButtonText="Close"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <StackPanel Margin="0,0,0,0">
+        <HyperlinkButton x:Uid="linkDocumentation" NavigateUri="https://github.com/leduyquang753/CalcItUWP" Content="CalcIt documentation" Padding="0,0,0,7"/>
+        <HyperlinkButton x:Uid="linkRepository" Content="GitHub repository" Padding="0,0,0,7" NavigateUri="https://github.com/leduyquang753/CalcItUWP"/>
+        <HyperlinkButton x:Uid="linkLicense" Content="License" Padding="0,0,0,7" NavigateUri="https://github.com/leduyquang753/CalcItUWP"/>
+        <TextBlock x:Name="textVersion" Text="CalcIt UWP version &lt;version&gt;" TextWrapping="Wrap" Padding="0,0,0,7"/>
+        <TextBlock Text="Copyright © 2020 Lê Duy Quang. Licensed under MIT." TextWrapping="Wrap"/>
+    </StackPanel>
+</ContentDialog>

@@ -11,7 +11,7 @@ using CalcItUWP.Operands;
 using static CalcItUWP.AngleUnits;
 
 namespace CalcItUWP {
-	class CalculatorEngine {
+	public class CalculatorEngine {
 		private static DotlessMultiplication dotlessMulOp = new DotlessMultiplication();
 		private static Dictionary<string, string> braceMap = new Dictionary<string, string>();
 		private const int positiveInfinity = 99999;
@@ -111,7 +111,7 @@ namespace CalcItUWP {
 		/// </summary>
 		/// <param name="op">The function to register.</param>
 		public void registerFunction(Function func) {
-			foreach (string key in func.names) functionMap[key] = func;
+			foreach (string key in func.names) functionMap[key.ToLower()] = func;
 		}
 
 		private bool isDigit(char c) => c >= '0' && c <= '9';
@@ -307,7 +307,7 @@ namespace CalcItUWP {
 								OS.Push(dotlessMulOp);
 								hadClosingBrace = false;
 							}
-							if ((currentFunction = functionMap.GetValueOrDefault(currentToken, null)) == null) throw new ExpressionInvalidException("unknownFunction", i - 1);
+							if ((currentFunction = functionMap.GetValueOrDefault(currentToken, null)) == null) throw new ExpressionInvalidException("unknownFunction", i, new[] { currentToken });
 							OS.Push(currentOperand);
 							BS.Push(new Bracelet(c.ToString(), currentFunction, this));
 							status = false;

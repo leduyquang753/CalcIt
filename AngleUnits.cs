@@ -1,17 +1,17 @@
 ﻿using static CalcItUWP.Utils;
 
 namespace CalcItUWP {
-	class AngleUnits {
+	public class AngleUnits {
 		public static readonly AngleUnit DEGREE = new Degree();
 		public static readonly AngleUnit RADIAN = new Radian();
-		public static readonly AngleUnit GRAD = new Grad();
+		public static readonly AngleUnit GRADIAN = new Gradian();
 
 		public interface AngleUnit {
 			double convertToRadians(double angle);
 			double convertFromRadians(double angle);
 		}
 
-		class Degree: AngleUnit {
+		public class Degree: AngleUnit {
 			public double convertToRadians(double angle) {
 				return degToRad(angle);
 			}
@@ -21,7 +21,7 @@ namespace CalcItUWP {
 			}
 		}
 
-		class Radian: AngleUnit {
+		public class Radian: AngleUnit {
 			public double convertToRadians(double angle) {
 				return angle;
 			}
@@ -31,7 +31,7 @@ namespace CalcItUWP {
 			}
 		}
 
-		class Grad: AngleUnit {
+		public class Gradian: AngleUnit {
 			public double convertToRadians(double angle) {
 				return gradToRad(angle);
 			}

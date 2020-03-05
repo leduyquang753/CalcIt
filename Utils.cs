@@ -2,14 +2,14 @@
 using Windows.ApplicationModel.Resources;
 
 namespace CalcItUWP {
-	class Utils {
+	public class Utils {
 		private const double
 			degInRad = Math.PI / 180,
 			radInDeg = 180 / Math.PI,
 			degInGrad = 10 / 9,
 			gradInDeg = 0.9,
-			radInGrad = Math.PI / 200,
-			gradInRad = 200 / Math.PI;
+			gradInRad = Math.PI / 200,
+			radInGrad = 200 / Math.PI;
 		public static ResourceLoader resourceLoader = null;
 
 		///<summary>
