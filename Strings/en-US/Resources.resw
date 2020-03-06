@@ -182,6 +182,9 @@
     <value>    Only result</value>
     <comment>Put 4 spaces to the beginning.</comment>
   </data>
+  <data name="dialogHelpAndAbout.PrimaryButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="dialogHelpAndAbout.Title" xml:space="preserve">
     <value>Help and about</value>
   </data>

@@ -56,10 +56,7 @@ namespace CalcItUWP {
 			updateVariableBoxes();
 
 			loading = false;
-
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-			FocusManager.TryFocusAsync(inputBox, FocusState.Keyboard);
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+			focusInputBox();
 		}
 
 		private async void loadStartupExpressions() {
@@ -82,7 +79,7 @@ namespace CalcItUWP {
 						int position = ((ExpressionInvalidException)e).position;
 						string errorText = String.Format(Utils.getString("error/headerStartup/" + (position == -1 ? "y" : "xy")), new[] { lineNumber.ToString(), position.ToString() }) + e.Message;
 						outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + inputBox.Text + "\n" + errorText;
-						outputStack.Children.Add(new CalculationResult(expression, null, errorText));
+						outputStack.Children.Add(new CalculationResult(expression, null, errorText, this));
 					}
 				}
 			}
@@ -161,7 +158,7 @@ namespace CalcItUWP {
 					}
 					string resultString = Utils.formatNumber(engine.calculate(expression), engine);
 					outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n= " + resultString;
-					outputStack.Children.Add(new CalculationResult(expression, "= " + resultString, null));
+					outputStack.Children.Add(new CalculationResult(expression, "= " + resultString, null, this));
 					currentPosition += expression.Length + 1;
 				}
 				if (inputBox.history.Count >= inputBox.maximumHistorySize) inputBox.history.RemoveRange(inputBox.maximumHistorySize - 1, inputBox.history.Count - inputBox.maximumHistorySize + 1);
@@ -173,7 +170,7 @@ namespace CalcItUWP {
 				expression = expression.Trim();
 				string errorText = Utils.getString("error/header") + e.Message;
 				outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n" + errorText;
-				outputStack.Children.Add(new CalculationResult(expression, null, errorText));
+				outputStack.Children.Add(new CalculationResult(expression, null, errorText, this));
 				if (e.position != -1) inputBox.Select(currentPosition + e.position, 0);
 			}
 			updateVariableBoxes();
@@ -213,6 +210,7 @@ namespace CalcItUWP {
 
 		private void onCalculateButtonClick(object sender, RoutedEventArgs e) {
 			calculateIt();
+			focusInputBox();
 		}
 
 		private void onSettingsButtonClick(object sender, RoutedEventArgs e) {
@@ -276,6 +274,7 @@ namespace CalcItUWP {
 		private void onSettingsUndefinedVariablesBehaviorChanged(object sender, RoutedEventArgs e) {
 			if (loading) return;
 			config["zeroUndefinedVars"] = engine.zeroUndefinedVars = (bool)radioDefaultUndefinedAs0.IsChecked;
+			updateVariableBoxes();
 		}
 
 		private async void onVariableWatchAddition(object sender, RoutedEventArgs e) {
@@ -350,6 +349,17 @@ namespace CalcItUWP {
 			if (useOldOutputBox) scrollOutputBox();
 			else
 				outputPanel.ChangeView(outputPanel.HorizontalOffset, outputPanel.ScrollableHeight, outputPanel.ZoomFactor);
+		}
+
+		public async void focusInputBox() {
+			await FocusManager.TryFocusAsync(inputBox, FocusState.Keyboard);
+		}
+
+		public void pasteTextToInput(string text) {
+			inputBox.Text = text;
+			inputBox.historyPointer = -1;
+			inputBox.Select(text.Length, 0);
+			focusInputBox();
 		}
 	}
 }

@@ -18,11 +18,13 @@ using Windows.UI.Xaml.Navigation;
 
 namespace CalcItUWP {
 	public sealed partial class CalculationResult: UserControl {
+		private MainPage mainPage;
+
 		public CalculationResult() {
 			this.InitializeComponent();
 		}
 
-		public CalculationResult(string expression, string result, string error) {
+		public CalculationResult(string expression, string result, string error, MainPage main) {
 			this.InitializeComponent();
 
 			controlExpression.Text = expression;
@@ -34,6 +36,7 @@ namespace CalcItUWP {
 				controlError.Visibility = Visibility.Visible;
 				controlError.Text = error;
 			}
+			mainPage = main;
 		}
 
 		private void copyToClipboard(string text) {
@@ -81,6 +84,11 @@ namespace CalcItUWP {
 
 		private void onPointerUp(object sender, PointerRoutedEventArgs e) {
 			mouseUp.Begin();
+		}
+
+		private void onLeftClick(object sender, TappedRoutedEventArgs e) {
+			if (mainPage == null) return;
+			mainPage.pasteTextToInput(controlExpression.Text);
 		}
 	}
 }
