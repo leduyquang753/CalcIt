@@ -248,7 +248,7 @@ namespace CalcItUWP {
 		private void onSettingsDecimalSeparatorChanged(object sender, RoutedEventArgs e) {
 			if (loading) return;
 			config["decimalDot"] = engine.decimalDot = (bool)radioDecimalDot.IsChecked;
-			if (engine.decimalDot) {
+			if (engine.decimalDot ? true : engine.thousandDot) {
 				radioMultiplicationAsterisk.IsChecked = true;
 			}
 		}
@@ -261,12 +261,16 @@ namespace CalcItUWP {
 		private void onSettingsThousandSeparatorChanged(object sender, RoutedEventArgs e) {
 			if (loading) return;
 			config["thousandDot"] = engine.thousandDot = (bool)radioThousandSeparatorDot.IsChecked;
+			if (engine.decimalDot ? true : engine.thousandDot) {
+				radioMultiplicationAsterisk.IsChecked = true;
+			}
 		}
 
 		private void onSettingsMultiplicationSignChanged(object sender, RoutedEventArgs e) {
 			if (loading) return;
 			config["mulAsterisk"] = engine.mulAsterisk = (bool)radioMultiplicationAsterisk.IsChecked;
 			if (!engine.mulAsterisk) {
+				radioThousandSeparatorSpace.IsChecked = true;
 				radioDecimalComma.IsChecked = true;
 			}
 		}

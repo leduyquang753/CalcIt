@@ -246,7 +246,7 @@
     <value>Hàm ngẫu nhiên chỉ nhận tối đa 2 tham số.</value>
   </data>
   <data name="error.invalidVariable" xml:space="preserve">
-    <value>Tên biến không hợp lệ: "{0}".</value>
+    <value>Tên biến không hợp lệ: "{0}". Nó không được bắt đầu bằng chữ số.</value>
   </data>
   <data name="error.level0Root" xml:space="preserve">
     <value>Căn bậc 0 đã xảy ra.</value>

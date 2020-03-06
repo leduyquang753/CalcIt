@@ -246,7 +246,7 @@
     <value>Random function only takes up to 2 arguments.</value>
   </data>
   <data name="error.invalidVariable" xml:space="preserve">
-    <value>Invalid variable name: "{0}".</value>
+    <value>Invalid variable name: "{0}". It must not start with a digit.</value>
   </data>
   <data name="error.level0Root" xml:space="preserve">
     <value>Level 0 root occured.</value>

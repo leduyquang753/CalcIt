@@ -384,12 +384,12 @@ namespace CalcItUWP {
 			while (true) {
 				switch (ps = trimmedExpression.IndexOf('=')) {
 					case -1: goto exit;
-					case 0: throw new ExpressionInvalidException("unexpectedEqual", position+1);
+					case 0: throw new ExpressionInvalidException("unexpectedEqual", Utils.getIndexWithWhitespace(expression, position+1));
 					default:
 						string s = trimmedExpression.Substring(0, ps);
-						if (s == "ans" || s == "preAns") throw new ExpressionInvalidException("reservedVariable");
-						if (isDigit(s[0])) throw new ExpressionInvalidException("invalidVariable", messageArguments: new[] { s }); 
-						foreach (char c in s) if (!isChar(c) && !isDigit(c)) throw new ExpressionInvalidException("nonAlphanumericVariableName", messageArguments: new[] { s });
+						if (s == "ans" || s == "preAns") throw new ExpressionInvalidException("reservedVariable", Utils.getIndexWithWhitespace(expression, position + ps));
+						if (isDigit(s[0])) throw new ExpressionInvalidException("invalidVariable", Utils.getIndexWithWhitespace(expression, position + ps), new[] { s }); 
+						foreach (char c in s) if (!isChar(c) && !isDigit(c)) throw new ExpressionInvalidException("nonAlphanumericVariableName", Utils.getIndexWithWhitespace(expression, position + ps), new[] { s });
 						toAssign.Add(s);
 						break;
 				}
@@ -397,7 +397,7 @@ namespace CalcItUWP {
 				position += ps + 1;
 			}
 		exit:
-			if (trimmedExpression.Length == 0) throw new ExpressionInvalidException("nothingToCalculate");
+			if (trimmedExpression.Length == 0) throw new ExpressionInvalidException("nothingToCalculate", Utils.getIndexWithWhitespace(expression, position));
 			if (trimmedExpression == "!") {
 				foreach (string s in toAssign) variableMap.Remove(s);
 				preAns = ans;

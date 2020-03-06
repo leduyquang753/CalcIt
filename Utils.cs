@@ -52,7 +52,7 @@ namespace CalcItUWP {
 		private static string getFormattedNumberInternal(double number, CalculatorEngine engine, char mulSign) {
 			string toReturn = number.ToString("#,##0.##########").Replace(",", " ").Replace("E", mulSign + "10^");
 			if (!engine.decimalDot) toReturn = toReturn.Replace(".", ",");
-			if (engine.thousandDot) toReturn = toReturn.Replace(" ", engine.decimalDot ? "," : ":");
+			if (engine.thousandDot) toReturn = toReturn.Replace(" ", engine.decimalDot ? "," : ".");
 			return toReturn;
 		}
 
