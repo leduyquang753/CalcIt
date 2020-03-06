@@ -118,298 +118,298 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="appDescription" xml:space="preserve">
-    <value>An app that calculates mathematical expressions.</value>
+    <value>Một ứng dụng có thể tính các biểu thức toán học.</value>
   </data>
   <data name="appName" xml:space="preserve">
     <value>CalcIt</value>
     <comment>Should be kept as-is.</comment>
   </data>
   <data name="buttonAddVariable.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Add a new variable to watch</value>
+    <value>Thêm biến để theo dõi</value>
   </data>
   <data name="buttonCalculate.Content" xml:space="preserve">
-    <value>Calculate</value>
+    <value>Tính</value>
   </data>
   <data name="buttonCalculateSmall.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Calculate</value>
+    <value>Tính</value>
   </data>
   <data name="buttonClear.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Clear output</value>
+    <value>Xóa các kết quả</value>
   </data>
   <data name="buttonCloseSettings.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Close</value>
+    <value>Đóng</value>
   </data>
   <data name="buttonEditStartupExpressions.Content" xml:space="preserve">
-    <value>Edit</value>
+    <value>Sửa</value>
   </data>
   <data name="buttonHelp.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Help and about</value>
+    <value>Trợ giúp và thông tin</value>
   </data>
   <data name="buttonRestartApp.Content" xml:space="preserve">
-    <value>Restart app</value>
+    <value>Mở lại ứng dụng</value>
   </data>
   <data name="buttonSettings.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Settings</value>
+    <value>Cài đặt</value>
   </data>
   <data name="buttonViewVariables.ToolTipService.ToolTip" xml:space="preserve">
-    <value>View variables</value>
+    <value>Xem các biến</value>
   </data>
   <data name="checkCalculateLastIfEmpty.Header" xml:space="preserve">
-    <value>Calculate the last expression if input is empty</value>
+    <value>Tính biểu thức trước đó khi hộp nhập trống</value>
     <comment>Don't put a period.</comment>
   </data>
   <data name="checkCalculateLastIfEmpty.OffContent" xml:space="preserve">
-    <value>Disabled</value>
+    <value>Tắt</value>
   </data>
   <data name="checkCalculateLastIfEmpty.OnContent" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Bật</value>
   </data>
   <data name="checkEnforceDecimalSeparator.Content" xml:space="preserve">
-    <value>Enforce</value>
+    <value>Bắt buộc</value>
     <comment>This box is in the "Decimal separator" section, so no need to include "decimal separator" here.</comment>
   </data>
   <data name="checkUseOldOutputBox.Content" xml:space="preserve">
-    <value>Use plain text box for output</value>
+    <value>Dùng hộp văn bản thuần để hiện kết quả</value>
   </data>
   <data name="commandCopyAll.Text" xml:space="preserve">
-    <value>Copy</value>
+    <value>Chép</value>
   </data>
   <data name="commandCopyExpression.Text" xml:space="preserve">
-    <value>    Only expression</value>
+    <value>    Chỉ biểu thức</value>
     <comment>Put 4 spaces to the beginning.</comment>
   </data>
   <data name="commandCopyResult.Text" xml:space="preserve">
-    <value>    Only result</value>
+    <value>    Chỉ kết quả</value>
     <comment>Put 4 spaces to the beginning.</comment>
   </data>
   <data name="dialogHelpAndAbout.Title" xml:space="preserve">
-    <value>Help and about</value>
+    <value>Trợ giúp &amp; thông tin</value>
   </data>
   <data name="error.braceInvolved" xml:space="preserve">
-    <value>Brace is involved as an operator. This is a BUG, report it to the author.</value>
+    <value>Dấu ngoặc bị xử lí như toán tử. Đây là LỖI CHƯƠNG TRÌNH, hãy thông báo tác giả.</value>
   </data>
   <data name="error.divisionByZero" xml:space="preserve">
-    <value>Division by zero.</value>
+    <value>Chia cho không.</value>
   </data>
   <data name="error.header" xml:space="preserve">
-    <value>ERROR: </value>
+    <value>LỖI: </value>
   </data>
   <data name="error.headerStartup.xy" xml:space="preserve">
-    <value>ERROR in startup expressions file at ({0}; {1}): </value>
+    <value>LỖI trong tệp biểu thức khởi động tại ({0}; {1}): </value>
   </data>
   <data name="error.headerStartup.y" xml:space="preserve">
-    <value>ERROR in startup expressions file at line {0}: </value>
+    <value>LỖI trong tệp biểu thức khởi động tại dòng {0}: </value>
   </data>
   <data name="error.invalidArccosArg" xml:space="preserve">
-    <value>Invalid arccosine function argument.</value>
+    <value>Tham số hàm arccosine không hợp lệ.</value>
   </data>
   <data name="error.invalidArcsinArg" xml:space="preserve">
-    <value>Invalid arcsine function argument.</value>
+    <value>Tham số hàm arcsine không hợp lệ.</value>
   </data>
   <data name="error.invalidCombinationNegativeArgs" xml:space="preserve">
-    <value>Combination function's arguments must not be negative.</value>
+    <value>Các tham số hàm tổ hợp không được âm.</value>
   </data>
   <data name="error.invalidCombinationNumArgs" xml:space="preserve">
-    <value>Combination function must receive exactly 2 arguments.</value>
+    <value>Hàm tổ hợp phải nhận đúng 2 tham số.</value>
   </data>
   <data name="error.invalidComparisonNumArgs" xml:space="preserve">
-    <value>Comparison function must receive at least 2 arguments.</value>
+    <value>Hàm so sánh phải nhận ít nhất 2 tham số.</value>
   </data>
   <data name="error.invalidFactorialArg" xml:space="preserve">
-    <value>Factorial function's argument must not be negative.</value>
+    <value>Tham số hàm giai thừa không được âm.</value>
   </data>
   <data name="error.invalidIfNumArgs" xml:space="preserve">
-    <value>Conditional function only takes up to 3 arguments.</value>
+    <value>Hàm điều kiện chỉ nhận tối đa 3 tham số.</value>
   </data>
   <data name="error.invalidLogBase" xml:space="preserve">
-    <value>Logarithm function's base must be positive.</value>
+    <value>Cơ số hàm logarid phải dương.</value>
   </data>
   <data name="error.invalidLogInput" xml:space="preserve">
-    <value>Logarithm function's input must be positive.</value>
+    <value>Tham số vào hàm logarid phải dương.</value>
   </data>
   <data name="error.invalidNotNumArgs" xml:space="preserve">
-    <value>Not function only takes 1 argument.</value>
+    <value>Hàm đảo chỉ nhận một tham số.</value>
   </data>
   <data name="error.invalidPermutationNegativeArgs" xml:space="preserve">
-    <value>Permutation function's arguments must not be negative.</value>
+    <value>Các tham số hàm hoán vị không được âm.</value>
   </data>
   <data name="error.invalidPermutationNumArgs" xml:space="preserve">
-    <value>Permutation function must receive exactly 2 arguments.</value>
+    <value>Hàm hoán vị phải nhận đúng 2 tham số.</value>
   </data>
   <data name="error.invalidRandomNoIntegerBetween" xml:space="preserve">
-    <value>Random integer function's arguments have no integers in between.</value>
+    <value>Không có số nguyên nào nằm ở giữa các tham số cho hàm số nguyên ngẫu nhiên.</value>
   </data>
   <data name="error.invalidRandomNumArgs" xml:space="preserve">
-    <value>Random function only takes up to 2 arguments.</value>
+    <value>Hàm ngẫu nhiên chỉ nhận tối đa 2 tham số.</value>
   </data>
   <data name="error.invalidVariable" xml:space="preserve">
-    <value>Invalid variable name: "{0}".</value>
+    <value>Tên biến không hợp lệ: "{0}".</value>
   </data>
   <data name="error.level0Root" xml:space="preserve">
-    <value>Level 0 root occured.</value>
+    <value>Căn bậc 0 đã xảy ra.</value>
   </data>
   <data name="error.nonAlphanumericVariableName" xml:space="preserve">
-    <value>Invalid variable name: "{0}". It must only consist of alphanumeric characters and underscores.</value>
+    <value>Tên biến không hợp lệ: "{0}". Nó chỉ được có các chữ cái, chữ số và gạch dưới.</value>
   </data>
   <data name="error.nothingToCalculate" xml:space="preserve">
-    <value>There is nothing to calculate.</value>
+    <value>Không có gì để tính.</value>
   </data>
   <data name="error.numberOutOfRange" xml:space="preserve">
-    <value>Numbers involved in the calculation are too large or too small.</value>
+    <value>Các con số trong phép tính quá lớn hoặc quá nhỏ.</value>
   </data>
   <data name="error.reservedVariable" xml:space="preserve">
-    <value>Ans and PreAns are reserved variables and cannot be set.</value>
+    <value>Ans và PreAns là các biến dành riêng và không thể gán.</value>
   </data>
   <data name="error.trailingSign" xml:space="preserve">
-    <value>Trailing positive/negative sign.</value>
+    <value>Dư dấu âm/dương ở cuối biểu thức.</value>
   </data>
   <data name="error.unexpectedClosingBrace" xml:space="preserve">
-    <value>Unexpected closing brace.</value>
+    <value>Dấu đóng ngoặc ở vị trí không hợp lệ.</value>
   </data>
   <data name="error.unexpectedDecimalSeparator" xml:space="preserve">
-    <value>Unexpected decimal separator.</value>
+    <value>Dấu thập phân ở vị trí không hợp lệ.</value>
   </data>
   <data name="error.unexpectedDigit" xml:space="preserve">
-    <value>Unexpected digit.</value>
+    <value>Chữ số ở vị trí không hợp lệ.</value>
   </data>
   <data name="error.unexpectedEnd" xml:space="preserve">
-    <value>Unexpected end.</value>
+    <value>Biểu thức kết thúc bất ngờ.</value>
   </data>
   <data name="error.unexpectedEqual" xml:space="preserve">
-    <value>Unexpected equal sign.</value>
+    <value>Dấu bằng ở vị trí không hợp lệ.</value>
   </data>
   <data name="error.unexpectedOperand" xml:space="preserve">
-    <value>Unexpected operand.</value>
+    <value>Toán tử ở vị trí không hợp lệ.</value>
   </data>
   <data name="error.unexpectedPercent" xml:space="preserve">
-    <value>Unexpected percent sign.</value>
+    <value>Dấu phần trăm ở vị trí không hợp lệ.</value>
   </data>
   <data name="error.unexpectedSemicolon" xml:space="preserve">
-    <value>Unexpected semicolon.</value>
+    <value>Dấu chấm phẩy ở vị trí không hợp lệ.</value>
   </data>
   <data name="error.unexpectedThousandSeparator" xml:space="preserve">
-    <value>Unexpected thousand separator.</value>
+    <value>Dấu phân lớp ở vị trí không hợp lệ.</value>
   </data>
   <data name="error.unknownFunction" xml:space="preserve">
-    <value>Unknown function: "{0}".</value>
+    <value>Hàm không xác định: "{0}".</value>
   </data>
   <data name="error.unknownSymbol" xml:space="preserve">
-    <value>Unknown symbol.</value>
+    <value>Kí tự không xác định.</value>
   </data>
   <data name="error.unmatchingBraces" xml:space="preserve">
-    <value>Unmatching braces.</value>
+    <value>Dấu mở và đóng ngoặc không khớp nhau.</value>
   </data>
   <data name="error.unsupportedExponentiation" xml:space="preserve">
-    <value>Unsupported exponentiation: {0} ^ {1}.</value>
+    <value>Lũy thừa không được hỗ trợ: {0} ^ {1}.</value>
   </data>
   <data name="error.variableNotSet" xml:space="preserve">
-    <value>Variable "{0}" is not set.</value>
+    <value>Biến "{0}" chưa được gán.</value>
   </data>
   <data name="getVarString.emptyVariableName" xml:space="preserve">
-    <value>[Empty variable name.]</value>
+    <value>[Tên biến trống.]</value>
   </data>
   <data name="getVarString.invalidVariableName" xml:space="preserve">
-    <value>[Invalid variable name.]</value>
+    <value>[Tên biến không hợp lệ.]</value>
   </data>
   <data name="getVarString.variableNotSet" xml:space="preserve">
-    <value>[Variable not set.]</value>
+    <value>[Biến chưa được gán.]</value>
   </data>
   <data name="inputBox.PlaceholderText" xml:space="preserve">
-    <value>Enter any expresssion...</value>
+    <value>Nhập bất kì biểu thức nào...</value>
   </data>
   <data name="labelAngleUnit.Text" xml:space="preserve">
-    <value>Angle unit</value>
+    <value>Đơn vị góc</value>
   </data>
   <data name="labelDecimalSeparator.Text" xml:space="preserve">
-    <value>Decimal separator</value>
+    <value>Dấu thập phân</value>
   </data>
   <data name="labelMoreComingSoon.Text" xml:space="preserve">
-    <value>More coming soon...</value>
+    <value>Còn nữa, sẽ có sau...</value>
   </data>
   <data name="labelMultiplicationSign.Text" xml:space="preserve">
-    <value>Multiplication sign</value>
+    <value>Dấu nhân</value>
   </data>
   <data name="labelStartupExpressions.Text" xml:space="preserve">
-    <value>Startup expressions</value>
+    <value>Các biểu thức khởi động</value>
   </data>
   <data name="labelThousandSeparator.Text" xml:space="preserve">
-    <value>Thousand separator</value>
+    <value>Dấu phân lớp</value>
   </data>
   <data name="labelUndefinedVariablesHandling.Text" xml:space="preserve">
-    <value>When trying to retrieve undefined variables</value>
+    <value>Khi thử lấy giá trị các biến chưa gán</value>
     <comment>Don't add colon, ellipsis or anything to the end.</comment>
   </data>
   <data name="labelVariables.Text" xml:space="preserve">
-    <value>Variables</value>
+    <value>Danh sách biến</value>
   </data>
   <data name="linkDocumentation.Content" xml:space="preserve">
-    <value>CalcIt documentation</value>
+    <value>Tài liệu hướng dẫn cho CalcIt</value>
   </data>
   <data name="linkLicense.Content" xml:space="preserve">
-    <value>License</value>
+    <value>Điều khoản</value>
   </data>
   <data name="linkRepository.Content" xml:space="preserve">
-    <value>GitHub repository</value>
+    <value>Mã nguồn trên GitHub</value>
   </data>
   <data name="outputBox.PlaceholderText" xml:space="preserve">
-    <value>Output of the app will display here.</value>
+    <value>Kết quả xử lí của ứng dụng sẽ hiện ở đây.</value>
   </data>
   <data name="radioAngleUnitDegree.Content" xml:space="preserve">
-    <value>Degrees</value>
+    <value>Độ</value>
   </data>
   <data name="radioAngleUnitGrad.Content" xml:space="preserve">
-    <value>Gradians</value>
+    <value>Gradian</value>
   </data>
   <data name="radioAngleUnitRadian.Content" xml:space="preserve">
-    <value>Radians</value>
+    <value>Radian</value>
   </data>
   <data name="radioDecimalSeparatorComma.Content" xml:space="preserve">
-    <value>Comma</value>
+    <value>Phẩy</value>
   </data>
   <data name="radioDecimalSeparatorDot.Content" xml:space="preserve">
-    <value>Dot</value>
+    <value>Chấm</value>
   </data>
   <data name="radioDefaultUndefinedAs0.Content" xml:space="preserve">
-    <value>Return 0</value>
+    <value>Trả về 0</value>
   </data>
   <data name="radioMultiplicationAsterisk.Content" xml:space="preserve">
-    <value>Asterisk</value>
+    <value>Sao</value>
   </data>
   <data name="radioMultiplicationDot.Content" xml:space="preserve">
-    <value>Dot</value>
+    <value>Chấm</value>
   </data>
   <data name="radioRaiseErrorForUndefinedVariables.Content" xml:space="preserve">
-    <value>Raise error</value>
+    <value>Báo lỗi</value>
   </data>
   <data name="radioThousandSeparatorDot.Content" xml:space="preserve">
-    <value>Dot / Comma</value>
+    <value>Chấm / Phẩy</value>
   </data>
   <data name="radioThousandSeparatorSpace.Content" xml:space="preserve">
-    <value>Space</value>
+    <value>Cách</value>
   </data>
   <data name="settingsTitle.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Cài đặt</value>
   </data>
   <data name="sliderExpressionsInHistory.Header" xml:space="preserve">
-    <value>Maximum expressions in history</value>
+    <value>Số biểu thức tối đa trong lịch sử</value>
   </data>
   <data name="startupExpressionsDescription.Text" xml:space="preserve">
-    <value>Press the button below to edit the startup expressions. After editing, restart the app to apply changes.</value>
+    <value>Nhấn nút bên dưới để sửa các biểu thức khởi động. Khi sửa xong, khởi động lại ứng dụng để áp dụng các thay đổi.</value>
   </data>
   <data name="textEmptyOutputPanel.Text" xml:space="preserve">
-    <value>Output of the app will display here.</value>
+    <value>Kết quả xử lí của ứng dụng sẽ hiện ở đây.</value>
   </data>
   <data name="textVersion" xml:space="preserve">
-    <value>CalcIt UWP version {0}, build {1}</value>
+    <value>CalcIt UWP phiên bản {0}, bản dựng số {1}</value>
     <comment>Don't put a period.</comment>
   </data>
   <data name="variableViewNameBox.PlaceholderText" xml:space="preserve">
-    <value>Name</value>
+    <value>Tên</value>
   </data>
   <data name="variableViewRemoveButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Remove</value>
+    <value>Bỏ khỏi danh sách</value>
   </data>
   <data name="variableViewValueBox.PlaceholderText" xml:space="preserve">
-    <value>Value</value>
+    <value>Giá trị</value>
   </data>
 </root>

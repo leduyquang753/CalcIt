@@ -266,6 +266,7 @@
     <None Include="CalcItUWP_TemporaryKey.pfx" />
     <None Include="Documentation.md" />
     <None Include="README.md" />
+    <PRIResource Include="Strings\vi-VN\Resources.resw" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

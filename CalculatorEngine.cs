@@ -321,7 +321,7 @@ namespace CalcItUWP {
 									NS.Push(currentBracelet.getResult());
 									status = true;
 									hadClosingBrace = true;
-								} else throw new ExpressionInvalidException("unmatchingBraces", i);
+								} else throw new ExpressionInvalidException("unmatchingBraces", i+1);
 							else if (OS.Count == 0) {
 								NS.Push(0);
 								status = true;

@@ -68,7 +68,7 @@
                                 <Button x:Uid="buttonEditStartupExpressions" Content="Edit" Click="onStartupExpressionsEditingRequested" Style="{StaticResource ButtonRevealStyle}"/>
                                 <HyperlinkButton x:Uid="buttonRestartApp" Content="Restart app" Margin="16,0,0,0" Click="onAppRestartRequested"/>
                             </StackPanel>
-                            <CheckBox x:Name="checkUseOldOutputBox" Content="Use plain text box for output" Margin="0,15,0,0" Checked="onCheckUseOldOutputBoxChanged" Unchecked="onCheckUseOldOutputBoxChanged"/>
+                            <CheckBox x:Uid="checkUseOldOutputBox" x:Name="checkUseOldOutputBox" Content="Use plain text box for output" Margin="0,15,0,0" Checked="onCheckUseOldOutputBoxChanged" Unchecked="onCheckUseOldOutputBoxChanged"/>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
