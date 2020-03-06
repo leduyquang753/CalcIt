@@ -94,6 +94,7 @@ namespace CalcItUWP {
 				await Task.Delay(200);
 				outputPanel.ChangeView(outputPanel.HorizontalOffset, outputPanel.ScrollableHeight, outputPanel.ZoomFactor);
 			}
+			textEmptyOutputPanel.Visibility = !useOldOutputBox && outputStack.Children.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		private void loadConfig() {
@@ -188,6 +189,7 @@ namespace CalcItUWP {
 
 		private void scrollOutputBox() {
 			var grid = (Grid)VisualTreeHelper.GetChild(outputBox, 0);
+			if (grid == null) return; // Prevent nasty crash.
 			for (var i = 0; i <= VisualTreeHelper.GetChildrenCount(grid) - 1; i++) {
 				object obj = VisualTreeHelper.GetChild(grid, i);
 				if (!(obj is ScrollViewer)) continue;
