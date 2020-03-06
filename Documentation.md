@@ -320,7 +320,7 @@ Returns 0 if the argument is greater than 0, 1 otherwise.
 
 Returns <value if true> if <condition> is greater than 0, <value if false> otherwise.
 
-If <value if true>/<value if false> is not present, defaults to 0.
+If \<value if true\> and/or \<value if false\> is/are not present, they will default to 0.
 
 **degToRad(<number 1>[; <number 2>][; <number 3>][…])**
 
