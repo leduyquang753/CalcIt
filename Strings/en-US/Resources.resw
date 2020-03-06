@@ -168,6 +168,17 @@
     <value>Enforce</value>
     <comment>This box is in the "Decimal separator" section, so no need to include "decimal separator" here.</comment>
   </data>
+  <data name="commandCopyAll.Text" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="commandCopyExpression.Text" xml:space="preserve">
+    <value>    Only expression</value>
+    <comment>Put 4 spaces to the beginning.</comment>
+  </data>
+  <data name="commandCopyResult.Text" xml:space="preserve">
+    <value>    Only result</value>
+    <comment>Put 4 spaces to the beginning.</comment>
+  </data>
   <data name="dialogHelpAndAbout.Title" xml:space="preserve">
     <value>Help and about</value>
   </data>
@@ -381,6 +392,9 @@
   </data>
   <data name="startupExpressionsDescription.Text" xml:space="preserve">
     <value>Press the button below to edit the startup expressions. After editing, restart the app to apply changes.</value>
+  </data>
+  <data name="textEmptyOutputPanel.Text" xml:space="preserve">
+    <value>Output of the app will display here.</value>
   </data>
   <data name="textVersion" xml:space="preserve">
     <value>CalcIt UWP version {0}, build {1}</value>

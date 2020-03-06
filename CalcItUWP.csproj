@@ -123,6 +123,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CalculationResult.xaml.cs">
+      <DependentUpon>CalculationResult.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CalculatorEngine.cs" />
     <Compile Include="ExpressionInvalidException.cs" />
     <Compile Include="Functions.cs" />
@@ -209,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CalculationResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HelpAndAbout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

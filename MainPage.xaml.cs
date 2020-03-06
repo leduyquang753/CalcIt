@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Resources;
@@ -27,6 +28,8 @@ namespace CalcItUWP {
 		const string startupExpressionsFileName = "Startup expressions.txt";
 		private string lastExpression = null;
 		private bool calculateLastIfEmpty = true;
+		private bool useOldOutputBox = false;
+		private bool loading = true;
 
 		public MainPage()
 		{
@@ -51,31 +54,45 @@ namespace CalcItUWP {
 			loadStartupExpressions();
 
 			updateVariableBoxes();
+
+			loading = false;
+
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+			FocusManager.TryFocusAsync(inputBox, FocusState.Keyboard);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		}
 
 		private async void loadStartupExpressions() {
 			StorageFolder dataFolder = ApplicationData.Current.LocalFolder;
-			if (await dataFolder.FileExistsAsync(startupExpressionsFileName)) {
-				startupExpressionsFile = await dataFolder.GetFileAsync(startupExpressionsFileName);
-				int lineNumber = 0;
-				foreach (string line in await FileIO.ReadLinesAsync(startupExpressionsFile)) {
-					lineNumber++;
-					string expression = line;
-					int doubleSlashPosition = expression.IndexOf("//");
-					if (doubleSlashPosition != -1) expression = expression.Substring(0, doubleSlashPosition).Trim();
-					if (expression != "") {
-						try {
-							engine.calculate(expression);
-						} catch (ExpressionInvalidException e) {
-							int position = ((ExpressionInvalidException)e).position;
-							outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + inputBox.Text + "\n"
-								+ String.Format(Utils.getString("error/headerStartup/" + (position == -1 ? "y" : "xy")), new[] { lineNumber.ToString(), position.ToString() })
-								+ e.Message;
-						}
+			if (!await dataFolder.FileExistsAsync(startupExpressionsFileName)) 
+				startupExpressionsFile = await (await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/defaultStartupExpressions.txt"))).CopyAsync(dataFolder, startupExpressionsFileName);
+			startupExpressionsFile = await dataFolder.GetFileAsync(startupExpressionsFileName);
+			int lineNumber = 0;
+			foreach (string line in await FileIO.ReadLinesAsync(startupExpressionsFile)) {
+				lineNumber++;
+				string expression = line;
+				int doubleSlashPosition = expression.IndexOf("//");
+				if (doubleSlashPosition != -1) expression = expression.Substring(0, doubleSlashPosition).Trim();
+				if (expression.Trim() != "") {
+					try {
+						engine.calculate(expression);
+					} catch (ExpressionInvalidException e) {
+						expression = line.Trim();
+						textEmptyOutputPanel.Visibility = Visibility.Collapsed;
+						int position = ((ExpressionInvalidException)e).position;
+						string errorText = String.Format(Utils.getString("error/headerStartup/" + (position == -1 ? "y" : "xy")), new[] { lineNumber.ToString(), position.ToString() }) + e.Message;
+						outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + inputBox.Text + "\n" + errorText;
+						outputStack.Children.Add(new CalculationResult(expression, null, errorText));
 					}
 				}
+			}
+
+			// Scroll output controls to the bottom.
+			if (useOldOutputBox) {
+				scrollOutputBox();
 			} else {
-				startupExpressionsFile = await (await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/defaultStartupExpressions.txt"))).CopyAsync(dataFolder, startupExpressionsFileName);
+				await Task.Delay(200);
+				outputPanel.ChangeView(outputPanel.HorizontalOffset, outputPanel.ScrollableHeight, outputPanel.ZoomFactor);
 			}
 		}
 
@@ -108,6 +125,11 @@ namespace CalcItUWP {
 
 			if (config.ContainsKey("maximumHistorySize")) inputBox.maximumHistorySize = (int)config["maximumHistorySize"]; else config["maximumHistorySize"] = 64;
 			sliderMaximumHistorySize.Value = inputBox.maximumHistorySize;
+
+			if (config.ContainsKey("useOldOutputBox")) useOldOutputBox = (bool)config["useOldOutputBox"]; else config["useOldOutputBox"] = false;
+			outputBox.Visibility = useOldOutputBox ? Visibility.Visible : Visibility.Collapsed;
+			outputPanel.Visibility = useOldOutputBox ? Visibility.Collapsed : Visibility.Visible;
+			checkUseOldOutputBox.IsChecked = useOldOutputBox;
 		}
 
 		private void updateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar) {
@@ -120,7 +142,7 @@ namespace CalcItUWP {
 			this.AppTitleBar.Height = coreTitleBar.Height;
 		}
 
-		private void calculateIt() {
+		private async void calculateIt() {
 			string input;
 			if (inputBox.Text == "") {
 				if (calculateLastIfEmpty && lastExpression != null) {
@@ -136,8 +158,9 @@ namespace CalcItUWP {
 						currentPosition += expression.Length + 1;
 						continue;
 					}
-					double result = engine.calculate(expression);
-					outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression.Trim() + "\n= " + Utils.formatNumber(result, engine);
+					string resultString = Utils.formatNumber(engine.calculate(expression), engine);
+					outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n= " + resultString;
+					outputStack.Children.Add(new CalculationResult(expression, "= " + resultString, null));
 					currentPosition += expression.Length + 1;
 				}
 				if (inputBox.history.Count >= inputBox.maximumHistorySize) inputBox.history.RemoveRange(inputBox.maximumHistorySize - 1, inputBox.history.Count - inputBox.maximumHistorySize + 1);
@@ -146,10 +169,24 @@ namespace CalcItUWP {
 				inputBox.Text = "";
 				inputBox.historyPointer = -1;
 			} catch (ExpressionInvalidException e) {
-				outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression.Trim() + "\n" + Utils.getString("error/header") + e.Message;
+				expression = expression.Trim();
+				string errorText = Utils.getString("error/header") + e.Message;
+				outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n" + errorText;
+				outputStack.Children.Add(new CalculationResult(expression, null, errorText));
 				if (e.position != -1) inputBox.Select(currentPosition + e.position, 0);
 			}
-			// Scroll output box to the bottom.
+			updateVariableBoxes();
+			textEmptyOutputPanel.Visibility = Visibility.Collapsed;
+			// Scroll output controls to the bottom.
+			if (useOldOutputBox) {
+				scrollOutputBox();
+			} else {
+				await Task.Delay(200);
+				outputPanel.ChangeView(outputPanel.HorizontalOffset, outputPanel.ScrollableHeight, outputPanel.ZoomFactor);
+			}
+		}
+
+		private void scrollOutputBox() {
 			var grid = (Grid)VisualTreeHelper.GetChild(outputBox, 0);
 			for (var i = 0; i <= VisualTreeHelper.GetChildrenCount(grid) - 1; i++) {
 				object obj = VisualTreeHelper.GetChild(grid, i);
@@ -157,7 +194,6 @@ namespace CalcItUWP {
 				((ScrollViewer)obj).ChangeView(0.0f, ((ScrollViewer)obj).ExtentHeight, 1.0f, true);
 				break;
 			}
-			updateVariableBoxes();
 		}
 
 		private void updateVariableBoxes() {
@@ -192,21 +228,25 @@ namespace CalcItUWP {
 		}
 
 		private void onSettingsAngleUnitChangedDegree(object sender, RoutedEventArgs e) {
+			if (loading) return;
 			engine.angleUnit = AngleUnits.DEGREE;
 			config["angleUnit"] = 0;
 		}
 
 		private void onSettingsAngleUnitChangedRadian(object sender, RoutedEventArgs e) {
+			if (loading) return;
 			engine.angleUnit = AngleUnits.RADIAN;
 			config["angleUnit"] = 1;
 		}
 
 		private void onSettingsAngleUnitChangedGradian(object sender, RoutedEventArgs e) {
+			if (loading) return;
 			engine.angleUnit = AngleUnits.GRADIAN;
 			config["angleUnit"] = 2;
 		}
 
 		private void onSettingsDecimalSeparatorChanged(object sender, RoutedEventArgs e) {
+			if (loading) return;
 			config["decimalDot"] = engine.decimalDot = (bool)radioDecimalDot.IsChecked;
 			if (engine.decimalDot) {
 				radioMultiplicationAsterisk.IsChecked = true;
@@ -214,14 +254,17 @@ namespace CalcItUWP {
 		}
 
 		private void onSettingsEnforceDecimalSeparatorChanged(object sender, RoutedEventArgs e) {
+			if (loading) return;
 			config["enforceDecimalSeparator"] = engine.enforceDecimalSeparator = (bool)checkEnforceDecimalSeparator.IsChecked;
 		}
 
 		private void onSettingsThousandSeparatorChanged(object sender, RoutedEventArgs e) {
+			if (loading) return;
 			config["thousandDot"] = engine.thousandDot = (bool)radioThousandSeparatorDot.IsChecked;
 		}
 
 		private void onSettingsMultiplicationSignChanged(object sender, RoutedEventArgs e) {
+			if (loading) return;
 			config["mulAsterisk"] = engine.mulAsterisk = (bool)radioMultiplicationAsterisk.IsChecked;
 			if (!engine.mulAsterisk) {
 				radioDecimalComma.IsChecked = true;
@@ -229,11 +272,14 @@ namespace CalcItUWP {
 		}
 
 		private void onSettingsUndefinedVariablesBehaviorChanged(object sender, RoutedEventArgs e) {
+			if (loading) return;
 			config["zeroUndefinedVars"] = engine.zeroUndefinedVars = (bool)radioDefaultUndefinedAs0.IsChecked;
 		}
 
-		private void onVariableWatchAddition(object sender, RoutedEventArgs e) {
+		private async void onVariableWatchAddition(object sender, RoutedEventArgs e) {
 			variableViewStack.Children.Add(new VariableView(variableViewStack.Children.Count, this));
+			await Task.Delay(200);
+			variableViewer.ChangeView(variableViewer.HorizontalOffset, variableViewer.ScrollableHeight, variableViewer.ZoomFactor);
 		}
 
 		public void onVariableRemovalRequested(int index) {
@@ -266,6 +312,8 @@ namespace CalcItUWP {
 
 		private void onClearRequested(object sender, RoutedEventArgs e) {
 			outputBox.Text = "";
+			outputStack.Children.Clear();
+			textEmptyOutputPanel.Visibility = useOldOutputBox ? Visibility.Collapsed : Visibility.Visible;
 		}
 
 		private async void onHelpButtonClick(object sender, RoutedEventArgs e) {
@@ -281,12 +329,25 @@ namespace CalcItUWP {
 		}
 
 		private void onMaximumStoredExpressionsChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e) {
+			if (loading) return;
 			if (inputBox == null) return;
 			config["maximumHistorySize"] = inputBox.maximumHistorySize = (int)sliderMaximumHistorySize.Value;
 		}
 
 		private void onCheckCalculateLastOfEmptyChanged(object sender, RoutedEventArgs e) {
+			if (loading) return;
 			config["calculateLastIfEmpty"] = calculateLastIfEmpty = checkCalculateLastIfEmpty.IsOn;
+		}
+
+		private void onCheckUseOldOutputBoxChanged(object sender, RoutedEventArgs e) {
+			if (loading) return;
+			config["useOldOutputBox"] = useOldOutputBox = (bool)checkUseOldOutputBox.IsChecked;
+			outputBox.Visibility = useOldOutputBox ? Visibility.Visible : Visibility.Collapsed;
+			outputPanel.Visibility = useOldOutputBox ? Visibility.Collapsed : Visibility.Visible;
+			textEmptyOutputPanel.Visibility = !useOldOutputBox && outputStack.Children.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+			if (useOldOutputBox) scrollOutputBox();
+			else
+				outputPanel.ChangeView(outputPanel.HorizontalOffset, outputPanel.ScrollableHeight, outputPanel.ZoomFactor);
 		}
 	}
 }

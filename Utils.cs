@@ -87,5 +87,14 @@ namespace CalcItUWP {
 			}
 			return toReturn;
 		}
+
+		public static int getIndexWithWhitespace(string text, int indexWithoutWhitespace) {
+			int position = -1, oldPosition = -1;
+			foreach (char c in text) {
+				position++;
+				if (c != ' ' && ++oldPosition == indexWithoutWhitespace-1) return position+1;
+			}
+			return position + 1;
+		}
 	}
 }

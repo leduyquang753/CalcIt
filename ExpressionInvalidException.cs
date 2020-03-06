@@ -8,5 +8,10 @@ namespace CalcItUWP {
 			base(messageArguments == null ? Utils.getString("error/" + key) : String.Format(Utils.getString("error/" + key), messageArguments)) {
 			this.position = position;
 		}
+
+		public ExpressionInvalidException(ExpressionInvalidException e, int position = -1) :
+			base(e.Message) {
+			this.position = position;
+		}
 	}
 }

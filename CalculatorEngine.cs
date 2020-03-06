@@ -158,7 +158,7 @@ namespace CalcItUWP {
 			if (OS.Count == 0) return;
 			Operand currentOperand = OS.Pop();
 			double currentNumber = NS.Pop();
-			int lastPriority = positiveInfinity;
+			int lastPriority = currentOperand.priority;
 			while (!(currentOperand is OpeningBrace)) {
 				if (currentOperand.priority != lastPriority) {
 					while (TOS.Count != 0) currentNumber = TOS.Pop().calculate(currentNumber, TNS.Pop(), this);
@@ -377,33 +377,39 @@ namespace CalcItUWP {
 		private string lowercaseAndRemoveWhitespace(string stringIn) => stringIn.Replace(" ", "").Replace("\t", "").Replace("\n", "").ToLower();
 
 		public double calculate(string expression) {
-			expression = lowercaseAndRemoveWhitespace(expression);
+			string trimmedExpression = lowercaseAndRemoveWhitespace(expression);
 			List<string> toAssign = new List<string>();
 			int ps;
+			int position = 0;
 			while (true) {
-				switch (ps = expression.IndexOf('=')) {
+				switch (ps = trimmedExpression.IndexOf('=')) {
 					case -1: goto exit;
-					case 0: throw new ExpressionInvalidException("unexpectedEqual");
+					case 0: throw new ExpressionInvalidException("unexpectedEqual", position+1);
 					default:
-						string s = expression.Substring(0, ps);
+						string s = trimmedExpression.Substring(0, ps);
 						if (s == "ans" || s == "preAns") throw new ExpressionInvalidException("reservedVariable");
 						if (isDigit(s[0])) throw new ExpressionInvalidException("invalidVariable", messageArguments: new[] { s }); 
 						foreach (char c in s) if (!isChar(c) && !isDigit(c)) throw new ExpressionInvalidException("nonAlphanumericVariableName", messageArguments: new[] { s });
 						toAssign.Add(s);
 						break;
 				}
-				expression = expression.Substring(ps + 1);
+				trimmedExpression = trimmedExpression.Substring(ps + 1);
+				position += ps + 1;
 			}
 		exit:
-			if (expression.Length == 0) throw new ExpressionInvalidException("nothingToCalculate");
-			if (expression == "!") {
+			if (trimmedExpression.Length == 0) throw new ExpressionInvalidException("nothingToCalculate");
+			if (trimmedExpression == "!") {
 				foreach (string s in toAssign) variableMap.Remove(s);
 				preAns = ans;
 				ans = 0;
 				return 0;
 			}
 			double oldAns = ans;
-			ans = performCalculation(expression);
+			try {
+				ans = performCalculation(trimmedExpression);
+			} catch (ExpressionInvalidException e) { // Handle and rethrow the exception to properly position the error in the expression with whitespace.
+				throw new ExpressionInvalidException(e, position + Utils.getIndexWithWhitespace(expression, position + e.position));
+			}
 			foreach (string s in toAssign) variableMap[s] = ans;
 			preAns = oldAns;
 			return ans;

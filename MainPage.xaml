@@ -10,101 +10,119 @@
 	mc:Ignorable="d"
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" MinWidth="500" MinHeight="300">
 
-	<Grid x:Name="mainWindow" Background="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}" Padding="0,0,0,0" MinWidth="500" MinHeight="300" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-		<Grid x:Name="AppTitleBar" Background="Transparent" VerticalAlignment="Top" d:IsLocked="True" >
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition x:Name="LeftPaddingColumn" Width="0"/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-			<Rectangle x:Name="BackButtonBackground" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Collapsed">
-				<Rectangle.Fill>
-					<LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
-						<GradientStop Color="#3F000000"/>
-						<GradientStop Color="Transparent" Offset="0.2"/>
-					</LinearGradientBrush>
-				</Rectangle.Fill>
-			</Rectangle>
-			<TextBlock Text="CalcIt" Grid.Column="1" Style="{StaticResource CaptionTextBlockStyle}" Margin="8,8,0,0"/>
-		</Grid>
-		<SplitView x:Name="mainSplitView" Margin="0,32,0,0" OpenPaneLength="400" PaneBackground="{ThemeResource SystemControlAcrylicWindowBrush}">
-			<SplitView.Pane>
-				<Grid>
-					<TextBlock x:Uid="settingsTitle" Text="Settings" TextWrapping="Wrap" Width="330" Height="70" Margin="0,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="36" Padding="20,10,20,0" HorizontalAlignment="Left"/>
-					<Button x:Uid="buttonCloseSettings" Content="&#xE0D5;" Style="{StaticResource ButtonRevealStyle}" Width="70" Height="70" HorizontalAlignment="Right" VerticalAlignment="Top" Background="{x:Null}" FocusVisualSecondaryBrush="#4CFFFFFF" FontFamily="Segoe UI Symbol" FontSize="28" Click="onSettingsReturnClick" ToolTipService.ToolTip="Close"/>
-					<ScrollViewer Padding="20,0,20,20" Margin="0,70,0,0">
-						<StackPanel VerticalAlignment="Top">
-							<TextBlock x:Uid="labelAngleUnit" Text="Angle unit" TextWrapping="Wrap"/>
-							<StackPanel Orientation="Horizontal">
-								<RadioButton x:Uid="radioAngleUnitDegree" x:Name="radioAngleUnitDegree" Content="Degrees" GroupName="Angle unit" IsChecked="True" MinWidth="120" Width="120" Checked="onSettingsAngleUnitChangedDegree"/>
-								<RadioButton x:Uid="radioAngleUnitRadian" x:Name="radioAngleUnitRadian" Content="Radians" Width="120" GroupName="Angle unit" Checked="onSettingsAngleUnitChangedRadian"/>
-								<RadioButton x:Uid="radioAngleUnitGradian" x:Name="radioAngleUnitGradian" Content="Gradians" Width="120" GroupName="Angle unit" Checked="onSettingsAngleUnitChangedGradian"/>
-							</StackPanel>
-							<TextBlock x:Uid="labelDecimalSeparator" Text="Decimal separator" TextWrapping="Wrap" Margin="0,15,0,0"/>
-							<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
-								<RadioButton x:Uid="radioDecimalSeparatorDot" x:Name="radioDecimalDot" Content="Dot" GroupName="Decimal separator" Width="120" Checked="onSettingsDecimalSeparatorChanged" Unchecked="onSettingsDecimalSeparatorChanged"/>
-								<RadioButton x:Uid="radioDecimalSeparatorComma" x:Name="radioDecimalComma" Content="Comma" GroupName="Decimal separator" Width="120" IsChecked="True"/>
-								<CheckBox x:Uid="checkEnforceDecimalSeparator" x:Name="checkEnforceDecimalSeparator" Content="Enforce" Width="116" Checked="onSettingsEnforceDecimalSeparatorChanged" Unchecked="onSettingsEnforceDecimalSeparatorChanged"/>
-							</StackPanel>
-							<TextBlock x:Uid="labelThousandSeparator" Text="Thousand separator" TextWrapping="Wrap" Margin="0,15,0,0"/>
-							<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
-								<RadioButton x:Uid="radioThousandSeparatorSpace" x:Name="radioThousandSeparatorSpace" Content="Space" GroupName="Thousand separator" IsChecked="True" Width="180"/>
-								<RadioButton x:Uid="radioThousandSeparatorDot" x:Name="radioThousandSeparatorDot" Content="Dot / Comma" Width="180" GroupName="Thousand separator" Checked="onSettingsThousandSeparatorChanged" Unchecked="onSettingsThousandSeparatorChanged"/>
-							</StackPanel>
-							<TextBlock x:Uid="labelMultiplicationSign" Text="Multiplication sign" TextWrapping="Wrap" Margin="0,15,0,0"/>
-							<StackPanel Orientation="Horizontal">
-								<RadioButton x:Uid="radioMultiplicationDot" x:Name="radioMultiplicationDot" Content="Dot" GroupName="Multiplication sign" Width="180" IsChecked="True"/>
-								<RadioButton x:Uid="radioMultiplicationAsterisk" x:Name="radioMultiplicationAsterisk" Content="Asterisk" Width="180" GroupName="Multiplication sign" Checked="onSettingsMultiplicationSignChanged" Unchecked="onSettingsMultiplicationSignChanged"/>
-							</StackPanel>
-							<TextBlock x:Uid="labelUndefinedVariablesHandling" Text="When trying to retrieve undefined variables" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0"/>
-							<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-								<RadioButton x:Uid="radioDefaultUndefinedAs0" x:Name="radioDefaultUndefinedAs0" Content="Return 0" GroupName="Undefined vars" Width="180" Checked="onSettingsUndefinedVariablesBehaviorChanged" Unchecked="onSettingsUndefinedVariablesBehaviorChanged"/>
-								<RadioButton x:Uid="radioRaiseErrorForUndefinedVariables" x:Name="radioRaiseErrorForUndefinedVariables" Content="Raise error" GroupName="Undefined vars" Width="180" IsChecked="True"/>
-							</StackPanel>
+    <Grid x:Name="mainWindow" Background="{ThemeResource SystemControlChromeMediumAcrylicWindowMediumBrush}" Padding="0,0,0,0" MinWidth="500" MinHeight="300" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <Grid x:Name="AppTitleBar" Background="Transparent" VerticalAlignment="Top" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftPaddingColumn" Width="0"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Rectangle x:Name="BackButtonBackground" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Collapsed">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                        <GradientStop Color="#3F000000"/>
+                        <GradientStop Color="Transparent" Offset="0.2"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock Text="CalcIt" Grid.Column="1" Style="{StaticResource CaptionTextBlockStyle}" Margin="8,8,0,0"/>
+        </Grid>
+        <SplitView x:Name="mainSplitView" Margin="0,32,0,0" OpenPaneLength="400" PaneBackground="{ThemeResource SystemControlAcrylicWindowBrush}" IsTabStop="False">
+            <SplitView.Pane>
+                <Grid>
+                    <TextBlock x:Uid="settingsTitle" Text="Settings" TextWrapping="Wrap" Width="330" Height="70" Margin="0,0,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="36" Padding="20,10,20,0" HorizontalAlignment="Left"/>
+                    <Button x:Uid="buttonCloseSettings" Content="&#xE0D5;" Style="{StaticResource ButtonRevealStyle}" Width="70" Height="70" HorizontalAlignment="Right" VerticalAlignment="Top" Background="{x:Null}" FocusVisualSecondaryBrush="#4CFFFFFF" FontFamily="Segoe UI Symbol" FontSize="28" Click="onSettingsReturnClick" ToolTipService.ToolTip="Close"/>
+                    <ScrollViewer Padding="20,0,20,20" Margin="0,70,0,0">
+                        <StackPanel VerticalAlignment="Top">
+                            <TextBlock x:Uid="labelAngleUnit" Text="Angle unit" TextWrapping="Wrap"/>
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton x:Uid="radioAngleUnitDegree" x:Name="radioAngleUnitDegree" Content="Degrees" GroupName="Angle unit" IsChecked="True" MinWidth="120" Width="120" Checked="onSettingsAngleUnitChangedDegree"/>
+                                <RadioButton x:Uid="radioAngleUnitRadian" x:Name="radioAngleUnitRadian" Content="Radians" Width="120" GroupName="Angle unit" Checked="onSettingsAngleUnitChangedRadian"/>
+                                <RadioButton x:Uid="radioAngleUnitGradian" x:Name="radioAngleUnitGradian" Content="Gradians" Width="120" GroupName="Angle unit" Checked="onSettingsAngleUnitChangedGradian"/>
+                            </StackPanel>
+                            <TextBlock x:Uid="labelDecimalSeparator" Text="Decimal separator" TextWrapping="Wrap" Margin="0,15,0,0"/>
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                                <RadioButton x:Uid="radioDecimalSeparatorDot" x:Name="radioDecimalDot" Content="Dot" GroupName="Decimal separator" Width="120" Checked="onSettingsDecimalSeparatorChanged" Unchecked="onSettingsDecimalSeparatorChanged"/>
+                                <RadioButton x:Uid="radioDecimalSeparatorComma" x:Name="radioDecimalComma" Content="Comma" GroupName="Decimal separator" Width="120" IsChecked="True"/>
+                                <CheckBox x:Uid="checkEnforceDecimalSeparator" x:Name="checkEnforceDecimalSeparator" Content="Enforce" Width="116" Checked="onSettingsEnforceDecimalSeparatorChanged" Unchecked="onSettingsEnforceDecimalSeparatorChanged"/>
+                            </StackPanel>
+                            <TextBlock x:Uid="labelThousandSeparator" Text="Thousand separator" TextWrapping="Wrap" Margin="0,15,0,0"/>
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                                <RadioButton x:Uid="radioThousandSeparatorSpace" x:Name="radioThousandSeparatorSpace" Content="Space" GroupName="Thousand separator" IsChecked="True" Width="180"/>
+                                <RadioButton x:Uid="radioThousandSeparatorDot" x:Name="radioThousandSeparatorDot" Content="Dot / Comma" Width="180" GroupName="Thousand separator" Checked="onSettingsThousandSeparatorChanged" Unchecked="onSettingsThousandSeparatorChanged"/>
+                            </StackPanel>
+                            <TextBlock x:Uid="labelMultiplicationSign" Text="Multiplication sign" TextWrapping="Wrap" Margin="0,15,0,0"/>
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton x:Uid="radioMultiplicationDot" x:Name="radioMultiplicationDot" Content="Dot" GroupName="Multiplication sign" Width="180" IsChecked="True"/>
+                                <RadioButton x:Uid="radioMultiplicationAsterisk" x:Name="radioMultiplicationAsterisk" Content="Asterisk" Width="180" GroupName="Multiplication sign" Checked="onSettingsMultiplicationSignChanged" Unchecked="onSettingsMultiplicationSignChanged"/>
+                            </StackPanel>
+                            <TextBlock x:Uid="labelUndefinedVariablesHandling" Text="When trying to retrieve undefined variables" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <RadioButton x:Uid="radioDefaultUndefinedAs0" x:Name="radioDefaultUndefinedAs0" Content="Return 0" GroupName="Undefined vars" Width="180" Checked="onSettingsUndefinedVariablesBehaviorChanged" Unchecked="onSettingsUndefinedVariablesBehaviorChanged"/>
+                                <RadioButton x:Uid="radioRaiseErrorForUndefinedVariables" x:Name="radioRaiseErrorForUndefinedVariables" Content="Raise error" GroupName="Undefined vars" Width="180" IsChecked="True"/>
+                            </StackPanel>
                             <ToggleSwitch x:Name="checkCalculateLastIfEmpty" x:Uid="checkCalculateLastIfEmpty" Header="Calculate the last expression if input is empty" Margin="0,15,0,0" IsOn="True" OffContent="Disabled" OnContent="Enabled" Toggled="onCheckCalculateLastOfEmptyChanged"/>
                             <Slider x:Name="sliderMaximumHistorySize" x:Uid="sliderExpressionsInHistory" TickFrequency="10" TickPlacement="Outside" Maximum="100" Value="64" Header="Maximum expressions in history" Margin="0,15,0,0" ValueChanged="onMaximumStoredExpressionsChanged"/>
                             <TextBlock x:Uid="labelStartupExpressions" Text="Startup expressions" TextWrapping="Wrap" Margin="0,15,0,0"/>
-							<TextBlock x:Uid="startupExpressionsDescription" Text="Press the button below to edit the startup expressions. After editing, restart the app to apply changes." TextWrapping="Wrap" Margin="0,3,0,0" FontSize="11" Foreground="#99000000"/>
-							<StackPanel Orientation="Horizontal" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-								<Button x:Uid="buttonEditStartupExpressions" Content="Edit" Click="onStartupExpressionsEditingRequested" Style="{StaticResource ButtonRevealStyle}"/>
-								<HyperlinkButton x:Uid="buttonRestartApp" Content="Restart app" Margin="16,0,0,0" Click="onAppRestartRequested"/>
-							</StackPanel>
-						</StackPanel>
-					</ScrollViewer>
-				</Grid>
-			</SplitView.Pane>
-			<Grid x:Name="mainGrid">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition MinWidth="226" Width="*"/>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition MinWidth="0" Width="Auto"/>
-				</Grid.ColumnDefinitions>
-				<TextBox x:Uid="outputBox" x:Name="outputBox" Margin="20,10,20,104" Text="" TextWrapping="Wrap" BorderThickness="2,2,2,2" AcceptsReturn="True" InputScope="Text" IsReadOnly="True" PlaceholderText="Output of the app will display here." IsTextPredictionEnabled="False" TabIndex="2" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsSpellCheckEnabled="False" ScrollViewer.VerticalScrollBarVisibility="Auto" Padding="8,4,8,5"/>
+                            <TextBlock x:Uid="startupExpressionsDescription" Text="Press the button below to edit the startup expressions. After editing, restart the app to apply changes." TextWrapping="Wrap" Margin="0,3,0,0" FontSize="11" Foreground="#99000000"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                <Button x:Uid="buttonEditStartupExpressions" Content="Edit" Click="onStartupExpressionsEditingRequested" Style="{StaticResource ButtonRevealStyle}"/>
+                                <HyperlinkButton x:Uid="buttonRestartApp" Content="Restart app" Margin="16,0,0,0" Click="onAppRestartRequested"/>
+                            </StackPanel>
+                            <CheckBox x:Name="checkUseOldOutputBox" Content="Use plain text box for output" Margin="0,15,0,0" Checked="onCheckUseOldOutputBoxChanged" Unchecked="onCheckUseOldOutputBoxChanged"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </SplitView.Pane>
+            <Grid x:Name="mainGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="226" Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition MinWidth="0" Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Uid="outputBox" x:Name="outputBox" Margin="20,10,20,104" Text="" TextWrapping="Wrap" BorderThickness="2,2,2,2" AcceptsReturn="True" InputScope="Text" IsReadOnly="True" PlaceholderText="Output of the app will display here." IsTextPredictionEnabled="False" TabIndex="2" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsSpellCheckEnabled="False" ScrollViewer.VerticalScrollBarVisibility="Auto" Padding="8,4,8,5" SelectionHighlightColorWhenNotFocused="#7F0063B1" Visibility="Collapsed"/>
+                <ScrollViewer x:Name="outputPanel" Margin="20,10,0,104" VerticalScrollBarVisibility="Auto" Padding="0,0,20,0">
+                    <StackPanel x:Name="outputStack">
+                        <StackPanel.ChildrenTransitions>
+                            <TransitionCollection>
+                                <AddDeleteThemeTransition/>
+                            </TransitionCollection>
+                        </StackPanel.ChildrenTransitions>
+                    </StackPanel>
+                </ScrollViewer>
+				<TextBlock x:Uid="textEmptyOutputPanel" Name="textEmptyOutputPanel" Text="Output of the app will display here." TextWrapping="Wrap" Foreground="#7F000000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,20,0,0"/>
 				<local:InputBox x:Uid="inputBox" x:Name="inputBox" Margin="20,0,20,62" Text="" TextWrapping="NoWrap" VerticalAlignment="Bottom" PlaceholderText="Enter any expression..." AllowDrop="True" BorderThickness="2,2,2,2" Padding="8,4,8,5" KeyDown="onInputBoxKeyDown" TabIndex="0" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" IsHandwritingViewEnabled="True"/>
-				<Button x:Uid="buttonCalculate" Style="{StaticResource AccentButtonStyle}" x:Name="buttonCalculate" Content="Calculate" Margin="0,0,20,20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Click="onCalculateButtonClick" TabIndex="1" BorderBrush="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"/>
-				<Button x:Uid="buttonCalculateSmall" Style="{StaticResource AccentButtonStyle}" x:Name="buttonCalculateSmall" Content="&#xEA47;" Margin="0,0,20,62" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="32" Height="32" BorderBrush="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}" FontFamily="Segoe MDL2 Assets" Padding="0,0,0,0" FontSize="18" Visibility="Collapsed" Click="onCalculateButtonClick"/>
-				<Button x:Uid="buttonSettings" Content="&#xE713;" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" Margin="20,0,0,20" Width="40" Click="onSettingsButtonClick" FontFamily="Segoe MDL2 Assets" ToolTipService.ToolTip="Settings" Height="32" Padding="0,0,0,0" FontSize="18"/>
-				<ToggleButton x:Uid="buttonViewVariables" x:Name="variablesToggleButton" Content="&#xE7B3;" Width="40" VerticalAlignment="Bottom" Margin="70,0,0,20" Height="32" FontFamily="Segoe MDL2 Assets" ToolTipService.ToolTip="View variables" Click="onVariablesPaneToggle" Padding="0,0,0,0" FontSize="18"/>
-				<Button x:Uid="buttonClear" Style="{StaticResource ButtonRevealStyle}" Content="&#xED62;" VerticalAlignment="Bottom" Margin="120,0,0,20" Width="40" Height="32" FontFamily="Segoe MDL2 Assets" Padding="0,0,0,0" FontSize="18" Click="onClearRequested"/>
-				<Button x:Uid="buttonHelp" Content="" Width="40" Height="32" VerticalAlignment="Bottom" Margin="170,0,0,20" FontFamily="Segoe MDL2 Assets" FontSize="18" Style="{StaticResource ButtonRevealStyle}" Click="onHelpButtonClick"/>
-				<Custom:GridSplitter x:Name="__Splitter__" ResizeDirection="Columns" HorizontalAlignment="Center" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ResizeBehavior="PreviousAndNext" Visibility="Collapsed" LayoutUpdated="onSplitterMove"/>
-				<Grid x:Name="variablesGrid" Grid.Column="2" Visibility="Collapsed" HorizontalAlignment="Stretch" MinWidth="260">
-					<TextBlock x:Uid="labelVariables" Text="Variables" TextWrapping="Wrap" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5,0,0"/>
-					<Button Content="Ans" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" Margin="20,0,0,20" Width="100" Click="onAnsInsertion"/>
-					<TextBox x:Name="ansValueBox" Text="" TextWrapping="NoWrap" IsReadOnly="True" VerticalAlignment="Bottom" Margin="130,0,20,20" PlaceholderText="Value" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsTextPredictionEnabled="False" IsSpellCheckEnabled="False" Padding="8,4,8,5"/>
-					<Button Content="PreAns" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" Margin="20,0,20,62" Width="100" Click="onPreAnsInsertion"/>
-					<TextBox x:Name="preAnsValueBox" Text="" TextWrapping="NoWrap" IsReadOnly="True" VerticalAlignment="Bottom" Margin="130,0,20,62" PlaceholderText="Value" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Padding="8,4,8,5"/>
-					<Button x:Uid="buttonAddVariable" Content="&#xE109;" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="20,0,20,104" FontFamily="Segoe MDL2 Assets" Padding="0,0,0,0" Height="32" FontSize="20" ToolTipService.ToolTip="Add a new variable to watch." Click="onVariableWatchAddition"/>
-					<ScrollViewer Grid.Column="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="20,0,0,0" Margin="0,35,0,146" VerticalScrollBarVisibility="Auto">
-						<StackPanel x:Name="variableViewStack" Margin="0,0,0,0" Padding="0,0,20,0" ScrollViewer.VerticalScrollBarVisibility="Auto">
-							<StackPanel.ChildrenTransitions>
-								<TransitionCollection>
-									<AddDeleteThemeTransition/>
-								</TransitionCollection>
-							</StackPanel.ChildrenTransitions>
-						</StackPanel>
-					</ScrollViewer>
-				</Grid>
-			</Grid>
-		</SplitView>
-	</Grid>
+                <Button x:Uid="buttonCalculate" Style="{StaticResource AccentButtonStyle}" x:Name="buttonCalculate" Content="Calculate" Margin="0,0,20,20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Click="onCalculateButtonClick" TabIndex="1" BorderBrush="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}"/>
+                <Button x:Uid="buttonCalculateSmall" Style="{StaticResource AccentButtonStyle}" x:Name="buttonCalculateSmall" Content="&#xEA47;" Margin="0,0,20,62" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="32" Height="32" BorderBrush="{ThemeResource SystemControlBackgroundAccentRevealBorderBrush}" FontFamily="Segoe MDL2 Assets" Padding="0,0,0,0" FontSize="18" Visibility="Collapsed" Click="onCalculateButtonClick" TabIndex="1"/>
+                <Button x:Uid="buttonSettings" Content="&#xE713;" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" Margin="20,0,0,20" Width="40" Click="onSettingsButtonClick" FontFamily="Segoe MDL2 Assets" ToolTipService.ToolTip="Settings" Height="32" Padding="0,0,0,0" FontSize="18" TabIndex="2"/>
+                <ToggleButton x:Uid="buttonViewVariables" x:Name="variablesToggleButton" Content="&#xE7B3;" Width="40" VerticalAlignment="Bottom" Margin="70,0,0,20" Height="32" FontFamily="Segoe MDL2 Assets" ToolTipService.ToolTip="View variables" Click="onVariablesPaneToggle" Padding="0,0,0,0" FontSize="18" TabIndex="3"/>
+                <Button x:Uid="buttonClear" Style="{StaticResource ButtonRevealStyle}" Content="&#xED62;" VerticalAlignment="Bottom" Margin="120,0,0,20" Width="40" Height="32" FontFamily="Segoe MDL2 Assets" Padding="0,0,0,0" FontSize="18" Click="onClearRequested" TabIndex="4"/>
+                <Button x:Uid="buttonHelp" Content="" Width="40" Height="32" VerticalAlignment="Bottom" Margin="170,0,0,20" FontFamily="Segoe MDL2 Assets" FontSize="18" Style="{StaticResource ButtonRevealStyle}" Click="onHelpButtonClick" TabIndex="5"/>
+                <Custom:GridSplitter x:Name="__Splitter__" ResizeDirection="Columns" HorizontalAlignment="Center" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ResizeBehavior="PreviousAndNext" Visibility="Collapsed" LayoutUpdated="onSplitterMove" TabIndex="6" GripperForeground="{ThemeResource ButtonForegroundThemeBrush}">
+                    <Custom:GridSplitter.Foreground>
+                        <AcrylicBrush/>
+                    </Custom:GridSplitter.Foreground>
+                    <Custom:GridSplitter.Background>
+                        <AcrylicBrush Opacity="0.5"/>
+                    </Custom:GridSplitter.Background>
+                </Custom:GridSplitter>
+                <Grid x:Name="variablesGrid" Grid.Column="2" Visibility="Collapsed" HorizontalAlignment="Stretch" MinWidth="260">
+                    <TextBlock x:Uid="labelVariables" Text="Variables" TextWrapping="Wrap" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,5,0,0"/>
+                    <Button Content="Ans" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" Margin="20,0,0,20" Width="100" Click="onAnsInsertion" TabIndex="8"/>
+                    <TextBox x:Name="ansValueBox" Text="" TextWrapping="NoWrap" IsReadOnly="True" VerticalAlignment="Bottom" Margin="130,0,20,20" PlaceholderText="Value" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsTextPredictionEnabled="False" Padding="8,4,8,5" TabIndex="9"/>
+                    <Button Content="PreAns" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" Margin="20,0,20,62" Width="100" Click="onPreAnsInsertion" TabIndex="10"/>
+                    <TextBox x:Name="preAnsValueBox" Text="" TextWrapping="NoWrap" IsReadOnly="True" VerticalAlignment="Bottom" Margin="130,0,20,62" PlaceholderText="Value" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Padding="8,4,8,5" TabIndex="11"/>
+                    <Button x:Uid="buttonAddVariable" Content="&#xE109;" Style="{StaticResource ButtonRevealStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="20,0,20,104" FontFamily="Segoe MDL2 Assets" Padding="0,0,0,0" Height="32" FontSize="20" ToolTipService.ToolTip="Add a new variable to watch." Click="onVariableWatchAddition"/>
+                    <ScrollViewer x:Name="variableViewer" Grid.Column="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="20,0,0,0" Margin="0,35,0,146" VerticalScrollBarVisibility="Auto" TabIndex="7">
+                        <StackPanel x:Name="variableViewStack" Margin="0,0,0,0" Padding="0,0,20,0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <StackPanel.ChildrenTransitions>
+                                <TransitionCollection>
+                                    <AddDeleteThemeTransition/>
+                                </TransitionCollection>
+                            </StackPanel.ChildrenTransitions>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+        </SplitView>
+    </Grid>
 </Page>
