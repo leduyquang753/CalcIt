@@ -314,6 +314,9 @@
   <data name="getVarString.invalidVariableName" xml:space="preserve">
     <value>[Tên biến không hợp lệ.]</value>
   </data>
+  <data name="getVarString.numberOutOfRange" xml:space="preserve">
+    <value>[Số quá lớn hoặc nhỏ.]</value>
+  </data>
   <data name="getVarString.variableNotSet" xml:space="preserve">
     <value>[Biến chưa được gán.]</value>
   </data>
@@ -398,6 +401,12 @@
   </data>
   <data name="startupExpressionsDescription.Text" xml:space="preserve">
     <value>Nhấn nút bên dưới để sửa các biểu thức khởi động. Khi sửa xong, khởi động lại ứng dụng để áp dụng các thay đổi.</value>
+  </data>
+  <data name="text.newOutputNumberOutOfRange" xml:space="preserve">
+    <value>Kết quả tính quá lớn hoặc nhỏ để hiển thị.</value>
+  </data>
+  <data name="text.oldOutputNumberOutOfRange" xml:space="preserve">
+    <value>Số quá lớn hoặc nhỏ.</value>
   </data>
   <data name="textEmptyOutputPanel.Text" xml:space="preserve">
     <value>Kết quả xử lí của ứng dụng sẽ hiện ở đây.</value>

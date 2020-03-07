@@ -272,6 +272,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="azure-pipelines.yml" />
+    <None Include="certinfo.pfx" />
     <None Include="Documentation.md" />
     <None Include="README.md" />
     <PRIResource Include="Strings\vi-VN\Resources.resw" />

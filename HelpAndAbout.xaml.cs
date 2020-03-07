@@ -7,7 +7,7 @@ namespace CalcItUWP {
 		public HelpAndAbout() {
 			this.InitializeComponent();
 			PackageVersion version = Package.Current.Id.Version;
-			textVersion.Text = String.Format(Utils.getString("textVersion"), new[] { version.Major + "." + version.Minor + "." + version.Revision, version.Build.ToString() });
+			textVersion.Text = String.Format(Utils.getString("textVersion"), new[] { version.Major + "." + version.Minor, version.Build.ToString() });
 		}
 
 		private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args) {
