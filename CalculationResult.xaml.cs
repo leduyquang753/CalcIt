@@ -90,5 +90,11 @@ namespace CalcItUWP {
 			if (mainPage == null) return;
 			mainPage.pasteTextToInput(controlExpression.Text);
 		}
+
+		public void setResultOutOfRange() {
+			controlResult.Text = "= ?";
+			controlResult.Visibility = Visibility.Visible;
+			ToolTipService.SetToolTip(controlResult, Utils.getString("text/newOutputNumberOutOfRange"));
+		}
 	}
 }

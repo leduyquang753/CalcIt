@@ -57,35 +57,51 @@ namespace CalcItUWP {
 		}
 
 		public static string formatNumber(double number, CalculatorEngine engine) {
-			char mulSign = engine.mulAsterisk || engine.decimalDot || (!engine.decimalDot && engine.thousandDot) ? '*' : '.';
-			string toReturn;
-			if (number != 0 && Math.Log10(Math.Abs(number)) <= -7) {
-				int exponent = (int)Math.Ceiling(-Math.Log10(Math.Abs(number)) / 3) * 3;
-				toReturn = getFormattedNumberInternal(number * Math.Pow(10, exponent), engine, mulSign);
-				return exponent == 0 ? toReturn : toReturn + mulSign + "10^-" + exponent;
-			}
-			string formatted = getFormattedNumberInternal(number, engine, mulSign);
-			toReturn = "";
-			int digitCount = -1;
-			char decimalSeparator = engine.decimalDot ? '.' : ',';
-			foreach (char c in formatted) {
-				if (c == decimalSeparator) {
-					toReturn += c;
-					digitCount = 0;
-				} else if (c == mulSign) {
-					toReturn += c;
-					digitCount = -1;
-				} else {
-					if (digitCount == -1) {
+			try {
+				char mulSign = engine.mulAsterisk || engine.decimalDot || (!engine.decimalDot && engine.thousandDot) ? '*' : '.';
+				string toReturn;
+				double log = Math.Log10(Math.Abs(number));
+				if (number != 0 && (log <= -7 || log >= 18))
+				{
+					int exponent = (int)Math.Floor(Math.Log10(Math.Abs(number)) / 3) * 3;
+					toReturn = getFormattedNumberInternal(number * Math.Pow(10, -exponent), engine, mulSign);
+					return exponent == 0 ? toReturn : toReturn + mulSign + "10^" + exponent;
+				}
+				string formatted = getFormattedNumberInternal(number, engine, mulSign);
+				toReturn = "";
+				int digitCount = -1;
+				char decimalSeparator = engine.decimalDot ? '.' : ',';
+				foreach (char c in formatted)
+				{
+					if (c == decimalSeparator)
+					{
 						toReturn += c;
-						continue;
-					} else if (digitCount == 10) continue; else {
+						digitCount = 0;
+					}
+					else if (c == mulSign)
+					{
 						toReturn += c;
-						digitCount++;
+						digitCount = -1;
+					}
+					else
+					{
+						if (digitCount == -1)
+						{
+							toReturn += c;
+							continue;
+						}
+						else if (digitCount == 10) continue;
+						else
+						{
+							toReturn += c;
+							digitCount++;
+						}
 					}
 				}
+				return toReturn;
+			} catch (OverflowException) {
+				return null;
 			}
-			return toReturn;
 		}
 
 		public static int getIndexWithWhitespace(string text, int indexWithoutWhitespace) {

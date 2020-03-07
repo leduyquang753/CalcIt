@@ -18,8 +18,8 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-    <PackageCertificateThumbprint>D9BD3CDA66795D1D7C514F2F4520EB42E2930490</PackageCertificateThumbprint>
-    <PackageCertificateKeyFile />
+    <PackageCertificateThumbprint>FE2F84059E907E922009FD6B436D6F00A03DA7EC</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>CalcItUWP_TemporaryKey.pfx</PackageCertificateKeyFile>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA512</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
@@ -270,6 +270,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="azure-pipelines.yml" />
     <None Include="CalcItUWP_TemporaryKey.pfx" />
     <None Include="Documentation.md" />
     <None Include="README.md" />

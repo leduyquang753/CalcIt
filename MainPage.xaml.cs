@@ -157,8 +157,11 @@ namespace CalcItUWP {
 						continue;
 					}
 					string resultString = Utils.formatNumber(engine.calculate(expression), engine);
-					outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n= " + resultString;
-					outputStack.Children.Add(new CalculationResult(expression, "= " + resultString, null, this));
+					expression = expression.Trim();
+					outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n= " + (resultString ?? "? (" + Utils.getString("text/oldOutputNumberOutOfRange") + ")");
+					CalculationResult resultElement = new CalculationResult(expression, resultString, null, this);
+					if (resultString == null) resultElement.setResultOutOfRange();
+					outputStack.Children.Add(resultElement);
 					currentPosition += expression.Length + 1;
 				}
 				if (inputBox.history.Count >= inputBox.maximumHistorySize) inputBox.history.RemoveRange(inputBox.maximumHistorySize - 1, inputBox.history.Count - inputBox.maximumHistorySize + 1);
@@ -196,8 +199,9 @@ namespace CalcItUWP {
 		}
 
 		private void updateVariableBoxes() {
-			ansValueBox.Text = engine.getVariableString("Ans");
-			preAnsValueBox.Text = engine.getVariableString("PreAns");
+			string numOutOfRange = Utils.getString("getVarString/numberOutOfRange");
+			ansValueBox.Text = engine.getVariableString("Ans") ?? numOutOfRange;
+			preAnsValueBox.Text = engine.getVariableString("PreAns") ?? numOutOfRange;
 			foreach (FrameworkElement view in variableViewStack.Children) ((VariableView)view).update();
 		}
 
@@ -312,7 +316,7 @@ namespace CalcItUWP {
 			inputBox.Margin = newThickness;
 			buttonCalculateSmall.Visibility = small ? Visibility.Visible : Visibility.Collapsed;
 			buttonCalculate.Visibility = small ? Visibility.Collapsed : Visibility.Visible;
-
+			mainGrid.ColumnDefinitions[2].Width = new GridLength(ActualWidth - mainGrid.ColumnDefinitions[0].ActualWidth - mainGrid.ColumnDefinitions[1].ActualWidth);
 		}
 
 		private void onClearRequested(object sender, RoutedEventArgs e) {

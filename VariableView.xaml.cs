@@ -32,7 +32,7 @@ namespace CalcItUWP {
 
 		public void update() {
 			if (parent == null) return;
-			value.Text = parent.engine.getVariableString(name.Text);
+			value.Text = parent.engine.getVariableString(name.Text) ?? Utils.getString("getVariableString/numberOutOfRange");
 		}
 	}
 }
