@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="vi-VN" original="CALCITUWP/STRINGS/EN-US/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6915.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="CALCITUWP/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="appDescription" translate="yes" xml:space="preserve">
+          <source>An app that calculates mathematical expressions.</source>
+          <target state="translated">Một ứng dụng có thể tính các biểu thức toán học.</target>
+        </trans-unit>
+        <trans-unit id="appName" translate="yes" xml:space="preserve">
+          <source>CalcIt</source>
+          <target state="translated">CalcIt</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Should be kept as-is.</note>
+        </trans-unit>
+        <trans-unit id="buttonAddVariable.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Add a new variable to watch</source>
+          <target state="translated">Thêm biến để theo dõi</target>
+        </trans-unit>
+        <trans-unit id="buttonCalculate.Content" translate="yes" xml:space="preserve">
+          <source>Calculate</source>
+          <target state="translated">Tính</target>
+        </trans-unit>
+        <trans-unit id="buttonCalculateSmall.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Calculate</source>
+          <target state="translated">Tính</target>
+        </trans-unit>
+        <trans-unit id="buttonClear.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Clear output</source>
+          <target state="translated">Xóa các kết quả</target>
+        </trans-unit>
+        <trans-unit id="buttonCloseSettings.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Close</source>
+          <target state="translated">Đóng</target>
+        </trans-unit>
+        <trans-unit id="buttonEditStartupExpressions.Content" translate="yes" xml:space="preserve">
+          <source>Edit</source>
+          <target state="translated">Sửa</target>
+        </trans-unit>
+        <trans-unit id="buttonHelp.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Help and about</source>
+          <target state="translated">Trợ giúp và thông tin</target>
+        </trans-unit>
+        <trans-unit id="buttonRestartApp.Content" translate="yes" xml:space="preserve">
+          <source>Restart app</source>
+          <target state="translated">Mở lại ứng dụng</target>
+        </trans-unit>
+        <trans-unit id="buttonSettings.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="translated">Cài đặt</target>
+        </trans-unit>
+        <trans-unit id="buttonViewVariables.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>View variables</source>
+          <target state="translated">Xem các biến</target>
+        </trans-unit>
+        <trans-unit id="checkCalculateLastIfEmpty.Header" translate="yes" xml:space="preserve">
+          <source>Calculate the last expression if input is empty</source>
+          <target state="translated">Tính biểu thức trước đó khi hộp nhập trống</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Don't put a period.</note>
+        </trans-unit>
+        <trans-unit id="checkCalculateLastIfEmpty.OffContent" translate="yes" xml:space="preserve">
+          <source>Disabled</source>
+          <target state="translated">Tắt</target>
+        </trans-unit>
+        <trans-unit id="checkCalculateLastIfEmpty.OnContent" translate="yes" xml:space="preserve">
+          <source>Enabled</source>
+          <target state="translated">Bật</target>
+        </trans-unit>
+        <trans-unit id="checkEnforceDecimalSeparator.Content" translate="yes" xml:space="preserve">
+          <source>Enforce</source>
+          <target state="translated">Bắt buộc</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">This box is in the "Decimal separator" section, so no need to include "decimal separator" here.</note>
+        </trans-unit>
+        <trans-unit id="checkUseOldOutputBox.Content" translate="yes" xml:space="preserve">
+          <source>Use plain text box for output</source>
+          <target state="translated">Dùng hộp văn bản thuần để hiện kết quả</target>
+        </trans-unit>
+        <trans-unit id="commandCopyAll.Text" translate="yes" xml:space="preserve">
+          <source>Copy</source>
+          <target state="translated">Chép</target>
+        </trans-unit>
+        <trans-unit id="commandCopyExpression.Text" translate="yes" xml:space="preserve">
+          <source>    Only expression</source>
+          <target state="translated">    Chỉ biểu thức</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Put 4 spaces to the beginning.</note>
+        </trans-unit>
+        <trans-unit id="commandCopyResult.Text" translate="yes" xml:space="preserve">
+          <source>    Only result</source>
+          <target state="translated">    Chỉ kết quả</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Put 4 spaces to the beginning.</note>
+        </trans-unit>
+        <trans-unit id="dialogHelpAndAbout.PrimaryButtonText" translate="yes" xml:space="preserve">
+          <source>Close</source>
+          <target state="translated">Đóng</target>
+        </trans-unit>
+        <trans-unit id="dialogHelpAndAbout.Title" translate="yes" xml:space="preserve">
+          <source>Help and about</source>
+          <target state="translated">Trợ giúp &amp; thông tin</target>
+        </trans-unit>
+        <trans-unit id="error.braceInvolved" translate="yes" xml:space="preserve">
+          <source>Brace is involved as an operator. This is a BUG, report it to the author.</source>
+          <target state="translated">Dấu ngoặc bị xử lí như toán tử. Đây là LỖI CHƯƠNG TRÌNH, hãy thông báo tác giả.</target>
+        </trans-unit>
+        <trans-unit id="error.divisionByZero" translate="yes" xml:space="preserve">
+          <source>Division by zero.</source>
+          <target state="translated">Chia cho không.</target>
+        </trans-unit>
+        <trans-unit id="error.header" translate="yes" xml:space="preserve">
+          <source>ERROR: </source>
+          <target state="translated">LỖI: </target>
+        </trans-unit>
+        <trans-unit id="error.headerStartup.xy" translate="yes" xml:space="preserve">
+          <source>ERROR in startup expressions file at ({0}; {1}): </source>
+          <target state="translated">LỖI trong tệp biểu thức khởi động tại ({0}; {1}): </target>
+        </trans-unit>
+        <trans-unit id="error.headerStartup.y" translate="yes" xml:space="preserve">
+          <source>ERROR in startup expressions file at line {0}: </source>
+          <target state="translated">LỖI trong tệp biểu thức khởi động tại dòng {0}: </target>
+        </trans-unit>
+        <trans-unit id="error.invalidArccosArg" translate="yes" xml:space="preserve">
+          <source>Invalid arccosine function argument.</source>
+          <target state="translated">Tham số hàm arccosine không hợp lệ.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidArcsinArg" translate="yes" xml:space="preserve">
+          <source>Invalid arcsine function argument.</source>
+          <target state="translated">Tham số hàm arcsine không hợp lệ.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidCombinationNegativeArgs" translate="yes" xml:space="preserve">
+          <source>Combination function's arguments must not be negative.</source>
+          <target state="translated">Các tham số hàm tổ hợp không được âm.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidCombinationNumArgs" translate="yes" xml:space="preserve">
+          <source>Combination function must receive exactly 2 arguments.</source>
+          <target state="translated">Hàm tổ hợp phải nhận đúng 2 tham số.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidComparisonNumArgs" translate="yes" xml:space="preserve">
+          <source>Comparison function must receive at least 2 arguments.</source>
+          <target state="translated">Hàm so sánh phải nhận ít nhất 2 tham số.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidFactorialArg" translate="yes" xml:space="preserve">
+          <source>Factorial function's argument must not be negative.</source>
+          <target state="translated">Tham số hàm giai thừa không được âm.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidIfNumArgs" translate="yes" xml:space="preserve">
+          <source>Conditional function only takes up to 3 arguments.</source>
+          <target state="translated">Hàm điều kiện chỉ nhận tối đa 3 tham số.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidLogBase" translate="yes" xml:space="preserve">
+          <source>Logarithm function's base must be positive.</source>
+          <target state="translated">Cơ số hàm logarid phải dương.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidLogInput" translate="yes" xml:space="preserve">
+          <source>Logarithm function's input must be positive.</source>
+          <target state="translated">Tham số vào hàm logarid phải dương.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidNotNumArgs" translate="yes" xml:space="preserve">
+          <source>Not function only takes 1 argument.</source>
+          <target state="translated">Hàm đảo chỉ nhận một tham số.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidPermutationNegativeArgs" translate="yes" xml:space="preserve">
+          <source>Permutation function's arguments must not be negative.</source>
+          <target state="translated">Các tham số hàm hoán vị không được âm.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidPermutationNumArgs" translate="yes" xml:space="preserve">
+          <source>Permutation function must receive exactly 2 arguments.</source>
+          <target state="translated">Hàm hoán vị phải nhận đúng 2 tham số.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidRandomNoIntegerBetween" translate="yes" xml:space="preserve">
+          <source>Random integer function's arguments have no integers in between.</source>
+          <target state="translated">Không có số nguyên nào nằm ở giữa các tham số cho hàm số nguyên ngẫu nhiên.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidRandomNumArgs" translate="yes" xml:space="preserve">
+          <source>Random function only takes up to 2 arguments.</source>
+          <target state="translated">Hàm ngẫu nhiên chỉ nhận tối đa 2 tham số.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidVariable" translate="yes" xml:space="preserve">
+          <source>Invalid variable name: "{0}". It must not start with a digit.</source>
+          <target state="translated">Tên biến không hợp lệ: "{0}". Nó không được bắt đầu bằng chữ số.</target>
+        </trans-unit>
+        <trans-unit id="error.level0Root" translate="yes" xml:space="preserve">
+          <source>Level 0 root occured.</source>
+          <target state="translated">Căn bậc 0 đã xảy ra.</target>
+        </trans-unit>
+        <trans-unit id="error.nonAlphanumericVariableName" translate="yes" xml:space="preserve">
+          <source>Invalid variable name: "{0}". It must only consist of alphanumeric characters and underscores.</source>
+          <target state="translated">Tên biến không hợp lệ: "{0}". Nó chỉ được có các chữ cái, chữ số và gạch dưới.</target>
+        </trans-unit>
+        <trans-unit id="error.nothingToCalculate" translate="yes" xml:space="preserve">
+          <source>There is nothing to calculate.</source>
+          <target state="translated">Không có gì để tính.</target>
+        </trans-unit>
+        <trans-unit id="error.numberOutOfRange" translate="yes" xml:space="preserve">
+          <source>Numbers involved in the calculation are too large or too small.</source>
+          <target state="translated">Các con số trong phép tính quá lớn hoặc quá nhỏ.</target>
+        </trans-unit>
+        <trans-unit id="error.reservedVariable" translate="yes" xml:space="preserve">
+          <source>Ans and PreAns are reserved variables and cannot be set.</source>
+          <target state="translated">Ans và PreAns là các biến dành riêng và không thể gán.</target>
+        </trans-unit>
+        <trans-unit id="error.trailingSign" translate="yes" xml:space="preserve">
+          <source>Trailing positive/negative sign.</source>
+          <target state="translated">Dư dấu âm/dương ở cuối biểu thức.</target>
+        </trans-unit>
+        <trans-unit id="error.unexpectedClosingBrace" translate="yes" xml:space="preserve">
+          <source>Unexpected closing brace.</source>
+          <target state="translated">Dấu đóng ngoặc ở vị trí không hợp lệ.</target>
+        </trans-unit>
+        <trans-unit id="error.unexpectedDecimalSeparator" translate="yes" xml:space="preserve">
+          <source>Unexpected decimal separator.</source>
+          <target state="translated">Dấu thập phân ở vị trí không hợp lệ.</target>
+        </trans-unit>
+        <trans-unit id="error.unexpectedDigit" translate="yes" xml:space="preserve">
+          <source>Unexpected digit.</source>
+          <target state="translated">Chữ số ở vị trí không hợp lệ.</target>
+        </trans-unit>
+        <trans-unit id="error.unexpectedEnd" translate="yes" xml:space="preserve">
+          <source>Unexpected end.</source>
+          <target state="translated">Biểu thức kết thúc bất ngờ.</target>
+        </trans-unit>
+        <trans-unit id="error.unexpectedEqual" translate="yes" xml:space="preserve">
+          <source>Unexpected equal sign.</source>
+          <target state="translated">Dấu bằng ở vị trí không hợp lệ.</target>
+        </trans-unit>
+        <trans-unit id="error.unexpectedOperand" translate="yes" xml:space="preserve">
+          <source>Unexpected operand.</source>
+          <target state="translated">Toán tử ở vị trí không hợp lệ.</target>
+        </trans-unit>
+        <trans-unit id="error.unexpectedPercent" translate="yes" xml:space="preserve">
+          <source>Unexpected percent sign.</source>
+          <target state="translated">Dấu phần trăm ở vị trí không hợp lệ.</target>
+        </trans-unit>
+        <trans-unit id="error.unexpectedSemicolon" translate="yes" xml:space="preserve">
+          <source>Unexpected semicolon.</source>
+          <target state="translated">Dấu chấm phẩy ở vị trí không hợp lệ.</target>
+        </trans-unit>
+        <trans-unit id="error.unexpectedThousandSeparator" translate="yes" xml:space="preserve">
+          <source>Unexpected thousand separator.</source>
+          <target state="translated">Dấu phân lớp ở vị trí không hợp lệ.</target>
+        </trans-unit>
+        <trans-unit id="error.unknownFunction" translate="yes" xml:space="preserve">
+          <source>Unknown function: "{0}".</source>
+          <target state="translated">Hàm không xác định: "{0}".</target>
+        </trans-unit>
+        <trans-unit id="error.unknownSymbol" translate="yes" xml:space="preserve">
+          <source>Unknown symbol.</source>
+          <target state="translated">Kí tự không xác định.</target>
+        </trans-unit>
+        <trans-unit id="error.unmatchingBraces" translate="yes" xml:space="preserve">
+          <source>Unmatching braces.</source>
+          <target state="translated">Dấu mở và đóng ngoặc không khớp nhau.</target>
+        </trans-unit>
+        <trans-unit id="error.unsupportedExponentiation" translate="yes" xml:space="preserve">
+          <source>Unsupported exponentiation: {0} ^ {1}.</source>
+          <target state="translated">Lũy thừa không được hỗ trợ: {0} ^ {1}.</target>
+        </trans-unit>
+        <trans-unit id="error.variableNotSet" translate="yes" xml:space="preserve">
+          <source>Variable "{0}" is not set.</source>
+          <target state="translated">Biến "{0}" chưa được gán.</target>
+        </trans-unit>
+        <trans-unit id="getVarString.emptyVariableName" translate="yes" xml:space="preserve">
+          <source>[Empty variable name.]</source>
+          <target state="translated">[Tên biến trống.]</target>
+        </trans-unit>
+        <trans-unit id="getVarString.invalidVariableName" translate="yes" xml:space="preserve">
+          <source>[Invalid variable name.]</source>
+          <target state="translated">[Tên biến không hợp lệ.]</target>
+        </trans-unit>
+        <trans-unit id="getVarString.numberOutOfRange" translate="yes" xml:space="preserve">
+          <source>[Number too large or small.]</source>
+          <target state="translated">[Số quá lớn hoặc nhỏ.]</target>
+        </trans-unit>
+        <trans-unit id="getVarString.variableNotSet" translate="yes" xml:space="preserve">
+          <source>[Variable not set.]</source>
+          <target state="translated">[Biến chưa được gán.]</target>
+        </trans-unit>
+        <trans-unit id="inputBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Enter any expresssion...</source>
+          <target state="translated">Nhập bất kì biểu thức nào...</target>
+        </trans-unit>
+        <trans-unit id="labelAngleUnit.Text" translate="yes" xml:space="preserve">
+          <source>Angle unit</source>
+          <target state="translated">Đơn vị góc</target>
+        </trans-unit>
+        <trans-unit id="labelDecimalSeparator.Text" translate="yes" xml:space="preserve">
+          <source>Decimal separator</source>
+          <target state="translated">Dấu thập phân</target>
+        </trans-unit>
+        <trans-unit id="labelMoreComingSoon.Text" translate="yes" xml:space="preserve">
+          <source>More coming soon...</source>
+          <target state="translated">Còn nữa, sẽ có sau...</target>
+        </trans-unit>
+        <trans-unit id="labelMultiplicationSign.Text" translate="yes" xml:space="preserve">
+          <source>Multiplication sign</source>
+          <target state="translated">Dấu nhân</target>
+        </trans-unit>
+        <trans-unit id="labelStartupExpressions.Text" translate="yes" xml:space="preserve">
+          <source>Startup expressions</source>
+          <target state="translated">Các biểu thức khởi động</target>
+        </trans-unit>
+        <trans-unit id="labelThousandSeparator.Text" translate="yes" xml:space="preserve">
+          <source>Thousand separator</source>
+          <target state="translated">Dấu phân lớp</target>
+        </trans-unit>
+        <trans-unit id="labelUndefinedVariablesHandling.Text" translate="yes" xml:space="preserve">
+          <source>When trying to retrieve undefined variables</source>
+          <target state="translated">Khi thử lấy giá trị các biến chưa gán</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Don't add colon, ellipsis or anything to the end.</note>
+        </trans-unit>
+        <trans-unit id="labelVariables.Text" translate="yes" xml:space="preserve">
+          <source>Variables</source>
+          <target state="translated">Danh sách biến</target>
+        </trans-unit>
+        <trans-unit id="linkDocumentation.Content" translate="yes" xml:space="preserve">
+          <source>CalcIt documentation</source>
+          <target state="translated">Tài liệu hướng dẫn cho CalcIt</target>
+        </trans-unit>
+        <trans-unit id="linkLicense.Content" translate="yes" xml:space="preserve">
+          <source>License</source>
+          <target state="translated">Điều khoản</target>
+        </trans-unit>
+        <trans-unit id="linkRepository.Content" translate="yes" xml:space="preserve">
+          <source>GitHub repository</source>
+          <target state="translated">Mã nguồn trên GitHub</target>
+        </trans-unit>
+        <trans-unit id="outputBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Output of the app will display here.</source>
+          <target state="translated">Kết quả xử lí của ứng dụng sẽ hiện ở đây.</target>
+        </trans-unit>
+        <trans-unit id="radioAngleUnitDegree.Content" translate="yes" xml:space="preserve">
+          <source>Degrees</source>
+          <target state="translated">Độ</target>
+        </trans-unit>
+        <trans-unit id="radioAngleUnitGrad.Content" translate="yes" xml:space="preserve">
+          <source>Gradians</source>
+          <target state="translated">Gradian</target>
+        </trans-unit>
+        <trans-unit id="radioAngleUnitRadian.Content" translate="yes" xml:space="preserve">
+          <source>Radians</source>
+          <target state="translated">Radian</target>
+        </trans-unit>
+        <trans-unit id="radioDecimalSeparatorComma.Content" translate="yes" xml:space="preserve">
+          <source>Comma</source>
+          <target state="translated">Phẩy</target>
+        </trans-unit>
+        <trans-unit id="radioDecimalSeparatorDot.Content" translate="yes" xml:space="preserve">
+          <source>Dot</source>
+          <target state="translated">Chấm</target>
+        </trans-unit>
+        <trans-unit id="radioDefaultUndefinedAs0.Content" translate="yes" xml:space="preserve">
+          <source>Return 0</source>
+          <target state="translated">Trả về 0</target>
+        </trans-unit>
+        <trans-unit id="radioMultiplicationAsterisk.Content" translate="yes" xml:space="preserve">
+          <source>Asterisk</source>
+          <target state="translated">Sao</target>
+        </trans-unit>
+        <trans-unit id="radioMultiplicationDot.Content" translate="yes" xml:space="preserve">
+          <source>Dot</source>
+          <target state="translated">Chấm</target>
+        </trans-unit>
+        <trans-unit id="radioRaiseErrorForUndefinedVariables.Content" translate="yes" xml:space="preserve">
+          <source>Raise error</source>
+          <target state="translated">Báo lỗi</target>
+        </trans-unit>
+        <trans-unit id="radioThousandSeparatorDot.Content" translate="yes" xml:space="preserve">
+          <source>Dot / Comma</source>
+          <target state="translated">Chấm / Phẩy</target>
+        </trans-unit>
+        <trans-unit id="radioThousandSeparatorSpace.Content" translate="yes" xml:space="preserve">
+          <source>Space</source>
+          <target state="translated">Cách</target>
+        </trans-unit>
+        <trans-unit id="settingsTitle.Text" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="translated">Cài đặt</target>
+        </trans-unit>
+        <trans-unit id="sliderExpressionsInHistory.Header" translate="yes" xml:space="preserve">
+          <source>Maximum expressions in history</source>
+          <target state="translated">Số biểu thức tối đa trong lịch sử</target>
+        </trans-unit>
+        <trans-unit id="startupExpressionsDescription.Text" translate="yes" xml:space="preserve">
+          <source>Press the button below to edit the startup expressions. After editing, restart the app to apply changes.</source>
+          <target state="translated">Nhấn nút bên dưới để sửa các biểu thức khởi động. Khi sửa xong, khởi động lại ứng dụng để áp dụng các thay đổi.</target>
+        </trans-unit>
+        <trans-unit id="text.newOutputNumberOutOfRange" translate="yes" xml:space="preserve">
+          <source>The result is too large or too small to be displayed.</source>
+          <target state="translated">Kết quả tính quá lớn hoặc nhỏ để hiển thị.</target>
+        </trans-unit>
+        <trans-unit id="text.oldOutputNumberOutOfRange" translate="yes" xml:space="preserve">
+          <source>Number is too large or small.</source>
+          <target state="translated">Số quá lớn hoặc nhỏ.</target>
+        </trans-unit>
+        <trans-unit id="textEmptyOutputPanel.Text" translate="yes" xml:space="preserve">
+          <source>Output of the app will display here.</source>
+          <target state="translated">Kết quả xử lí của ứng dụng sẽ hiện ở đây.</target>
+        </trans-unit>
+        <trans-unit id="textVersion" translate="yes" xml:space="preserve">
+          <source>CalcIt UWP version {0}, build {1}</source>
+          <target state="translated">CalcIt UWP phiên bản {0}, bản dựng số {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Don't put a period.</note>
+        </trans-unit>
+        <trans-unit id="variableViewNameBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Name</source>
+          <target state="translated">Tên</target>
+        </trans-unit>
+        <trans-unit id="variableViewRemoveButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Remove</source>
+          <target state="translated">Bỏ khỏi danh sách</target>
+        </trans-unit>
+        <trans-unit id="variableViewValueBox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Value</source>
+          <target state="translated">Giá trị</target>
+        </trans-unit>
+        <trans-unit id="labelAppTheme.Text" translate="yes" xml:space="preserve">
+          <source>App theme</source>
+          <target state="translated">Giao diện ứng dụng</target>
+        </trans-unit>
+        <trans-unit id="radioThemeDark.Content" translate="yes" xml:space="preserve">
+          <source>Dark</source>
+          <target state="translated">Tối</target>
+        </trans-unit>
+        <trans-unit id="radioThemeDefault.Content" translate="yes" xml:space="preserve">
+          <source>From Windows</source>
+          <target state="translated">Lấy từ Windows</target>
+        </trans-unit>
+        <trans-unit id="radioThemeLight.Content" translate="yes" xml:space="preserve">
+          <source>Light</source>
+          <target state="translated">Sáng</target>
+        </trans-unit>
+        <trans-unit id="textSettingsChanged.Text" translate="yes" xml:space="preserve">
+          <source>Settings have changed. The results above may not be in the current formats.</source>
+          <target state="translated">Cài đặt đã thay đổi. Các kết quả trên có thể không được hiển thị theo đúng dạng thức hiện hành.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidDateDayOutOfRange" translate="yes" xml:space="preserve">
+          <source>Date function's day is outside of range.</source>
+          <target state="translated">Ngày nhập vào hàm ngày giờ ngoài giới hạn.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidDateMonthOutOfRange" translate="yes" xml:space="preserve">
+          <source>Date function's month when rounded must be from 1 to 12.</source>
+          <target state="translated">Tháng nhập vào hàm ngày giờ khi được làm tròn phải thành từ 1 đến 12.</target>
+        </trans-unit>
+        <trans-unit id="error.invalidDateNumOfArgs" translate="yes" xml:space="preserve">
+          <source>Date function only takes up to 6 arguments.</source>
+          <target state="translated">Hàm ngày giờ chỉ nhận tối đa 6 tham số.</target>
+        </trans-unit>
+        <trans-unit id="checkShowIntermediateCalculations.Header" translate="yes" xml:space="preserve">
+          <source>Show intermediate calculations when multiple expressions are entered</source>
+          <target state="translated">Hiện các biểu thức trung gian khi nhiều biểu thức được nhập</target>
+        </trans-unit>
+        <trans-unit id="checkShowIntermediateCalculations.OffContent" translate="yes" xml:space="preserve">
+          <source>Disabled</source>
+          <target state="translated">Tắt</target>
+        </trans-unit>
+        <trans-unit id="checkShowIntermediateCalculations.OnContent" translate="yes" xml:space="preserve">
+          <source>Enabled</source>
+          <target state="translated">Bật</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

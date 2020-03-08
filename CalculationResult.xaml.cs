@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using Windows.ApplicationModel.DataTransfer;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
 
 namespace CalcItUWP {
 	public sealed partial class CalculationResult: UserControl {
@@ -64,11 +54,11 @@ namespace CalcItUWP {
 		}
 
 		private void onPointerOver(object sender, PointerRoutedEventArgs e) {
-			calculationResult.Background = new SolidColorBrush(Color.FromArgb(40, 0, 0, 0));
+			VisualStateManager.GoToState(this, "pointerOver", false);
 		}
 
 		private void onPointerExit(object sender, PointerRoutedEventArgs e) {
-			calculationResult.Background = null;
+			VisualStateManager.GoToState(this, "normal", false);
 		}
 
 		private void onPointerDown(object sender, PointerRoutedEventArgs e) {

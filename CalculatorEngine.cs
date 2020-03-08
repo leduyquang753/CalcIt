@@ -94,7 +94,24 @@ namespace CalcItUWP {
 				new If(),
 				new And(),
 				new Or(),
-				new Not()
+				new Not(),
+				new AngleToDegrees(),
+				new AngleToRadians(),
+				new AngleToGradians(),
+				new AngleFromDegrees(),
+				new AngleFromRadians(),
+				new AngleFromGradians(),
+				new Date(),
+				new Year(),
+				new DayOfYear(),
+				new Month(),
+				new Day(),
+				new DecimalDay(),
+				new Hour(),
+				new Minute(),
+				new Second(),
+				new GetDayOfWeekMondayFirst(),
+				new GetDayOfWeekSundayFirst()
 			}) registerFunction(function);
 		}
 
@@ -111,12 +128,12 @@ namespace CalcItUWP {
 		/// </summary>
 		/// <param name="op">The function to register.</param>
 		public void registerFunction(Function func) {
-			foreach (string key in func.names) functionMap[key.ToLower()] = func;
+			foreach (string key in func.names) functionMap[lowercaseAndRemoveWhitespace(key)] = func;
 		}
 
 		private bool isDigit(char c) => c >= '0' && c <= '9';
 
-		private bool isChar(char c) => (c >= 'a' && c <= 'z') || c == '_';
+		private bool isChar(char c) => Char.IsLetter(c) || c == '_';
 
 		private bool areBracesMatch(string opening, string closing) => closing == braceMap.GetValueOrDefault(opening, null);
 
@@ -313,7 +330,8 @@ namespace CalcItUWP {
 							status = false;
 							currentToken = "";
 						} else if (currentOperand is ClosingBrace) {
-							if (status) if (BS.Count == 0 || areBracesMatch(BS.Peek().opening, c.ToString())) {
+							if (status) if (BS.Count == 0) throw new ExpressionInvalidException("unexpectedClosingBrace", i + 1);
+								else if (areBracesMatch(BS.Peek().opening, c.ToString())) {
 									if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, i, NS, OS));
 									performBacktrackCalculation(NS, TNS, OS, TOS);
 									OS.Pop();
@@ -321,19 +339,19 @@ namespace CalcItUWP {
 									NS.Push(currentBracelet.getResult());
 									status = true;
 									hadClosingBrace = true;
-								} else throw new ExpressionInvalidException("unmatchingBraces", i+1);
+								} else throw new ExpressionInvalidException("unmatchingBraces", i + 1);
 							else if (OS.Count == 0) {
 								NS.Push(0);
 								status = true;
 								hadClosingBrace = true;
 							} else if (OS.Peek() is OpeningBrace) {
-								if (BS.Count != 0 && !areBracesMatch(BS.Peek().opening, c.ToString())) throw new ExpressionInvalidException("unmatchingBraces", i+1);
+								if (BS.Count != 0 && !areBracesMatch(BS.Peek().opening, c.ToString())) throw new ExpressionInvalidException("unmatchingBraces", i + 1);
 								OS.Pop();
 								(currentBracelet = BS.Pop()).addArgument(0);
 								NS.Push(currentBracelet.getResult());
 								status = true;
 								hadClosingBrace = true;
-							} else throw new ExpressionInvalidException("unexpectedClosingBrace", i+1);
+							} else throw new ExpressionInvalidException("unexpectedClosingBrace", i + 1);
 						} else {
 							if (status) {
 								if (enforceMulDiv) switch (c) {

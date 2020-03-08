@@ -2,7 +2,21 @@
     x:Class="CalcItUWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Application.Resources>
-        <AcrylicBrush x:Key="TextControlBackgroundFocused" BackgroundSource="HostBackdrop" TintColor="#FFFFFFFF" TintOpacity="0.95" Opacity="0.95"/>
-    </Application.Resources>
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Light">
+					<Color x:Key="ThatTint">#FFFFFFFF</Color>
+					<SolidColorBrush x:Key="TextControlForegroundFocused" Color="Black"/>
+					<SolidColorBrush x:Key="TextControlPlaceholderForegroundFocused" Color="#80000000"/>
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="Dark">
+					<Color x:Key="ThatTint">#FF000000</Color>
+					<SolidColorBrush x:Key="TextControlForegroundFocused" Color="White"/>
+					<SolidColorBrush x:Key="TextControlPlaceholderForegroundFocused" Color="#80FFFFFF"/>
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
+			<AcrylicBrush x:Key="TextControlBackgroundFocused" BackgroundSource="HostBackdrop" TintColor="{ThemeResource ThatTint}" TintOpacity="0.95" Opacity="0.95"/>
+		</ResourceDictionary>
+	</Application.Resources>
 </Application>

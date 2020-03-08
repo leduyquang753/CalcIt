@@ -1,0 +1,27 @@
+﻿<UserControl
+    x:Class="CalcItUWP.PaneSettingsChanged"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Light">
+					<SolidColorBrush x:Key="SeparatorColor" Color="#66000000"/>
+					<SolidColorBrush x:Key="PaneBackground" Color="#19000000"/>
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="Dark">
+					<SolidColorBrush x:Key="SeparatorColor" Color="#66FFFFFF"/>
+					<SolidColorBrush x:Key="PaneBackground" Color="#19FFFFFF"/>
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+	<Grid Padding="10,10,10,10" Background="{ThemeResource PaneBackground}" BorderBrush="{ThemeResource SeparatorColor}" BorderThickness="0,0,0,2">
+		<TextBlock x:Uid="textSettingsChanged" Text="Settings have changed. The results above may not be in the current formats." TextWrapping="Wrap" FontSize="11"/>
+	</Grid>
+</UserControl>

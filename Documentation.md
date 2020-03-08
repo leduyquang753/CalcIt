@@ -32,7 +32,7 @@ A number entered into the program must follow these requirements:
 
 #### Variables
 A variable stores a number which can be used inside an expression. Each variable is identified by a name that must follow these requirements:
-- Can only contain a÷z, 0÷9 and underscore (_) characters.
+- Can only contain letters, digits (0÷9) and underscore (_) characters.
 - Cannot start with a digit.
 
 #### Operands
@@ -292,17 +292,17 @@ Retrieves a random argument as the result.
 
 *Aliases:* randInList, random_in_list, rand_in_list
 
-**isGreater(<number 1>; <number 2>)**
+**isGreater(<number 1>; <number 2>[; <number 3>][…])**
 
-Returns 1 if <number 1> is greater than <number 2>, 0 otherwise.
+Returns 1 if <number 1> is greater than <number 2>, <number 2> is greater than <number 3>,... 0 otherwise.
 
-**isSmaller(<number 1>; <number 2>)**
+**isSmaller(<number 1>; <number 2>[; <number 3>][…])**
 
-Returns 1 if <number 1> is smaller than <number 2>, 0 otherwise.
+Returns 1 if <number 1> is smaller than <number 2>, <number 2> is smaller than <number 3>,... 0 otherwise.
 
-**isEqual(<number 1>; <number 2>)**
+**isEqual(<number 1>; <number 2>[; <number 3>][…])**
 
-Returns 1 if <number 1> is equal to <number 2>, 0 otherwise.
+Returns 1 if all arguments are equal, 0 otherwise.
 
 **and(<number 1>[; <number 2>][; <number 3>][…])**
 
@@ -357,6 +357,84 @@ Converts the total value of the arguments from radians to degrees.
 Converts the total value of the arguments from gradians to radians.
 
 *Aliases:* gradiansToRadians, grad_to_rad, gradians_to_radians
+
+**angleToDegrees(<number 1>[; <number 2>][; <number 3>][…])**
+
+Converts the total value of the arguments from the current angle unit to degrees.
+
+*Aliases:* angle_to_degrees, toDegrees, to_degrees, toDeg
+
+**angleToRadians(<number 1>[; <number 2>][; <number 3>][…])**
+
+Converts the total value of the arguments from the current angle unit to radians.
+
+*Aliases:* angle_to_radians, toRadians, to_radians, toRad
+
+**angleToGradians(<number 1>[; <number 2>][; <number 3>][…])**
+
+Converts the total value of the arguments from the current angle unit to gradians.
+
+*Aliases:* angle_to_gradians, toGradians, to_gradians, toGrad
+
+**angleFromDegrees(<number 1>[; <number 2>][; <number 3>][…])**
+
+Converts the total value of the arguments from degrees to the current angle unit.
+
+*Aliases:* angle_from_degrees, fromDegrees, from_degrees, fromDeg
+
+**angleFromRadians(<number 1>[; <number 2>][; <number 3>][…])**
+
+Converts the total value of the arguments from radians to the current angle unit.
+
+*Aliases:* angle_from_radians, fromRadians, from_radians, fromRad
+
+**angleFromGradians(<number 1>[; <number 2>][; <number 3>][…])**
+
+Converts the total value of the arguments from gradians to the current angle unit.
+
+*Aliases:* angle_from_gradians, fromGradians, from_gradians, fromGrad
+
+**date(\<year\>[; \<month\> [; \<day\> [; \<hour\> [; \<minute\> [; \<second\>]]]]])**
+
+Calculates a date's index. A date's index is the number of days since 0h; 1/1/1 according to the Gregorian calendar.
+
+**Note:** Year 1 is 1 A.D., year 0 is 1 B.C., year -1 is 2 B.C.,...
+
+**year(<number 1>[; <number 2>][; <number 3>][…])**
+
+Calculates the year of a date index which is the total of the arguments.
+
+*Aliases*: yr
+
+**dayOfYear(<number 1>[; <number 2>][; <number 3>][…])**
+
+Calculates the day of year of a date index which is the total of the arguments.
+
+**month(<number 1>[; <number 2>][; <number 3>][…])**
+
+Calculates the month of a date index which is the total of the arguments.
+
+*Aliases*: mth
+
+**day(<number 1>[; <number 2>][; <number 3>][…])**
+
+Calculates the day of a date index which is the total of the arguments.
+
+**decimalDay(<number 1>[; <number 2>][; <number 3>][…])**
+
+Calculates the day of a date index which is the total of the arguments, with decimal part signifying the time in that day.
+
+**hour(<number 1>[; <number 2>][; <number 3>][…])**
+
+Calculates the hour part of a date index which is the total of the arguments.
+
+**minute(<number 1>[; <number 2>][; <number 3>][…])**
+
+Calculates the minute part of a date index which is the total of the arguments.
+
+**second(<number 1>[; <number 2>][; <number 3>][…])**
+
+Calculates the second part of a date index which is the total of the arguments.
 
 ## Source code and copyright
 CalcIt UWP is open source here. You can read, download, modify, contribute under the terms of [the MIT license](https://github.com/leduyquang753/CalcIt-UWP/blob/master/LICENSE.txt).

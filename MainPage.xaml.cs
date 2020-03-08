@@ -30,6 +30,8 @@ namespace CalcItUWP {
 		private bool calculateLastIfEmpty = true;
 		private bool useOldOutputBox = false;
 		private bool loading = true;
+		private bool hasOutputSinceLastSettingsChange = false;
+		private bool showIntermediateCalculations = true;
 
 		public MainPage()
 		{
@@ -80,6 +82,7 @@ namespace CalcItUWP {
 						string errorText = String.Format(Utils.getString("error/headerStartup/" + (position == -1 ? "y" : "xy")), new[] { lineNumber.ToString(), position.ToString() }) + e.Message;
 						outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + inputBox.Text + "\n" + errorText;
 						outputStack.Children.Add(new CalculationResult(expression, null, errorText, this));
+						hasOutputSinceLastSettingsChange = true;
 					}
 				}
 			}
@@ -103,31 +106,42 @@ namespace CalcItUWP {
 				}
 			} else config["angleUnit"] = 0;
 
-			if (config.ContainsKey("decimalDot")) engine.decimalDot = (bool)config["decimalDot"]; else config["decimalDot"] = false;
+			if (config.ContainsKey("decimalDot")) engine.decimalDot = (bool)config["decimalDot"]; else config["decimalDot"] = engine.decimalDot;
 			(engine.decimalDot ? radioDecimalDot : radioDecimalComma).IsChecked = true;
 
-			if (config.ContainsKey("enforceDecimalSeparator")) engine.enforceDecimalSeparator = (bool)config["enforceDecimalSeparator"]; else config["enforceDecimalSeparator"] = false;
+			if (config.ContainsKey("enforceDecimalSeparator")) engine.enforceDecimalSeparator = (bool)config["enforceDecimalSeparator"]; else config["enforceDecimalSeparator"] = engine.enforceDecimalSeparator;
 			checkEnforceDecimalSeparator.IsChecked = engine.enforceDecimalSeparator;
 
-			if (config.ContainsKey("thousandDot")) engine.thousandDot = (bool)config["thousandDot"]; else config["thousandDot"] = false;
+			if (config.ContainsKey("thousandDot")) engine.thousandDot = (bool)config["thousandDot"]; else config["thousandDot"] = engine.thousandDot;
 			(engine.thousandDot ? radioThousandSeparatorDot : radioThousandSeparatorSpace).IsChecked = true;
 
-			if (config.ContainsKey("mulAsterisk")) engine.mulAsterisk = (bool)config["mulAsterisk"]; else config["mulAsterisk"] = false;
+			if (config.ContainsKey("mulAsterisk")) engine.mulAsterisk = (bool)config["mulAsterisk"]; else config["mulAsterisk"] = engine.mulAsterisk;
 			(engine.mulAsterisk ? radioMultiplicationAsterisk : radioMultiplicationDot).IsChecked = true;
 
-			if (config.ContainsKey("zeroUndefinedVars")) engine.zeroUndefinedVars = (bool)config["zeroUndefinedVars"]; else config["zeroUndefinedVars"] = false;
+			if (config.ContainsKey("zeroUndefinedVars")) engine.zeroUndefinedVars = (bool)config["zeroUndefinedVars"]; else config["zeroUndefinedVars"] = engine.zeroUndefinedVars;
 			(engine.zeroUndefinedVars ? radioDefaultUndefinedAs0 : radioRaiseErrorForUndefinedVariables).IsChecked = true;
 
-			if (config.ContainsKey("calculateLastIfEmpty")) calculateLastIfEmpty = (bool)config["calculateLastIfEmpty"]; else config["calculateLastIfEmpty"] = false;
+			if (config.ContainsKey("calculateLastIfEmpty")) calculateLastIfEmpty = (bool)config["calculateLastIfEmpty"]; else config["calculateLastIfEmpty"] = calculateLastIfEmpty;
 			checkCalculateLastIfEmpty.IsOn = calculateLastIfEmpty;
 
-			if (config.ContainsKey("maximumHistorySize")) inputBox.maximumHistorySize = (int)config["maximumHistorySize"]; else config["maximumHistorySize"] = 64;
+			if (config.ContainsKey("maximumHistorySize")) inputBox.maximumHistorySize = (int)config["maximumHistorySize"]; else config["maximumHistorySize"] = inputBox.maximumHistorySize;
 			sliderMaximumHistorySize.Value = inputBox.maximumHistorySize;
 
-			if (config.ContainsKey("useOldOutputBox")) useOldOutputBox = (bool)config["useOldOutputBox"]; else config["useOldOutputBox"] = false;
+			if (config.ContainsKey("useOldOutputBox")) useOldOutputBox = (bool)config["useOldOutputBox"]; else config["useOldOutputBox"] = useOldOutputBox;
 			outputBox.Visibility = useOldOutputBox ? Visibility.Visible : Visibility.Collapsed;
 			outputPanel.Visibility = useOldOutputBox ? Visibility.Collapsed : Visibility.Visible;
 			checkUseOldOutputBox.IsChecked = useOldOutputBox;
+
+			if (config.ContainsKey("appTheme")) {
+				switch (config["appTheme"]) {
+					case 0: RequestedTheme = ElementTheme.Default; radioThemeDefault.IsChecked = true; break;
+					case 1: RequestedTheme = ElementTheme.Light; radioThemeLight.IsChecked = true; break;
+					case 2: RequestedTheme = ElementTheme.Dark; radioThemeDark.IsChecked = true; break;
+				}
+			} else config["appTheme"] = 0;
+
+			if (config.ContainsKey("showIntermediateCalculations")) showIntermediateCalculations = (bool)config["showIntermediateCalculations"]; else config["showIntermediateCalculations"] = showIntermediateCalculations;
+			checkShowIntermediateCalculations.IsOn = showIntermediateCalculations;
 		}
 
 		private void updateTitleBarLayout(CoreApplicationViewTitleBar coreTitleBar) {
@@ -150,18 +164,22 @@ namespace CalcItUWP {
 			int currentPosition = 0;
 			string expression = "";
 			try {
-				foreach (string str in input.Split('|')) {
+				string[] expressions = input.Split('|');
+				int i = 0;
+				foreach (string str in expressions) {
 					expression = str;
 					if (expression.Trim() == "") {
 						currentPosition += expression.Length + 1;
 						continue;
 					}
 					string resultString = Utils.formatNumber(engine.calculate(expression), engine);
-					expression = expression.Trim();
-					outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n= " + (resultString ?? "? (" + Utils.getString("text/oldOutputNumberOutOfRange") + ")");
-					CalculationResult resultElement = new CalculationResult(expression, resultString, null, this);
-					if (resultString == null) resultElement.setResultOutOfRange();
-					outputStack.Children.Add(resultElement);
+					if (showIntermediateCalculations || ++i == expressions.Length) {
+						expression = expression.Trim();
+						outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n= " + (resultString ?? "? (" + Utils.getString("text/oldOutputNumberOutOfRange") + ")");
+						CalculationResult resultElement = new CalculationResult(expression, resultString, null, this);
+						if (resultString == null) resultElement.setResultOutOfRange();
+						outputStack.Children.Add(resultElement);
+					}
 					currentPosition += expression.Length + 1;
 				}
 				if (inputBox.history.Count >= inputBox.maximumHistorySize) inputBox.history.RemoveRange(inputBox.maximumHistorySize - 1, inputBox.history.Count - inputBox.maximumHistorySize + 1);
@@ -169,12 +187,14 @@ namespace CalcItUWP {
 				lastExpression = input;
 				inputBox.Text = "";
 				inputBox.historyPointer = -1;
+				hasOutputSinceLastSettingsChange = true;
 			} catch (ExpressionInvalidException e) {
 				expression = expression.Trim();
 				string errorText = Utils.getString("error/header") + e.Message;
 				outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n" + errorText;
 				outputStack.Children.Add(new CalculationResult(expression, null, errorText, this));
 				if (e.position != -1) inputBox.Select(currentPosition + e.position, 0);
+				hasOutputSinceLastSettingsChange = true;
 			}
 			updateVariableBoxes();
 			textEmptyOutputPanel.Visibility = Visibility.Collapsed;
@@ -255,6 +275,7 @@ namespace CalcItUWP {
 			if (engine.decimalDot ? true : engine.thousandDot) {
 				radioMultiplicationAsterisk.IsChecked = true;
 			}
+			onFormatsUpdated();
 		}
 
 		private void onSettingsEnforceDecimalSeparatorChanged(object sender, RoutedEventArgs e) {
@@ -268,6 +289,7 @@ namespace CalcItUWP {
 			if (engine.decimalDot ? true : engine.thousandDot) {
 				radioMultiplicationAsterisk.IsChecked = true;
 			}
+			onFormatsUpdated();
 		}
 
 		private void onSettingsMultiplicationSignChanged(object sender, RoutedEventArgs e) {
@@ -277,6 +299,7 @@ namespace CalcItUWP {
 				radioThousandSeparatorSpace.IsChecked = true;
 				radioDecimalComma.IsChecked = true;
 			}
+			onFormatsUpdated();
 		}
 
 		private void onSettingsUndefinedVariablesBehaviorChanged(object sender, RoutedEventArgs e) {
@@ -323,6 +346,7 @@ namespace CalcItUWP {
 			outputBox.Text = "";
 			outputStack.Children.Clear();
 			textEmptyOutputPanel.Visibility = useOldOutputBox ? Visibility.Collapsed : Visibility.Visible;
+			hasOutputSinceLastSettingsChange = false;
 		}
 
 		private async void onHelpButtonClick(object sender, RoutedEventArgs e) {
@@ -368,6 +392,40 @@ namespace CalcItUWP {
 			inputBox.historyPointer = -1;
 			inputBox.Select(text.Length, 0);
 			focusInputBox();
+		}
+
+		private void onAppThemeChangedDefault(object sender, RoutedEventArgs e) {
+			if (loading) return;
+			config["appTheme"] = 0;
+			RequestedTheme = ElementTheme.Default;
+		}
+
+		private void onAppThemeChangedLight(object sender, RoutedEventArgs e) {
+			if (loading) return;
+			config["appTheme"] = 1;
+			RequestedTheme = ElementTheme.Light;
+		}
+
+		private void onAppThemeChangedDark(object sender, RoutedEventArgs e) {
+			if (loading) return;
+			config["appTheme"] = 2;
+			RequestedTheme = ElementTheme.Dark;
+		}
+
+		/// <summary>
+		/// Fired when settings change that alter the display formats (such as separators)
+		/// to notify the user about those outdated outputs.
+		/// </summary>
+		private void onFormatsUpdated() {
+			if (!hasOutputSinceLastSettingsChange) return;
+			outputStack.Children.Add(new PaneSettingsChanged());
+			outputBox.Text += "\n\n" + Utils.getString("textSettingsChanged/Text");
+			hasOutputSinceLastSettingsChange = false;
+		}
+
+		private void onCheckShowIntermediateCalculationsChanged(object sender, RoutedEventArgs e) {
+			if (loading) return;
+			config["showIntermediateCalculations"] = showIntermediateCalculations = checkShowIntermediateCalculations.IsOn;
 		}
 	}
 }

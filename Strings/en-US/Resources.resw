@@ -168,6 +168,15 @@
     <value>Enforce</value>
     <comment>This box is in the "Decimal separator" section, so no need to include "decimal separator" here.</comment>
   </data>
+  <data name="checkShowIntermediateCalculations.Header" xml:space="preserve">
+    <value>Show intermediate calculations when multiple expressions are entered</value>
+  </data>
+  <data name="checkShowIntermediateCalculations.OffContent" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="checkShowIntermediateCalculations.OnContent" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
   <data name="checkUseOldOutputBox.Content" xml:space="preserve">
     <value>Use plain text box for output</value>
   </data>
@@ -217,6 +226,15 @@
   </data>
   <data name="error.invalidComparisonNumArgs" xml:space="preserve">
     <value>Comparison function must receive at least 2 arguments.</value>
+  </data>
+  <data name="error.invalidDateDayOutOfRange" xml:space="preserve">
+    <value>Date function's day is outside of range.</value>
+  </data>
+  <data name="error.invalidDateMonthOutOfRange" xml:space="preserve">
+    <value>Date function's month when rounded must be from 1 to 12.</value>
+  </data>
+  <data name="error.invalidDateNumOfArgs" xml:space="preserve">
+    <value>Date function only takes up to 6 arguments.</value>
   </data>
   <data name="error.invalidFactorialArg" xml:space="preserve">
     <value>Factorial function's argument must not be negative.</value>
@@ -326,6 +344,9 @@
   <data name="labelAngleUnit.Text" xml:space="preserve">
     <value>Angle unit</value>
   </data>
+  <data name="labelAppTheme.Text" xml:space="preserve">
+    <value>App theme</value>
+  </data>
   <data name="labelDecimalSeparator.Text" xml:space="preserve">
     <value>Decimal separator</value>
   </data>
@@ -387,6 +408,15 @@
   <data name="radioRaiseErrorForUndefinedVariables.Content" xml:space="preserve">
     <value>Raise error</value>
   </data>
+  <data name="radioThemeDark.Content" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="radioThemeDefault.Content" xml:space="preserve">
+    <value>From Windows</value>
+  </data>
+  <data name="radioThemeLight.Content" xml:space="preserve">
+    <value>Light</value>
+  </data>
   <data name="radioThousandSeparatorDot.Content" xml:space="preserve">
     <value>Dot / Comma</value>
   </data>
@@ -410,6 +440,9 @@
   </data>
   <data name="textEmptyOutputPanel.Text" xml:space="preserve">
     <value>Output of the app will display here.</value>
+  </data>
+  <data name="textSettingsChanged.Text" xml:space="preserve">
+    <value>Settings have changed. The results above may not be in the current formats.</value>
   </data>
   <data name="textVersion" xml:space="preserve">
     <value>CalcIt UWP version {0}, build {1}</value>
