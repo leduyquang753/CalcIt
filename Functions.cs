@@ -319,7 +319,7 @@ namespace CalcItUWP.Functions {
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
 			if (arguments.Count < 2) throw new ExpressionInvalidException("invalidComparisonNumArgs");
 			for (int i = 1; i < arguments.Count; i++)
-				if (arguments[i] <= arguments[i - 1]) return 0;
+				if (arguments[i] >= arguments[i - 1]) return 0;
 			return 1;
 		}
 	}
@@ -329,7 +329,7 @@ namespace CalcItUWP.Functions {
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
 			if (arguments.Count < 2) throw new ExpressionInvalidException("invalidComparisonNumArgs");
 			for (int i = 1; i < arguments.Count; i++)
-				if (arguments[i] >= arguments[i - 1]) return 0;
+				if (arguments[i] <= arguments[i - 1]) return 0;
 			return 1;
 		}
 	}
@@ -469,19 +469,28 @@ namespace CalcItUWP.Functions {
 		}
 	}
 
-	public class GetDayOfWeekMondayFirst: Function {
-		public GetDayOfWeekMondayFirst(): base(new[] { "get day of week Monday first", "get_day_of_week_Monday_first" }) { }
+	public class DayOfWeekMondayFirst: Function {
+		public DayOfWeekMondayFirst(): base(new[] { "day of week Monday first", "day_of_week_Monday_first" }) { }
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
 			double date = Math.Floor(total(arguments));
 			return date - Math.Floor(date / 7) * 7 + 1;
 		}
 	}
 
-	public class GetDayOfWeekSundayFirst: Function {
-		public GetDayOfWeekSundayFirst() : base(new[] { "get day of week Sunday first", "get_day_of_week_Sunday_first" }) { }
+	public class DayOfWeekSundayFirst: Function {
+		public DayOfWeekSundayFirst(): base(new[] { "day of week Sunday first", "day_of_week_Sunday_first" }) { }
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
 			double date = Math.Floor(total(arguments)) + 1;
 			return date - Math.Floor(date / 7) * 7 + 1;
+		}
+	}
+
+	public class Time: Function {
+		public Time(): base(new[] { "time" }) { }
+		public override double calculate(List<double> arguments, CalculatorEngine engine) {
+			if (arguments.Count > 4) throw new ExpressionInvalidException("invalidTimeNumArgs");
+			while (arguments.Count < 4) arguments.Add(0);
+			return arguments[0] + arguments[1] / 24 + arguments[2] / 1440 + arguments[3] / 86400;
 		}
 	}
 }

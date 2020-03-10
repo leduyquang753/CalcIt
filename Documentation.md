@@ -420,6 +420,32 @@ Calculates the month of a date index which is the total of the arguments.
 
 Calculates the day of a date index which is the total of the arguments.
 
+**dayOfWeekMondayFirst(<number 1>[; <number 2>][; <number 3>][…])**
+
+Calculates the day of the week of the date index which is the total of the arguments.
+
+Results:
+- 1: Monday
+- 2: Tuesday
+- 3: Wednesday
+- 4: Thursday
+- 5: Friday
+- 6: Saturday
+- 7: Sunday
+
+**dayOfWeekSundayFirst(<number 1>[; <number 2>][; <number 3>][…])**
+
+Calculates the day of the week of the date index which is the total of the arguments.
+
+Results:
+- 1: Sunday
+- 2: Monday
+- 3: Tuesday
+- 4: Wednesday
+- 5: Thursday
+- 6: Friday
+- 7: Saturday
+
 **decimalDay(<number 1>[; <number 2>][; <number 3>][…])**
 
 Calculates the day of a date index which is the total of the arguments, with decimal part signifying the time in that day.
@@ -435,6 +461,10 @@ Calculates the minute part of a date index which is the total of the arguments.
 **second(<number 1>[; <number 2>][; <number 3>][…])**
 
 Calculates the second part of a date index which is the total of the arguments.
+
+**time(\<days\>[; \<hours\>[; \<minutes\>[; \<seconds\>]]])**
+
+Calculates a time interval into number of days.
 
 ## Source code and copyright
 CalcIt UWP is open source here. You can read, download, modify, contribute under the terms of [the MIT license](https://github.com/leduyquang753/CalcIt-UWP/blob/master/LICENSE.txt).

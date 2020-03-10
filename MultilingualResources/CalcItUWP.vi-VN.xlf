@@ -457,6 +457,10 @@
           <source>Enabled</source>
           <target state="translated">Bật</target>
         </trans-unit>
+        <trans-unit id="error.invalidTimeNumArgs" translate="yes" xml:space="preserve">
+          <source>Time function only takes up to 4 arguments.</source>
+          <target state="translated">Hàm thời gian chỉ nhận tối đa 4 tham số.</target>
+        </trans-unit>
       </group>
     </body>
   </file>

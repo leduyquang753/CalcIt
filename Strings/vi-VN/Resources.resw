@@ -352,4 +352,7 @@
   <data name="checkShowIntermediateCalculations.OnContent" xml:space="preserve">
     <value>Bật</value>
   </data>
+  <data name="error.invalidTimeNumArgs" xml:space="preserve">
+    <value>Hàm thời gian chỉ nhận tối đa 4 tham số.</value>
+  </data>
 </root>

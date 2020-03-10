@@ -263,6 +263,9 @@
   <data name="error.invalidRandomNumArgs" xml:space="preserve">
     <value>Random function only takes up to 2 arguments.</value>
   </data>
+  <data name="error.invalidTimeNumArgs" xml:space="preserve">
+    <value>Time function only takes up to 4 arguments.</value>
+  </data>
   <data name="error.invalidVariable" xml:space="preserve">
     <value>Invalid variable name: "{0}". It must not start with a digit.</value>
   </data>

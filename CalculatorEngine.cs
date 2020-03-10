@@ -110,8 +110,9 @@ namespace CalcItUWP {
 				new Hour(),
 				new Minute(),
 				new Second(),
-				new GetDayOfWeekMondayFirst(),
-				new GetDayOfWeekSundayFirst()
+				new DayOfWeekMondayFirst(),
+				new DayOfWeekSundayFirst(),
+				new Time()
 			}) registerFunction(function);
 		}
 
