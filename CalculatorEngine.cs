@@ -241,7 +241,8 @@ namespace CalcItUWP {
 					hadNegation = false,
 					isVariable = false,
 					hadClosingBrace = false,
-					hadComma = false;
+					hadComma = false,
+					hadPercent = false;
 				string currentToken = "";
 				char thousandSeparator = decimalDot ? '.' : ',';
 				Operand currentOperand;
@@ -255,7 +256,11 @@ namespace CalcItUWP {
 						negativity = !negativity;
 						hadNegation = true;
 					} else if (c == '%') {
-						if (!status || currentToken[currentToken.Length - 1] == '%') throw new ExpressionInvalidException("unexpectedPercent", i+1); else currentToken += c;
+						if (hadPercent) throw new ExpressionInvalidException("unexpectedPercent", i + 1);
+						if (hadClosingBrace) {
+							NS.Push(NS.Pop() / 100d);
+							hadPercent = true;
+						} else if (!status || currentToken[currentToken.Length - 1] == '%') throw new ExpressionInvalidException("unexpectedPercent", i+1); else currentToken += c;
 					} else if (c == ';') {
 						if (BS.Count != 0) {
 							if (status) {
@@ -264,10 +269,12 @@ namespace CalcItUWP {
 								BS.Peek().addArgument(NS.Pop());
 								status = false;
 								hadClosingBrace = false;
+								hadPercent = false;
 							} else if (OS.Peek() is OpeningBrace) {
 								BS.Peek().addArgument(0);
 								status = false;
 								hadClosingBrace = false;
+								hadPercent = false;
 							} else throw new ExpressionInvalidException("unexpectedSemicolon", i+1);
 						} else throw new ExpressionInvalidException("unexpectedSemicolon", i+1);
 					} else if (isDecimalSeparator(c)) {
@@ -281,10 +288,12 @@ namespace CalcItUWP {
 							status = true;
 							isVariable = false;
 							hadComma = true;
+							hadPercent = false;
 						} else if (status) {
 							if (isVariable || hadComma) throw new ExpressionInvalidException("unexpectedDecimalSeparator", i+1);
 							currentToken += c;
 							hadComma = true;
+							hadPercent = false;
 						} else { };
 					} else if (isDigit(c)) {
 						if (currentToken.Length == 0) {
@@ -296,6 +305,7 @@ namespace CalcItUWP {
 							currentToken = c.ToString();
 							status = true;
 							isVariable = false;
+							hadPercent = false;
 						} else if (status) {
 							if (isVariable) currentToken += c;
 							else if (currentToken[currentToken.Length - 1] == '%') throw new ExpressionInvalidException("unexpectedDigit", i+1);
@@ -304,6 +314,7 @@ namespace CalcItUWP {
 							currentToken = c.ToString();
 							status = true;
 							isVariable = false;
+							hadPercent = false;
 						}
 					} else if (isChar(c)) {
 						if (hadClosingBrace || currentToken.Length != 0 && !isVariable) {
@@ -316,6 +327,7 @@ namespace CalcItUWP {
 						isVariable = true;
 						status = true;
 						hadClosingBrace = false;
+						hadPercent = false;
 					} else if ((currentOperand = operandMap.GetValueOrDefault(c.ToString(), null)) == null) throw new ExpressionInvalidException("unknownSymbol", i+1);
 					else {
 						if (currentOperand is OpeningBrace) {
@@ -329,6 +341,7 @@ namespace CalcItUWP {
 							OS.Push(currentOperand);
 							BS.Push(new Bracelet(c.ToString(), currentFunction, this));
 							status = false;
+							hadPercent = false;
 							currentToken = "";
 						} else if (currentOperand is ClosingBrace) {
 							if (status) if (BS.Count == 0) throw new ExpressionInvalidException("unexpectedClosingBrace", i + 1);
@@ -340,11 +353,13 @@ namespace CalcItUWP {
 									NS.Push(currentBracelet.getResult());
 									status = true;
 									hadClosingBrace = true;
+									hadPercent = false;
 								} else throw new ExpressionInvalidException("unmatchingBraces", i + 1);
 							else if (OS.Count == 0) {
 								NS.Push(0);
 								status = true;
 								hadClosingBrace = true;
+								hadPercent = false;
 							} else if (OS.Peek() is OpeningBrace) {
 								if (BS.Count != 0 && !areBracesMatch(BS.Peek().opening, c.ToString())) throw new ExpressionInvalidException("unmatchingBraces", i + 1);
 								OS.Pop();
@@ -352,6 +367,7 @@ namespace CalcItUWP {
 								NS.Push(currentBracelet.getResult());
 								status = true;
 								hadClosingBrace = true;
+								hadPercent = false;
 							} else throw new ExpressionInvalidException("unexpectedClosingBrace", i + 1);
 						} else {
 							if (status) {
@@ -371,6 +387,7 @@ namespace CalcItUWP {
 								OS.Push(currentOperand);
 								status = false;
 								hadClosingBrace = false;
+								hadPercent = false;
 							} else if (c == '+') hadNegation = true; else throw new ExpressionInvalidException("unexpectedOperand", i+1);
 						}
 					}

@@ -55,7 +55,7 @@ The program currently supports these operands:
 #### Braces and functions
 A section of the expression can be grouped by surrounding with one of these character pairs: () [] \{\} <>, in which case the grouped expression is called a bracelet. The expression inside will be calculated first before its result is used for evaluation of the greater expression part. If an identifier (similar to a variable name) is placed right before the opening brace, the bracelet will become a function. A function will take the expression inside the bracelet as their arguments and evaluate to a number. A function can have multiple arguments, in which case the arguments are separated by semicolons (;).
 
-Negative and positive signs can also be placed before a bracelet.
+Negative and positive signs can also be placed before a bracelet. Percent sign may be appended to the right to divide the bracelet's value by 100.
 
 *Notes:*
 - If there are more than one parameter inside a bracelet that is not a function, the bracelet will evaluate to the sum of the parameters.

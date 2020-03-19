@@ -37,7 +37,7 @@ namespace CalcItUWP {
 
 		private void onCopyAll(object sender, RoutedEventArgs e) {
 			string toReturn = controlExpression.Text + "\n";
-			toReturn += controlResult.Visibility == Visibility.Visible ? controlResult.Text : controlError.Text;
+			toReturn += controlResult.Visibility == Visibility.Visible ? "= " + controlResult.Text : controlError.Text;
 			copyToClipboard(toReturn);
 		}
 
