@@ -133,16 +133,12 @@
     <SuppressPseudoWarning Condition="'$(Configuration)' == 'Debug'">true</SuppressPseudoWarning>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AngleUnits.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CalculationResult.xaml.cs">
       <DependentUpon>CalculationResult.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CalculatorEngine.cs" />
-    <Compile Include="ExpressionInvalidException.cs" />
-    <Compile Include="Functions.cs" />
     <Compile Include="HelpAndAbout.xaml.cs">
       <DependentUpon>HelpAndAbout.xaml</DependentUpon>
     </Compile>
@@ -152,7 +148,6 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Operands.cs" />
     <Compile Include="PaneSettingsChanged.xaml.cs">
       <DependentUpon>PaneSettingsChanged.xaml</DependentUpon>
     </Compile>
@@ -215,7 +210,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="LICENSE.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -284,17 +278,20 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="azure-pipelines.yml" />
     <None Include="certinfo.pfx" />
     <None Include="Documentation.md" />
-    <None Include="README.md" />
     <PRIResource Include="Strings\vi-VN\Resources.resw" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="MultilingualResources\CalcItUWP.vi-VN.xlf" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CalcItCore\CalcItCore.csproj">
+      <Project>{7b3a7d1a-5ea5-49bd-b1f9-00eac85b1c7b}</Project>
+      <Name>CalcItCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

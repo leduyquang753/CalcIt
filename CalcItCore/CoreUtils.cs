@@ -1,8 +1,7 @@
 ﻿using System;
-using Windows.ApplicationModel.Resources;
 
-namespace CalcItUWP {
-	public class Utils {
+namespace CalcItCore {
+	public class CoreUtils {
 		private const double
 			degInRad = Math.PI / 180,
 			radInDeg = 180 / Math.PI,
@@ -10,7 +9,6 @@ namespace CalcItUWP {
 			gradInDeg = 0.9,
 			gradInRad = Math.PI / 200,
 			radInGrad = 200 / Math.PI;
-		public static ResourceLoader resourceLoader = null;
 
 		///<summary>
 		///Power function.
@@ -39,11 +37,6 @@ namespace CalcItUWP {
 		public static double div(double dividend, double divisor) => Math.Floor(dividend / divisor);
 
 		public static double mod(double dividend, double divisor) => dividend - Math.Floor(dividend / divisor) * divisor;
-
-		public static string getString(string key) {
-			if (resourceLoader == null) throw new InvalidOperationException("Resources have not been loaded.");
-			return resourceLoader.GetString(key);
-		}
 
 		public static double roundUp(double num) => num >= 0 ? Math.Ceiling(num) : Math.Floor(num);
 

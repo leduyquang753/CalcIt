@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Authentication;
-using System.Text;
-using System.Threading.Tasks;
 
-using CalcItUWP.Functions;
-using CalcItUWP.Operands;
-using static CalcItUWP.AngleUnits;
+using CalcItCore.Functions;
+using CalcItCore.Operands;
+using static CalcItCore.AngleUnits;
 
-namespace CalcItUWP {
+namespace CalcItCore {
 	public class CalculatorEngine {
 		private static DotlessMultiplication dotlessMulOp = new DotlessMultiplication();
 		private static Dictionary<string, string> braceMap = new Dictionary<string, string>();
@@ -136,7 +131,10 @@ namespace CalcItUWP {
 
 		private bool isChar(char c) => Char.IsLetter(c) || c == '_';
 
-		private bool areBracesMatch(string opening, string closing) => closing == braceMap.GetValueOrDefault(opening, null);
+		private bool areBracesMatch(string opening, string closing) {
+			string correspondingClosing;
+			return braceMap.TryGetValue(opening, out correspondingClosing) ? closing == correspondingClosing : false;
+		}
 
 		private void performBacktrackCalculation(Stack<double> NS, Stack<double> TNS, Stack<Operand> OS, Stack<Operand> TOS, bool shouldCalculateAll = false) {
 			if (OS.Count == 0) return;
@@ -328,7 +326,7 @@ namespace CalcItUWP {
 						status = true;
 						hadClosingBrace = false;
 						hadPercent = false;
-					} else if ((currentOperand = operandMap.GetValueOrDefault(c.ToString(), null)) == null) throw new ExpressionInvalidException("unknownSymbol", i+1);
+					} else if ((currentOperand = getOperand(c.ToString())) == null) throw new ExpressionInvalidException("unknownSymbol", i+1);
 					else {
 						if (currentOperand is OpeningBrace) {
 							if (hadClosingBrace || currentToken.Length != 0 && !isVariable) {
@@ -337,7 +335,7 @@ namespace CalcItUWP {
 								OS.Push(dotlessMulOp);
 								hadClosingBrace = false;
 							}
-							if ((currentFunction = functionMap.GetValueOrDefault(currentToken, null)) == null) throw new ExpressionInvalidException("unknownFunction", i, new[] { currentToken });
+							if ((currentFunction = getFunction(currentToken)) == null) throw new ExpressionInvalidException("unknownFunction", i, new[] { currentToken });
 							OS.Push(currentOperand);
 							BS.Push(new Bracelet(c.ToString(), currentFunction, this));
 							status = false;
@@ -420,12 +418,12 @@ namespace CalcItUWP {
 			while (true) {
 				switch (ps = trimmedExpression.IndexOf('=')) {
 					case -1: goto exit;
-					case 0: throw new ExpressionInvalidException("unexpectedEqual", Utils.getIndexWithWhitespace(expression, position+1));
+					case 0: throw new ExpressionInvalidException("unexpectedEqual", CoreUtils.getIndexWithWhitespace(expression, position+1));
 					default:
 						string s = trimmedExpression.Substring(0, ps);
-						if (s == "ans" || s == "preAns") throw new ExpressionInvalidException("reservedVariable", Utils.getIndexWithWhitespace(expression, position + ps));
-						if (isDigit(s[0])) throw new ExpressionInvalidException("invalidVariable", Utils.getIndexWithWhitespace(expression, position + ps), new[] { s }); 
-						foreach (char c in s) if (!isChar(c) && !isDigit(c)) throw new ExpressionInvalidException("nonAlphanumericVariableName", Utils.getIndexWithWhitespace(expression, position + ps), new[] { s });
+						if (s == "ans" || s == "preAns") throw new ExpressionInvalidException("reservedVariable", CoreUtils.getIndexWithWhitespace(expression, position + ps));
+						if (isDigit(s[0])) throw new ExpressionInvalidException("invalidVariable", CoreUtils.getIndexWithWhitespace(expression, position + ps), new[] { s }); 
+						foreach (char c in s) if (!isChar(c) && !isDigit(c)) throw new ExpressionInvalidException("nonAlphanumericVariableName", CoreUtils.getIndexWithWhitespace(expression, position + ps), new[] { s });
 						toAssign.Add(s);
 						break;
 				}
@@ -433,7 +431,7 @@ namespace CalcItUWP {
 				position += ps + 1;
 			}
 		exit:
-			if (trimmedExpression.Length == 0) throw new ExpressionInvalidException("nothingToCalculate", Utils.getIndexWithWhitespace(expression, position));
+			if (trimmedExpression.Length == 0) throw new ExpressionInvalidException("nothingToCalculate", CoreUtils.getIndexWithWhitespace(expression, position));
 			if (trimmedExpression == "!") {
 				foreach (string s in toAssign) variableMap.Remove(s);
 				preAns = ans;
@@ -444,24 +442,24 @@ namespace CalcItUWP {
 			try {
 				ans = performCalculation(trimmedExpression);
 			} catch (ExpressionInvalidException e) { // Handle and rethrow the exception to properly position the error in the expression with whitespace.
-				throw new ExpressionInvalidException(e, position + Utils.getIndexWithWhitespace(expression, position + e.position));
+				throw new ExpressionInvalidException(e, position + CoreUtils.getIndexWithWhitespace(expression, position + e.position));
 			}
 			foreach (string s in toAssign) variableMap[s] = ans;
 			preAns = oldAns;
 			return ans;
 		}
 
-		public string getVariableString(string name) {
+		public double getVariable(string name) {
 			name = lowercaseAndRemoveWhitespace(name);
-			if (name.Length == 0) return Utils.getString("getVarString/emptyVariableName");
-			if (isDigit(name[0])) return Utils.getString("getVarString/invalidVariableName");
-			foreach (char c in name) if (!isDigit(c) && !isChar(c)) return Utils.getString("getVarString/invalidVariableName");
+			if (name.Length == 0) throw new GetVariableException(GetVariableException.Type.EMPTY_NAME);
+			if (isDigit(name[0])) throw new GetVariableException(GetVariableException.Type.INVALID_NAME);
+			foreach (char c in name) if (!isDigit(c) && !isChar(c)) throw new GetVariableException(GetVariableException.Type.INVALID_NAME);
 			switch (name) {
-				case "ans": return Utils.formatNumber(ans, this);
-				case "preans": return Utils.formatNumber(preAns, this);
+				case "ans": return ans;
+				case "preans": return preAns;
 			}
 			double p;
-			return variableMap.TryGetValue(name, out p) ? Utils.formatNumber(p, this) : zeroUndefinedVars ? "0" : Utils.getString("getVarString/variableNotSet");
+			return variableMap.TryGetValue(name, out p) ? p : zeroUndefinedVars ? 0 : throw new GetVariableException(GetVariableException.Type.NOT_SET);
 		}
 
 		private double getVariableInternal(string var, int position) {
@@ -474,6 +472,16 @@ namespace CalcItUWP {
 			if (variableMap.TryGetValue(name, out p)) return p;
 			else if (zeroUndefinedVars) return 0;
 			else throw new ExpressionInvalidException("variableNotSet", position, new[] { var });
+		}
+
+		private Operand getOperand(string key) {
+			Operand result;
+			return operandMap.TryGetValue(key, out result) ? result : null;
+		}
+
+		private Function getFunction(string key) {
+			Function result;
+			return functionMap.TryGetValue(key, out result) ? result : null;
 		}
 	}
 

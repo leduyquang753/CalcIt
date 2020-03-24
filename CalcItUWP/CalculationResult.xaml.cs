@@ -82,7 +82,7 @@ namespace CalcItUWP {
 		}
 
 		public void setResultOutOfRange() {
-			controlResult.Text = "= ?";
+			controlResult.Text = "?";
 			controlResult.Visibility = Visibility.Visible;
 			ToolTipService.SetToolTip(controlResult, Utils.getString("text/newOutputNumberOutOfRange"));
 		}

@@ -1,11 +1,8 @@
-﻿using static CalcItUWP.Utils;
+﻿using static CalcItCore.CoreUtils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CalcItUWP.Functions {
+namespace CalcItCore.Functions {
 	public abstract class Function {
 		public string[] names { get; }
 		protected static Random random { get; } = new Random();
@@ -98,7 +95,10 @@ namespace CalcItUWP.Functions {
 	public class GCD: Function {
 		public GCD(): base(new string[] { "gcd", "greatestCommonDivisor", "greatest_common_divisor" }) { }
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
-			if (arguments.Count == 1) return Math.Floor(Math.Abs(arguments[0]));
+			if (arguments.Count == 1) {
+				double r = Math.Floor(Math.Abs(arguments[0]));
+				return r == 0 ? 1 : r;
+			}
 			double res = Math.Floor(Math.Abs(arguments[0]));
 			for (int i = 1; i < arguments.Count; i++) {
 				double n = Math.Floor(Math.Abs(arguments[i]));

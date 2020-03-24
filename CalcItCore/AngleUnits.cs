@@ -1,6 +1,6 @@
-﻿using static CalcItUWP.Utils;
+﻿using static CalcItCore.CoreUtils;
 
-namespace CalcItUWP {
+namespace CalcItCore {
 	public class AngleUnits {
 		public static readonly AngleUnit DEGREE = new Degree();
 		public static readonly AngleUnit RADIAN = new Radian();

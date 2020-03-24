@@ -1,9 +1,6 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Resources;
 using Windows.Foundation.Collections;
@@ -14,6 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using CalcItCore;
 
 namespace CalcItUWP {
 	/// <summary>
@@ -79,7 +77,7 @@ namespace CalcItUWP {
 						expression = line.Trim();
 						textEmptyOutputPanel.Visibility = Visibility.Collapsed;
 						int position = ((ExpressionInvalidException)e).position;
-						string errorText = String.Format(Utils.getString("error/headerStartup/" + (position == -1 ? "y" : "xy")), new[] { lineNumber.ToString(), position.ToString() }) + e.Message;
+						string errorText = String.Format(Utils.getString("error/headerStartup/" + (position == -1 ? "y" : "xy")), new[] { lineNumber.ToString(), position.ToString() }) + Utils.formatError(e.Message);
 						outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + inputBox.Text + "\n" + errorText;
 						outputStack.Children.Add(new CalculationResult(expression, null, errorText, this));
 						hasOutputSinceLastSettingsChange = true;
@@ -172,7 +170,7 @@ namespace CalcItUWP {
 						currentPosition += expression.Length + 1;
 						continue;
 					}
-					string resultString = Utils.formatNumber(engine.calculate(expression), engine);
+					string resultString = CoreUtils.formatNumber(engine.calculate(expression), engine);
 					if (showIntermediateCalculations || ++i == expressions.Length) {
 						expression = expression.Trim();
 						outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n= " + (resultString ?? "? (" + Utils.getString("text/oldOutputNumberOutOfRange") + ")");
@@ -190,7 +188,7 @@ namespace CalcItUWP {
 				hasOutputSinceLastSettingsChange = true;
 			} catch (ExpressionInvalidException e) {
 				expression = expression.Trim();
-				string errorText = Utils.getString("error/header") + e.Message;
+				string errorText = Utils.getString("error/header") + Utils.formatError(e.Message);
 				outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n" + errorText;
 				outputStack.Children.Add(new CalculationResult(expression, null, errorText, this));
 				if (e.position != -1) inputBox.Select(currentPosition + e.position, 0);
@@ -216,12 +214,11 @@ namespace CalcItUWP {
 				((ScrollViewer)obj).ChangeView(0.0f, ((ScrollViewer)obj).ExtentHeight, 1.0f, true);
 				break;
 			}
-		}
+		}		
 
 		private void updateVariableBoxes() {
-			string numOutOfRange = Utils.getString("getVarString/numberOutOfRange");
-			ansValueBox.Text = engine.getVariableString("Ans") ?? numOutOfRange;
-			preAnsValueBox.Text = engine.getVariableString("PreAns") ?? numOutOfRange;
+			ansValueBox.Text = Utils.getVariableString(engine, "Ans");
+			preAnsValueBox.Text = Utils.getVariableString(engine, "PreAns");
 			foreach (FrameworkElement view in variableViewStack.Children) ((VariableView)view).update();
 		}
 

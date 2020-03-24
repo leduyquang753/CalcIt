@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static CalcItUWP.Utils;
-
-namespace CalcItUWP.Operands {
+﻿namespace CalcItCore.Operands {
 	public abstract class Operand {
 		public string[] characters { get; }
 		public bool reversed { get; }
@@ -53,7 +45,7 @@ namespace CalcItUWP.Operands {
 	public class Exponentiation: Operand {
 		public Exponentiation(): base(new string[] { "^" }, 4, true) { }
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
-			return Utils.power(val1, val2, engine);
+			return CoreUtils.power(val1, val2, engine);
 		}
 	}
 
@@ -61,7 +53,7 @@ namespace CalcItUWP.Operands {
 		public Root(): base(new string[] { "#" }, 4) { }
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			if (val1 == 0) throw new ExpressionInvalidException("level0Root");
-			return Utils.power(val2, 1 / val1, engine);
+			return CoreUtils.power(val2, 1 / val1, engine);
 		}
 	}
 
