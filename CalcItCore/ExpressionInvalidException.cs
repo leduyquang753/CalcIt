@@ -3,15 +3,12 @@
 namespace CalcItCore {
 	public class ExpressionInvalidException: Exception {
 		public int position { get; }
+		public object[] messageArguments { get; }
 
-		public ExpressionInvalidException(String key, int position = -1, string[] messageArguments = null):
+		public ExpressionInvalidException(String key, int position = -1, object[] messageArguments = null):
 			base(key) {
 			this.position = position;
-		}
-
-		public ExpressionInvalidException(ExpressionInvalidException e, int position = -1) :
-			base(e.Message) {
-			this.position = position;
+			this.messageArguments = messageArguments;
 		}
 	}
 }

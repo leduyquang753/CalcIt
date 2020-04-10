@@ -37,7 +37,7 @@ namespace CalcItCore.Functions {
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
 			double tot = total(arguments);
 			if (Math.Cos(tot) == 0) throw new ExpressionInvalidException("divisionByZero");
-			return Math.Tan(tot);
+			return Math.Tan(engine.angleUnit.convertToRadians(tot));
 		}
 	}
 
@@ -46,12 +46,12 @@ namespace CalcItCore.Functions {
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
 			double tot = total(arguments);
 			if (Math.Sin(tot) == 0) throw new ExpressionInvalidException("divisionByZero");
-			return 1 / Math.Tan(tot);
+			return 1 / Math.Tan(engine.angleUnit.convertToRadians(tot));
 		}
 	}
 
 	public class ArcSin: Function {
-		public ArcSin(): base(new string[] { "arcsin", "arcsine", "sin_1", "sine_1" }) { }
+		public ArcSin(): base(new string[] { "arcsin", "arcsine", "sin_1", "sine_1", "asin" }) { }
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
 			double tot = total(arguments);
 			if (tot < -1 || tot > 1) throw new ExpressionInvalidException("invalidArcsinArg"); // TODO: Add the number.
@@ -60,7 +60,7 @@ namespace CalcItCore.Functions {
 	}
 
 	public class ArcCos: Function {
-		public ArcCos(): base(new string[] { "arccos", "arccosine", "cos_1", "cosine_1" }) { }
+		public ArcCos(): base(new string[] { "arccos", "arccosine", "cos_1", "cosine_1", "acos" }) { }
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
 			double tot = total(arguments);
 			if (tot < -1 || tot > 1) throw new ExpressionInvalidException("invalidArccosArg"); // TODO: Add the number.
@@ -69,12 +69,12 @@ namespace CalcItCore.Functions {
 	}
 
 	public class ArcTan: Function {
-		public ArcTan(): base(new string[] { "arctan", "arctangent", "arctang", "arctg", "tan_1", "tangent_1", "tang_1", "tg_1" }) { }
+		public ArcTan(): base(new string[] { "arctan", "arctangent", "arctang", "arctg", "tan_1", "tangent_1", "tang_1", "tg_1", "atan", "atg" }) { }
 		public override double calculate(List<double> arguments, CalculatorEngine engine) => engine.angleUnit.convertFromRadians(Math.Atan(total(arguments)));
 	}
 
 	public class ArcCot: Function {
-		public ArcCot(): base(new string[] { "arccot", "arccotangent", "arccotang", "arccotg", "cot_1", "cotangent_1", "cotang_1", "cotg_1" }) { }
+		public ArcCot(): base(new string[] { "arccot", "arccotangent", "arccotang", "arccotg", "cot_1", "cotangent_1", "cotang_1", "cotg_1", "acot", "acotg" }) { }
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
 			double tot = total(arguments);
 			if (tot == 0) return engine.angleUnit.convertFromDegrees(90);

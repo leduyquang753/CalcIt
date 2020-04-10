@@ -77,7 +77,7 @@ namespace CalcItUWP {
 						expression = line.Trim();
 						textEmptyOutputPanel.Visibility = Visibility.Collapsed;
 						int position = ((ExpressionInvalidException)e).position;
-						string errorText = String.Format(Utils.getString("error/headerStartup/" + (position == -1 ? "y" : "xy")), new[] { lineNumber.ToString(), position.ToString() }) + Utils.formatError(e.Message);
+						string errorText = String.Format(Utils.getString("error/headerStartup/" + (position == -1 ? "y" : "xy")), new[] { lineNumber.ToString(), position.ToString() }) + Utils.formatError(e.Message, e.messageArguments);
 						outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + inputBox.Text + "\n" + errorText;
 						outputStack.Children.Add(new CalculationResult(expression, null, errorText, this));
 						hasOutputSinceLastSettingsChange = true;
@@ -188,7 +188,7 @@ namespace CalcItUWP {
 				hasOutputSinceLastSettingsChange = true;
 			} catch (ExpressionInvalidException e) {
 				expression = expression.Trim();
-				string errorText = Utils.getString("error/header") + Utils.formatError(e.Message);
+				string errorText = Utils.getString("error/header") + Utils.formatError(e.Message, e.messageArguments);
 				outputBox.Text += (outputBox.Text.Length == 0 ? "" : "\n\n") + expression + "\n" + errorText;
 				outputStack.Children.Add(new CalculationResult(expression, null, errorText, this));
 				if (e.position != -1) inputBox.Select(currentPosition + e.position, 0);

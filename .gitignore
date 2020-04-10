@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CalcItAndroid/Assets/AboutAssets.txt
+/CalcItAndroid/obj
+/CalcItAndroid/Resources/AboutResources.txt

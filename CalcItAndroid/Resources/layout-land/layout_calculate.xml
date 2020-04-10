@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<LinearLayout
+		android:orientation="vertical"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="1dp"
+		android:layout_height="match_parent"
+		android:layout_weight="8">
+		<EditText
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_weight="3"
+			android:id="@+id/inputBox"
+			android:inputType="none|textMultiLine"
+			android:focusedByDefault="true"
+			android:singleLine="false"
+			android:background="@android:color/transparent"
+			android:gravity="top|left"
+			android:text="46,19 + 3 - sin(135+16:2) + date(2020; 3; 25; 10; 13; 28)"
+			android:scrollbars="vertical" />
+		<TextView
+			android:autoSizeTextType="uniform"
+			android:autoSizeMinTextSize="16sp"
+			android:autoSizeMaxTextSize="48sp"
+			android:textColor="#000"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_weight="2"
+			android:id="@+id/outputBox"
+			android:gravity="right|bottom"
+			android:text="49 765,38"/>
+	</LinearLayout>
+	<include layout="@layout/sublayout_keypad_normal"
+		android:layout_height="match_parent"
+		android:layout_width="1dp"
+		android:layout_weight="8"
+		android:id="@+id/keypad"/>
+</LinearLayout>

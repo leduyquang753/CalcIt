@@ -442,7 +442,7 @@ namespace CalcItCore {
 			try {
 				ans = performCalculation(trimmedExpression);
 			} catch (ExpressionInvalidException e) { // Handle and rethrow the exception to properly position the error in the expression with whitespace.
-				throw new ExpressionInvalidException(e, position + CoreUtils.getIndexWithWhitespace(expression, position + e.position));
+				throw new ExpressionInvalidException(e.Message, position + CoreUtils.getIndexWithWhitespace(expression, position + e.position), e.messageArguments);
 			}
 			foreach (string s in toAssign) variableMap[s] = ans;
 			preAns = oldAns;
