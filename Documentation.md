@@ -3,7 +3,7 @@ This page describes usage of CalcIt UWP.
 
 ## General
 
-![The app's apperance](https://raw.githubusercontent.com/leduyquang753/CalcIt/Screenshots/CalcItUWP/Main.png)
+![The app's apperance](https://raw.githubusercontent.com/leduyquang753/CalcIt/master/Screenshots/CalcItUWP/Main.png)
 
 The program’s main window is where you enter your mathematical expressions into the *Input* box to be evaluated, either by pressing the *Calculate* button or hitting Enter. The program will (try to) evaluate and output its response to the *Console*. The *Console* retains all calculations performed during a session of the program unless you have pressed *Clear output*.
 
@@ -11,11 +11,11 @@ Any spaces in the expression will be ignored and everything is case-insensitive.
 
 Pressing *View variables* will pull out a pane where you can specify variables whose values are to display. Press the + button and type in the variable's name in the *Name* box to add a new variable.
 
-![The app with *Variables* pane opened](https://raw.githubusercontent.com/leduyquang753/CalcIt/Screenshots/CalcItUWP/Variables.png)
+![The app with *Variables* pane opened](https://raw.githubusercontent.com/leduyquang753/CalcIt/master/Screenshots/CalcItUWP/Variables.png)
 
 Pressing *Settings* allows you to tweak the program's behavior.
 
-![The app's *Settings* pane](https://raw.githubusercontent.com/leduyquang753/CalcIt/Screenshots/CalcItUWP/Settings.png)
+![The app's *Settings* pane](https://raw.githubusercontent.com/leduyquang753/CalcIt/master/Screenshots/CalcItUWP/Settings.png)
 
 Anything there is pretty straightforward to understand, so detailed documentation isn't needed here, except some notes:
 - Changing *Maximum expressions stored* will trim out the history if it exceeds the new maximum.
