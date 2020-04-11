@@ -2,7 +2,13 @@
 This is another version of the calculator app CalcIt that is written in C# to run on the UWP, just for the visuals, I think.
 
 ## Documentation
-Refer to [Documentation.md](https://github.com/leduyquang753/CalcIt-UWP/blob/master/Documentation.md).
+Refer to [Documentation.md](https://github.com/leduyquang753/CalcIt/blob/master/Documentation.md).
+
+## Download
+### CalcIt UWP
+The UWP version of the app can be downloaded in [*Releases*](https://github.com/leduyquang753/CalcIt/releases).
+### CalcIt Android
+The Android version of the app is a work in progress...
 
 ## Building
-Just open the solution in Visual Studio (preferrably the latest version) and build it.
+Just open the solution in Visual Studio (preferrably the latest version) and build *CalcIt UWP*.
