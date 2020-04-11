@@ -2,13 +2,21 @@
 This page describes usage of CalcIt UWP.
 
 ## General
+
+![The app's apperance](https://raw.githubusercontent.com/leduyquang753/CalcIt/Screenshots/CalcItUWP/Main.png)
+
 The program’s main window is where you enter your mathematical expressions into the *Input* box to be evaluated, either by pressing the *Calculate* button or hitting Enter. The program will (try to) evaluate and output its response to the *Console*. The *Console* retains all calculations performed during a session of the program unless you have pressed *Clear output*.
 
 Any spaces in the expression will be ignored and everything is case-insensitive. You can use pipe characters to separate multiple expressions to calculate at a time.
 
 Pressing *View variables* will pull out a pane where you can specify variables whose values are to display. Press the + button and type in the variable's name in the *Name* box to add a new variable.
 
+![The app with *Variables* pane opened](https://raw.githubusercontent.com/leduyquang753/CalcIt/Screenshots/CalcItUWP/Variables.png)
+
 Pressing *Settings* allows you to tweak the program's behavior.
+
+![The app's *Settings* pane](https://raw.githubusercontent.com/leduyquang753/CalcIt/Screenshots/CalcItUWP/Settings.png)
+
 Anything there is pretty straightforward to understand, so detailed documentation isn't needed here, except some notes:
 - Changing *Maximum expressions stored* will trim out the history if it exceeds the new maximum.
 - *Startup expressions* can have comments after double slashes on each line and doesn't allow pipe characters to separate expressions.
@@ -65,7 +73,7 @@ Negative and positive signs can also be placed before a bracelet. Percent sign m
 For a list of functions and how they should be used, refer to the [List of functions](#list-of-functions).
 
 #### Multiplication without sign
-In some places, the multiplication sign can be omitted in the expression, in which case the multiplication’s precedence will be raised higher than normal multiplication and division (see Calculation order). The places where the multiplication sign can be omitted are:
+In some places, the multiplication sign can be omitted in the expression, in which case the multiplication’s precedence will be raised higher than normal multiplication and division (see [Calculation order](#calculation-order)). The places where the multiplication sign can be omitted are:
 
 - Between a number before and a variable after, example: `13pi`.
 - Between a number before and a bracelet after, example: `13(3+5)`.
@@ -109,7 +117,7 @@ seconds=second=1
 = 61 285
 ```
 
-##### Calculating a simple series
+##### Calculating a sequence
 For example the Fibonacci sequence can be computed as follows:
 
 ```

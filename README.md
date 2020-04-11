@@ -6,6 +6,9 @@ Refer to [Documentation.md](https://github.com/leduyquang753/CalcIt/blob/master/
 
 ## Download
 ### CalcIt UWP
+
+![CalcItUWP's apperance](https://raw.githubusercontent.com/leduyquang753/CalcIt/Screenshots/CalcItUWP/Main.png)
+
 The UWP version of the app can be downloaded in [*Releases*](https://github.com/leduyquang753/CalcIt/releases).
 ### CalcIt Android
 The Android version of the app is a work in progress...
