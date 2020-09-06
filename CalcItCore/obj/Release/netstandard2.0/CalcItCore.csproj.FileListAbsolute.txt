@@ -1,9 +1,0 @@
-D:\Code\CalcIt\CalcItCore\bin\Release\netstandard2.0\CalcItCore.deps.json
-D:\Code\CalcIt\CalcItCore\bin\Release\netstandard2.0\CalcItCore.dll
-D:\Code\CalcIt\CalcItCore\bin\Release\netstandard2.0\CalcItCore.pdb
-D:\Code\CalcIt\CalcItCore\obj\Release\netstandard2.0\CalcItCore.csprojAssemblyReference.cache
-D:\Code\CalcIt\CalcItCore\obj\Release\netstandard2.0\CalcItCore.csproj.CoreCompileInputs.cache
-D:\Code\CalcIt\CalcItCore\obj\Release\netstandard2.0\CalcItCore.AssemblyInfoInputs.cache
-D:\Code\CalcIt\CalcItCore\obj\Release\netstandard2.0\CalcItCore.AssemblyInfo.cs
-D:\Code\CalcIt\CalcItCore\obj\Release\netstandard2.0\CalcItCore.dll
-D:\Code\CalcIt\CalcItCore\obj\Release\netstandard2.0\CalcItCore.pdb

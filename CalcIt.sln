@@ -5,9 +5,14 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcItUWP", "CalcItUWP\CalcItUWP.csproj", "{4C9DAD3B-9F47-4771-819E-597C74FD50C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcItCore", "CalcItCore\CalcItCore.csproj", "{7B3A7D1A-5EA5-49BD-B1F9-00EAC85B1C7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalcItCore", "CalcItCore\CalcItCore.csproj", "{7B3A7D1A-5EA5-49BD-B1F9-00EAC85B1C7B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcItAndroid", "CalcItAndroid\CalcItAndroid.csproj", "{103D0E72-6A78-4482-9576-2BC48124DE33}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AF6C07F4-6A3E-4421-98BE-D1192F1E20C3}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

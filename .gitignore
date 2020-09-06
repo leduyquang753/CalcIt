@@ -5,3 +5,8 @@
 /CalcItAndroid/Assets/AboutAssets.txt
 /CalcItAndroid/obj
 /CalcItAndroid/Resources/AboutResources.txt
+/.vs
+/CalcItCore/bin
+/CalcItCore/obj
+/.editorconfig
+/.gitignore.swp

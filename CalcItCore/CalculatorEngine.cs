@@ -242,7 +242,7 @@ namespace CalcItCore {
 					hadComma = false,
 					hadPercent = false;
 				string currentToken = "";
-				char thousandSeparator = decimalDot ? '.' : ',';
+				char thousandSeparator = decimalDot ? ',' : '.';
 				Operand currentOperand;
 				Function currentFunction;
 				Bracelet currentBracelet;
@@ -391,7 +391,7 @@ namespace CalcItCore {
 					}
 				}
 				if (status) {
-					if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, input.Length - 1, NS, OS));
+					if (currentToken.Length != 0) NS.Push(processNumberToken(ref negativity, ref hadNegation, ref isVariable, ref hadComma, ref currentToken, input.Length, NS, OS));
 					else if (hadNegation) throw new ExpressionInvalidException("trailingSign");
 					else { };
 				} else throw new ExpressionInvalidException("unexpectedEnd");
@@ -400,6 +400,7 @@ namespace CalcItCore {
 					currentBracelet = BS.Pop();
 					currentBracelet.addArgument(NS.Pop());
 					NS.Push(currentBracelet.getResult());
+					OS.Pop();
 				}
 				performBacktrackCalculation(NS, TNS, OS, TOS, true);
 				return NS.Pop();

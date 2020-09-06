@@ -78,7 +78,7 @@ namespace CalcItCore.Functions {
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
 			double tot = total(arguments);
 			if (tot == 0) return engine.angleUnit.convertFromDegrees(90);
-			return engine.angleUnit.convertFromRadians(1 / Math.Atan(tot));
+			return engine.angleUnit.convertFromRadians(Math.Atan(1 / tot));
 		}
 	}
 
@@ -149,7 +149,7 @@ namespace CalcItCore.Functions {
 		public Log(): base(new string[] { "log", "logarithm", "logarid" }) { }
 		public override double calculate(List<double> arguments, CalculatorEngine engine) {
 			if (arguments.Count == 1) {
-				if (arguments[0] <= 0) throw new ExpressionInvalidException("invalidLogInput");
+				if (arguments[0] <= 0 || arguments[0] == 1) throw new ExpressionInvalidException("invalidLogInput");
 				return Math.Log10(arguments[0]);
 			} else {
 				if (arguments[0] <= 0) throw new ExpressionInvalidException("invalidLogBase");

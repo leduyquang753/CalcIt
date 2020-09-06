@@ -18,7 +18,7 @@ namespace CalcItCore {
 			if (exponent < 0) return 1 / Math.Pow(baseNum, -exponent);
 			double roundedExponent = Math.Round(exponent, MidpointRounding.AwayFromZero);
 			if (Math.Abs(roundedExponent - exponent) < 1E-11)
-				if (baseNum > 0 || mod(roundedExponent, 2) == 0) return Math.Pow(baseNum, roundedExponent); else return -Math.Pow(-baseNum, roundedExponent);
+				return baseNum > 0 || mod(roundedExponent, 2) == 0 ? Math.Pow(baseNum, roundedExponent) : -Math.Pow(-baseNum, roundedExponent);
 			else if (baseNum > 0) return Math.Pow(baseNum, exponent); else throw new ExpressionInvalidException("unsupportedExponentiation", messageArguments: new[] { formatNumber(baseNum, engine), formatNumber(exponent, engine) });
 		}
 
@@ -98,7 +98,7 @@ namespace CalcItCore {
 				position++;
 				if (c != ' ' && ++oldPosition == indexWithoutWhitespace-1) return position+1;
 			}
-			return position + 1;
+			return text.Length;
 		}
 
 		public static readonly int[] days = new[] { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };

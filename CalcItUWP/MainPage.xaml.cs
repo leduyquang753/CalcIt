@@ -252,24 +252,27 @@ namespace CalcItUWP {
 			if (loading) return;
 			engine.angleUnit = AngleUnits.DEGREE;
 			config["angleUnit"] = 0;
+			onFormatsUpdated();
 		}
 
 		private void onSettingsAngleUnitChangedRadian(object sender, RoutedEventArgs e) {
 			if (loading) return;
 			engine.angleUnit = AngleUnits.RADIAN;
 			config["angleUnit"] = 1;
+			onFormatsUpdated();
 		}
 
 		private void onSettingsAngleUnitChangedGradian(object sender, RoutedEventArgs e) {
 			if (loading) return;
 			engine.angleUnit = AngleUnits.GRADIAN;
 			config["angleUnit"] = 2;
+			onFormatsUpdated();
 		}
 
 		private void onSettingsDecimalSeparatorChanged(object sender, RoutedEventArgs e) {
 			if (loading) return;
 			config["decimalDot"] = engine.decimalDot = (bool)radioDecimalDot.IsChecked;
-			if (engine.decimalDot ? true : engine.thousandDot) {
+			if (engine.decimalDot || engine.thousandDot) {
 				radioMultiplicationAsterisk.IsChecked = true;
 			}
 			onFormatsUpdated();
@@ -283,7 +286,7 @@ namespace CalcItUWP {
 		private void onSettingsThousandSeparatorChanged(object sender, RoutedEventArgs e) {
 			if (loading) return;
 			config["thousandDot"] = engine.thousandDot = (bool)radioThousandSeparatorDot.IsChecked;
-			if (engine.decimalDot ? true : engine.thousandDot) {
+			if (engine.decimalDot || engine.thousandDot) {
 				radioMultiplicationAsterisk.IsChecked = true;
 			}
 			onFormatsUpdated();

@@ -58,21 +58,21 @@
 	}
 
 	public class OpeningBrace: Operand {
-		public OpeningBrace() : base(new string[] { "(", "[", "{", "<" }, -2) { }
+		public OpeningBrace(): base(new string[] { "(", "[", "{", "<" }, -2) { }
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			throw new ExpressionInvalidException("braceInvolved");
 		}
 	}
 
 	public class ClosingBrace: Operand {
-		public ClosingBrace() : base(new string[] { ")", "]", "}", ">" }, -2) { }
+		public ClosingBrace(): base(new string[] { ")", "]", "}", ">" }, -2) { }
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			throw new ExpressionInvalidException("braceInvolved");
 		}
 	}
 
 	public class DotlessMultiplication: Operand {
-		public DotlessMultiplication() : base(new string[] { "." }, 3) { }
+		public DotlessMultiplication(): base(new string[] { "." }, 3) { }
 		public override double calculate(double val1, double val2, CalculatorEngine engine) {
 			return val1 * val2;
 		}
